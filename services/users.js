@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users");  
+const UsersRepository = require("../repositories/users");   
 const crypto = require("crypto");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{9,20}$/;
@@ -10,7 +10,7 @@ class UserService {
   // 회원가입 찾기위한 함수
   signUp = async (
     userId,
-    nickname,
+    nickName,
     password,
     confirm,
     address,
@@ -22,7 +22,7 @@ class UserService {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
     const isSameId = await this.usersRepository.findUserAccountId(userId);
     const isSameNickname = await this.usersRepository.findUserAccountNick(
-      nickname
+      nickName
     );
 
     // 유저 id 중복 검사
@@ -74,7 +74,7 @@ class UserService {
     // userRepository안에 있는 createAccount 함수를 이용하여 선언 (salt도 넣어야함)
     const createAccountData = await this.usersRepository.signUp(
       userId,
-      nickname,
+      nickName,
       Password,
       address,
       likePlace,
@@ -145,7 +145,7 @@ class UserService {
   // 회원 정보 업데이트
   updateUserData = async (
     userId,
-    nickname,
+    nickName,
     password,
     confirm,
     address,
@@ -204,7 +204,7 @@ class UserService {
 
     const updateUserData = await this.usersRepository.updateUserData(
       userId,
-      nickname,
+      nickName,
       Password,
       address,
       likePlace,
