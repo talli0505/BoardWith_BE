@@ -3,8 +3,8 @@ require("dotenv").config();
 
 const connect = () => {
   mongoose
-      .connect(process.env.DB_HOST)
-      .catch(err => console.log(err));
+    .connect(process.env.DB_HOST)
+    .catch(err => console.log(err));
 };
 
 mongoose.connection.on("error", err => {

@@ -1,4 +1,4 @@
-const UsersService = require("../services/users"); 
+const UsersService = require("../services/users");  
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -60,7 +60,6 @@ class UsersController {
       await this.usersService.login(id, password);
 
       const getNickname = await this.usersService.getNickname(id, password);
-      console.log(getNickname)
 
       // accesstoken 생성
       const accessToken = jwt.sign({ id: id }, process.env.DB_SECRET_KEY, {
@@ -125,8 +124,8 @@ class UsersController {
   // 회원 탈퇴
   deleteUserData = async (req, res, next) => {
     try {
-      const { userId } = res.locals.user;
-      await this.usersService.deleteUserData(userId);
+      const { _id } = res.locals.user;
+      await this.usersService.deleteUserData(_id);
       res.status(200).json({ ok: 1, statusCode: 200, message: "삭제 완료" });
     } catch(err) {
       res.status(err.status || 400).json({

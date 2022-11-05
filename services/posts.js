@@ -4,10 +4,10 @@ class PostsService {
     postsRepository = new PostsRepository();
 
     
-    createPosts = async(postId,userId, nickname, title, content, location, cafe, date, time, map, partyMember) => {
+    createPosts = async( userId, nickname, title, content, location, cafe, date, time, map, partyMember) => {
         try{    
         await this.postsRepository.createPosts(
-            postId,userId, nickname, title, content, location, cafe, date, time, map, partyMember
+            userId, nickname, title, content, location, cafe, date, time, map, partyMember
         )        
         return
         }catch(e){
