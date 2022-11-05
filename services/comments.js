@@ -43,12 +43,12 @@ class CommentsService {
 
     //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
     findOneComment = async (commentId) => {
-        try {
+        // try {
             const findOneComment = await this.commentsRepository.findOneComment({commentId});
             return findOneComment;
-        } catch (e) {
-            throw new Error("댓글이 없어요!!");
-        }
+        // } catch (e) {
+        //     throw new Error("댓글이 없어요!!");
+        // }
     }
 
     //댓글 수정

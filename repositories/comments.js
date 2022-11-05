@@ -28,7 +28,10 @@ class CommentsRepository {
 
     //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
     findOneComment = async (commentId) => {
-        const findOneComment = await Comments.findOne({_id: commentId.commentId});
+        console.log(commentId)
+        console.log(commentId.commentId.substring(0, 24))
+        const findOneComment = await Comments.findOne({_id: commentId.commentId.substring(0, 24)});
+        // console.log(findOneComment, "repo")
         return findOneComment;
     }
 
