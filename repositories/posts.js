@@ -14,7 +14,7 @@ class PostsRepository {
     }
     
     findOnePost = async(postId) => {
-        const findOnePosts = await Posts.findOne({postId})
+        const findOnePosts = await Posts.findOne({_id:postId})
         return findOnePosts;
     }
 
@@ -26,7 +26,7 @@ class PostsRepository {
     }
 
     deletePost = async(postId, userId) => {
-        await Posts.destroy({id:postId, userId:userId});
+        await Posts.deleteOne({id:postId, userId:userId});
         return
     }
 }

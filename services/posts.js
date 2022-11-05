@@ -22,7 +22,7 @@ class PostsService {
 
     findOnePost = async(postId) => {       
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(!findOnePosts) {
+        if(findOnePosts.postId !== postId) {
             throw { message :"없는 게시물입니다."}
         }
         return findOnePosts;        
@@ -30,16 +30,16 @@ class PostsService {
 
     updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(!findOnePosts) {
+        if(findOnePosts.postId !== postId) {
             throw { message :"없는 게시물입니다."}
-        }
+        } 
         await this.postsRepository.updatePost(postId, userId, title, content, location, cafe, date, time, map, partyMember)
         return; 
     }
     
     deletePost = async(postId, userId) => {
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(!findOnePosts) {
+        if(findOnePosts.postId !== postId) {
             throw { message :"없는 게시물입니다."}
         }        
         await this.postsRepository.deletePost(postId, userId);
