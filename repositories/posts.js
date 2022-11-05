@@ -14,7 +14,7 @@ class PostsRepository {
     }
     
     findOnePost = async(postId) => {
-        const findOnePosts = await Posts.findOne({postId})
+        const findOnePosts = await Posts.findOne({_id:postId})
         return findOnePosts;
     }
 
