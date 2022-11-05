@@ -1,4 +1,4 @@
-const { Posts } = require("../schema");
+const Posts = require("../schema/posts"); 
 
 class PostsRepository {
     
