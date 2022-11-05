@@ -216,8 +216,8 @@ class UserService {
   };
 
   // 회원 탈퇴
-  deleteUserData = async (_id) => {
-    const deleteUserData = await this.usersRepository.deleteUserData(_id);
+  deleteUserData = async (nickname) => {
+    const deleteUserData = await this.usersRepository.deleteUserData(nickname);
     return deleteUserData;
   };
 }
