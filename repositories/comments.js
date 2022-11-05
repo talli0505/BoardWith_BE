@@ -4,6 +4,7 @@ const Posts = require('../schema/posts');
 class CommentsRepository {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
+        console.log(postId)
         const allCommentsData = await Comments.find({postId}).sort({updatedAt: -1});
         return allCommentsData;
     };
@@ -18,6 +19,7 @@ class CommentsRepository {
     findOnePost = async (postId) => {
         // console.log(postId)
         const findOnePostResult = await Posts.findOne({_id: postId.postId});
+        // console.log(findOnePostResult)
         return findOnePostResult
     }
 
@@ -27,9 +29,15 @@ class CommentsRepository {
         return createCommentData;
     };
 
-    //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
+    //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기 for update
     findOneComment = async (commentId) => {
-        const findOneComment = await Comments.findOne({ _id: commentId.commentId.substring(0, 24)});
+        const findOneComment = await Comments.findOne({_id: commentId.commentId.substring(0, 24)});
+        return findOneComment;
+    }
+
+    //본인의 댓글 맞는지 확인하기 for delete
+    findOneCommentforDelete = async (commentId) => {
+        const findOneComment = await Comments.findOne({ _id: commentId.commentId });
         return findOneComment;
     }
 

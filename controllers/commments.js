@@ -1,16 +1,14 @@
-const CommentsService = require('../services/comments'); 
-const PostsService = require('../services/posts');
-
+const CommentsService = require('../services/comments');
 
 class CommentsController {
     commentsService = new CommentsService();
-    postsService = new PostsService();
 
     //전체 댓글 목록 보기
     getComments = async (req, res, next) => {
-        const postId = req.params;
+        const {postId} = req.params;
 
         try {
+            //게시글 존재 여부 확인하기
             await this.commentsService.findOnePost(postId);
 
             const getAllComments = await this.commentsService.findAllComments(postId);
@@ -32,6 +30,7 @@ class CommentsController {
             const {postId} = req.params;
             const {comment} = req.body;
 
+            //게시글 존재 여부 확인하기
             await this.commentsService.findOnePost(postId);
 
             if (!comment) {
@@ -52,21 +51,19 @@ class CommentsController {
     //댓글 수정
     editComment = async (req, res) => {
         try {
-            const userId = res.locals.user.userId;
-            console.log(userId)
+            const {userId} = res.locals.user;
             const {commentId} = req.params;
             const {comment} = req.body;
 
             //댓글 존재 여부 확인하기
-            // await this.commentsService.findOneComment(commentId);
+            await this.commentsService.findOneComment(commentId);
 
             if (comment === "") {
                 res.status(412).json({errorMessage: "댓글 내용을 입력해주세요!"});
             }
 
-            // 본인의 댓글 맞는지 확인하기
+            // 본인의 댓글 맞는지 확인하기 for update
             const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
-            console.log(whoWroteThisComment)
             if (userId !== whoWroteThisComment.userId) {
                 return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
             }
@@ -85,13 +82,13 @@ class CommentsController {
     //댓글 삭제
     deleteComment = async (req, res) => {
         try {
-            const userId = res.locals.user.userId;
-            const commentId = req.params;
+            const {userId} = res.locals.user;
+            const {commentId} = req.params;
 
             //댓글 존재 여부 확인하기
-            await this.commentsService.findOneComment(commentId);
+            await this.commentsService.findOneCommentforDelete(commentId);
 
-            //본인의 댓글 맞는지 확인하기
+            //본인의 댓글 맞는지 확인하기 for delete
             const deleteComment = await this.commentsService.deleteComment(userId, commentId);
             if (deleteComment.deletedCount === 0) {
                 return res.status(400).json({errorMessage: "댓글 작성자 본인만 삭제할 수 있어요~!"});
