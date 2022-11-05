@@ -22,7 +22,7 @@ class PostsController {
 
     findOnePost = async (req, res, next) => {
         try{
-        const postId = req.params._id;
+        const postId = req.params.post_id;
         const findOnePosts = await this.postsService.findOnePost(postId);
         res.status(200).json({ data : findOnePosts })
         }catch(e){
