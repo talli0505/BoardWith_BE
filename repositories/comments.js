@@ -4,6 +4,7 @@ const Posts = require('../schema/posts');
 class CommentsRepository {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
+        console.log(postId)
         const allCommentsData = await Comments.find({postId}).sort({updatedAt: -1});
         return allCommentsData;
     };
@@ -18,6 +19,7 @@ class CommentsRepository {
     findOnePost = async (postId) => {
         // console.log(postId)
         const findOnePostResult = await Posts.findOne({_id: postId.postId});
+        // console.log(findOnePostResult)
         return findOnePostResult
     }
 
