@@ -23,17 +23,16 @@ class CommentsController {
         }
     };
 
-    //존재하는 게시글인지 확인하기
 
-
-//신규 댓글!!
+    //신규 댓글!!
     createComment = async (req, res, next) => {
         try {
-            const {userId, nickname} = res.locals.user;
-            const {postId} = req.params;
+            const userId = res.locals.user.id;
+            const nickname = res.locals.user.nickname;
+            const postId = req.params._id;
             const {comment} = req.body;
 
-            await this.postsService.findOnePost(postId);
+            await this.commentsService.findOnePost(postId);
 
             if (!comment) {
                 res.status(412).json({errorMessage: '댓글 내용을 입력해주세요😌'});
@@ -44,13 +43,8 @@ class CommentsController {
             res.status(201).json({message: '댓글을 등록했어요😚', createComment});
 
         } catch (err) {
-            if (err.code === -1) {
-                res.status(401).send({errorMessage: '댓글 등록 fail,,,'});
-            }
-
-            const errormessage = `${req.method} ${req.originalUrl} : ${err.message}`;
-            console.log(errormessage);
-            res.status(400).json({errormessage});
+            console.log(`${err.message}`);
+            res.status(400).send({errorMessage: err.message});
         }
     };
 
@@ -58,15 +52,12 @@ class CommentsController {
     //댓글 수정
     editComment = async (req, res) => {
         try {
-            const {userId} = res.locals.user;
+            const userId = res.locals.user.id;
+            const commentId = req.params._id;
             const {comment} = req.body;
-            const {commentId} = req.params;
 
             //댓글 존재 여부 확인하기
-           const isThisCommentReal = await this.commentsService.findOneComment(commentId);
-            if (!isThisCommentReal) {
-                return res.status(400).json({errorMessage: "없는 댓글인데요.."});
-            }
+            await this.commentsService.findOneComment(commentId);
 
             if (comment === "") {
                 res.status(412).json({errorMessage: "댓글 내용을 입력해주세요!"});
@@ -74,7 +65,7 @@ class CommentsController {
 
             //본인의 댓글 맞는지 확인하기
             const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
-            if (userId !== whoWroteThisComment.dataValues.userId) {
+            if (userId !== whoWroteThisComment.userId) {
                 return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
             }
 
@@ -95,26 +86,22 @@ class CommentsController {
     //댓글 삭제
     deleteComment = async (req, res) => {
         try {
-            const {userId} = res.locals.user;
-            const {commentId} = req.params;
+            const userId = res.locals.user.id;
+            const commentId = req.params._id;
 
             //댓글 존재 여부 확인하기
-            const isThisCommentReal = await this.commentsService.findOneComment(commentId);
-            if (!isThisCommentReal) {
-                return res.status(400).json({errorMessage: "없는 댓글인데요.."});
-            }
+            await this.commentsService.findOneComment(commentId);
 
+            //본인의 댓글 맞는지 확인하기
             const deleteComment = await this.commentsService.deleteComment(userId, commentId);
-            if (deleteComment === 0) {
+            if (deleteComment.deletedCount === 0) {
                 return res.status(400).json({errorMessage: "댓글 작성자 본인만 삭제할 수 있어요~!"});
             }
+
             res.status(200).json({message: "댓글 삭제 완료!!"})
         } catch (err) {
-            if (err.code === -1) {
-                const errormessage = `${req.method} ${req.originalUrl} : ${err.message}`;
-                console.log(errormessage);
-                res.status(400).json({errormessage});
-            }
+            console.log(`${err.message}`);
+            res.status(400).send({errorMessage: err.message});
         }
     };
 }
