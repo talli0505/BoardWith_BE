@@ -29,7 +29,7 @@ class CommentsController {
         try {
             const userId = res.locals.user.id;
             const nickname = res.locals.user.nickname;
-            const postId = req.params;
+            const {postId} = req.params;
             const {comment} = req.body;
 
             await this.commentsService.findOnePost(postId);
@@ -53,22 +53,22 @@ class CommentsController {
     editComment = async (req, res) => {
         // try {
             const userId = res.locals.user.id;
-            const commentId = req.params.commentId;
+            const {commentId} = req.params;
             const {comment} = req.body;
 
-
             //댓글 존재 여부 확인하기
-            await this.commentsService.findOneComment(commentId);
+            // await this.commentsService.findOneComment(commentId);
 
             if (comment === "") {
                 res.status(412).json({errorMessage: "댓글 내용을 입력해주세요!"});
             }
 
             //본인의 댓글 맞는지 확인하기
-            const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
-            if (userId !== whoWroteThisComment.userId) {
-                return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
-            }
+            // const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
+            // console.log(whoWroteThisComment)
+            // if (userId !== whoWroteThisComment.userId) {
+            //     return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
+            // }
 
             const updateComment = await this.commentsService.updateComment(userId, commentId, comment);
             res.status(200).json(updateComment);
