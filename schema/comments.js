@@ -9,7 +9,6 @@ const CommentsSchema = new mongoose.Schema({
   },
   nickname: {
     type: String,
-    unique : true
   },
   comment: {
     type: String
