@@ -6,7 +6,7 @@ class UsersRepository {
   // 회원가입을 위한 함수
   signUp = async (
     userId,
-    nickname,
+    nickName,
     password,
     address,
     likePlace,
@@ -18,7 +18,7 @@ class UsersRepository {
     // create로 회원가입
     const createAccountData = await Users.create({
       userId,
-      nickname,
+      nickName,
       password,
       address,
       likePlace,
@@ -39,18 +39,18 @@ class UsersRepository {
   };
 
   // 유저 nickname 찾기
-  findUserAccountNick = async (nickname) => {
+  findUserAccountNick = async (nickName) => {
     const findUserAccountData = await Users.findOne({
-      nickname : nickname,
+      nickName : nickName,
     });
     return findUserAccountData;
   };
 
   // 유저 정보 조회 by 아이디와 닉네임을 위한 함수
-  findUserAccount = async (userId, nickname) => {
-    // findOne로 id, nickname으로 이루어진 정보가 있는지 확인
+  findUserAccount = async (userId, nickName) => {
+    // findOne로 id, nickName 이루어진 정보가 있는지 확인
     const findUserAccountData = await Users.findOne({
-      userId : userId, nickname : nickname,
+      userId : userId, nickName : nickName,
     });
     return findUserAccountData;
   };
@@ -75,7 +75,7 @@ class UsersRepository {
   findUserData = async (userId) => {
     const findUserData = await Users.findOne({userId:userId});
     return {
-      nickname : findUserData.nickname,
+      nickName : findUserData.nickName,
       likeGame : findUserData.likeGame,
       birth : findUserData.birth,
       gender : findUserData.gender,
@@ -86,7 +86,7 @@ class UsersRepository {
   // 회원 정보 변경하기
   updateUserData = async (
     userId,
-    nickname,
+    nickName,
     password,
     address,
     likePlace,
@@ -95,7 +95,7 @@ class UsersRepository {
     likeGame
   ) => {
     const updateUserData = await Users.updateOne(
-      { userId : userId, nickname : nickname, password : password },
+      { userId : userId, nickName : nickName, password : password },
       {$set:
         {address: address,
         likePlace: likePlace,
@@ -108,10 +108,10 @@ class UsersRepository {
   };
 
   // 회원 탈퇴
-  deleteUserData = async (nickname) => {
-    await Comments.deleteMany({ nickname : nickname });
-    await Posts.deleteMany({ nickname : nickname });
-    const deleteUserData = await Users.deleteOne({ nickname : nickname });
+  deleteUserData = async (nickName) => {
+    await Comments.deleteMany({ nickName : nickName });
+    await Posts.deleteMany({ nickName : nickName });
+    const deleteUserData = await Users.deleteOne({ nickName : nickName });
     return deleteUserData;
   };
 
