@@ -73,10 +73,7 @@ class UsersRepository {
 
   // 회원 정보 확인하기
   findUserData = async (id) => {
-    const findUserData = await Users.findOne({
-      attributes: ["nickname", "likeGame", "birth", "gender", "likePlace"],
-      where: { id },
-    });
+    const findUserData = await Users.findOne({id:id}, {nickname : true, password : false, address : false, likePlace : true, birth : true, gender : true, likeGame : true});
     return findUserData;
   };
 
