@@ -16,6 +16,7 @@ class CommentsRepository {
 
     //게시글 존재 여부 확인
     findOnePost = async (postId) => {
+        // console.log(postId)
         const findOnePostResult = await Posts.findOne({_id: postId.postId});
         return findOnePostResult
     }
@@ -28,7 +29,7 @@ class CommentsRepository {
 
     //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
     findOneComment = async (commentId) => {
-        const findOneComment = await Comments.findOne({_id: commentId.commentId});
+        const findOneComment = await Comments.findOne({_id: commentId.commentId.substring(0, 24)});
         return findOneComment;
     }
 
