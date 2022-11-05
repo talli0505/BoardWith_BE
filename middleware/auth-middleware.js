@@ -32,12 +32,12 @@ module.exports = async (req, res, next) => {
       const userInfo = jwt.decode(tokenValue, process.env.DB_SECRET_KEY);
 
       // 디코드 한 값에서 이메일 가져와서 선언
-      const id = userInfo.id;
+      const userId = userInfo.userId;
 
       let refresh_token;
 
       // DB에 있는 refresh 토큰 찾아오기
-      Users.findOne({ where: {id} }).then((u) => {
+      Users.findOne({ userId : userId}).then((u) => {
         refresh_token = u.refresh_token;
 
       // 가지고있는 refreshToken 확인
@@ -48,7 +48,7 @@ module.exports = async (req, res, next) => {
         res.send({ errorMessage: "로그인이 필요합니다." });
       } else {
         const myNewToken = jwt.sign(
-          { id: id },
+          { userId: userId },
           process.env.DB_SECRET_KEY,
           {
             expiresIn: "15m",
@@ -58,8 +58,8 @@ module.exports = async (req, res, next) => {
         }
       });
     } else {
-      const {id} = jwt.verify(tokenValue, process.env.DB_SECRET_KEY);
-      const user = await Users.findOne({id : id})
+      const {userId} = jwt.verify(tokenValue, process.env.DB_SECRET_KEY);
+      const user = await Users.findOne({userId : userId})
       res.locals.user = user;
       next();
     }
