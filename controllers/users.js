@@ -9,7 +9,7 @@ class UsersController {
   signUp = async (req, res, next) => {
     try {
       const {
-        id,
+        userId,
         nickname,
         password,
         confirm,
@@ -21,7 +21,7 @@ class UsersController {
       } = req.body;
 
       await this.usersService.signUp(
-        id,
+        userId,
         nickname,
         password,
         confirm,
@@ -45,10 +45,10 @@ class UsersController {
   //로그인
   login = async (req, res, next) => {
     try {
-      const { id, password } = req.body;
+      const { userId, password } = req.body;
 
       // 유효성 검사
-      const login = await this.usersService.login(id, password);
+      const login = await this.usersService.login(userId, password);
 
       if (login === null)
         return res.status(404).send({
@@ -57,12 +57,12 @@ class UsersController {
           errorMessage: "가입 정보를 찾을 수 없습니다",
         });
 
-      await this.usersService.login(id, password);
+      await this.usersService.login(userId, password);
 
-      const getNickname = await this.usersService.getNickname(id, password);
+      const getNickname = await this.usersService.getNickname(userId, password);
 
       // accesstoken 생성
-      const accessToken = jwt.sign({ id: id }, process.env.DB_SECRET_KEY, {
+      const accessToken = jwt.sign({ userId: userId }, process.env.DB_SECRET_KEY, {
         expiresIn: "15m",
       });
 
@@ -72,7 +72,7 @@ class UsersController {
       });
 
       // refreshtoken DB에 업데이트
-      await this.usersService.updateToken(id, refresh_token);
+      await this.usersService.updateToken(userId, refresh_token);
 
       res.status(201).json({
         accessToken: `Bearer ${accessToken}`,
@@ -89,19 +89,19 @@ class UsersController {
 
   // 회원 정보 찾기
   findUser = async (req, res, next) => {
-    const { id } = res.locals.user;
-    const findUser = await this.usersService.findUserData(id);
+    const { userId } = res.locals.user;
+    const findUser = await this.usersService.findUserData(userId);
     res.status(200).json({ findUser });
   };
 
   // 회원 정보 변경
   updateUserData = async (req, res, next) => {
     try {
-      const { id, nickname } = res.locals.user;
+      const { userId, nickname } = res.locals.user;
       const { password, confirm, address, likePlace, birth, gender, likeGame } =
         req.body;
       await this.usersService.updateUserData(
-        id,
+        userId,
         nickname,
         password,
         confirm,

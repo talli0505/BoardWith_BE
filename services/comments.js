@@ -1,4 +1,4 @@
-const CommentsRepository = require('../repositories/comments');
+const CommentsRepository = require('../repositories/comments'); 
 const Posts = require("../schema/posts");
 
 class CommentsService {
@@ -41,19 +41,17 @@ class CommentsService {
         return createCommentResult;
     };
 
-    // //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
-    // findOneComment = async (commentId) => {
-    //     const findOneComment = await this.commentsRepository.findOneComment({commentId});
-    //     if (findOneComment.length === 0) {
-    //         throw new Error("댓글이 없어요!!");
-    //     }
-    //     return findOneComment;
-    // }
+    //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
+    findOneComment = async (commentId) => {
+        const findOneComment = await this.commentsRepository.findOneComment({commentId});
+        if (!findOneComment) {
+            throw new Error("댓글이 없어요!!");
+        }
+        return findOneComment;
+    }
 
     //댓글 수정
     updateComment = async (userId, commentId, comment) => {
-        console.log(commentId)
-        console.log(commentId.commentId)
         await this.commentsRepository.updateComment(userId, commentId, comment);
         const commentResult = await this.commentsRepository.findComment(userId, commentId);
         return commentResult;

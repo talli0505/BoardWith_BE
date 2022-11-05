@@ -5,7 +5,7 @@ const Comments = require("../schema/comments");
 class UsersRepository {
   // 회원가입을 위한 함수
   signUp = async (
-    id,
+    userId,
     nickname,
     password,
     address,
@@ -17,7 +17,7 @@ class UsersRepository {
   ) => {
     // create로 회원가입
     const createAccountData = await Users.create({
-      id,
+      userId,
       nickname,
       password,
       address,
@@ -31,9 +31,9 @@ class UsersRepository {
   };
 
   // 유저 id 찾기
-  findUserAccountId = async (id) => {
+  findUserAccountId = async (userId) => {
     const findUserAccountData = await Users.findOne({
-      id : id,
+      userId : userId,
     });
     return findUserAccountData;
   };
@@ -47,33 +47,33 @@ class UsersRepository {
   };
 
   // 유저 정보 조회 by 아이디와 닉네임을 위한 함수
-  findUserAccount = async (id, nickname) => {
+  findUserAccount = async (userId, nickname) => {
     // findOne로 id, nickname으로 이루어진 정보가 있는지 확인
     const findUserAccountData = await Users.findOne({
-      id : id, nickname : nickname,
+      userId : userId, nickname : nickname,
     });
     return findUserAccountData;
   };
 
   // 로그인을 위한 함수
-  login = async (id) => {
+  login = async (userId) => {
     // findOne으로 email이 있는지 확인
-    const loginData = await Users.findOne({ id : id });
+    const loginData = await Users.findOne({ userId : userId });
     return loginData;
   };
 
   // refreshToken 업데이트 하는 함수
-  updateToken = async (id, refresh_token) => {
+  updateToken = async (userId, refresh_token) => {
     const updateTokenData = await Users.updateOne(
-      { id: id },
+      { userId: userId },
       {$set: { refresh_token: refresh_token }}
     );
     return updateTokenData;
   };
 
   // 회원 정보 확인하기
-  findUserData = async (id) => {
-    const findUserData = await Users.findOne({id:id});
+  findUserData = async (userId) => {
+    const findUserData = await Users.findOne({userId:userId});
     return {
       nickname : findUserData.nickname,
       likeGame : findUserData.likeGame,
@@ -85,7 +85,7 @@ class UsersRepository {
 
   // 회원 정보 변경하기
   updateUserData = async (
-    id,
+    userId,
     nickname,
     password,
     address,
@@ -95,7 +95,7 @@ class UsersRepository {
     likeGame
   ) => {
     const updateUserData = await Users.updateOne(
-      { id : id, nickname : nickname, password : password },
+      { userId : userId, nickname : nickname, password : password },
       {$set:
         {address: address,
         likePlace: likePlace,
