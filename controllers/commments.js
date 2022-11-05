@@ -23,8 +23,6 @@ class CommentsController {
         }
     };
 
-    //존재하는 게시글인지 확인하기
-
 
 //신규 댓글!!
     createComment = async (req, res, next) => {
