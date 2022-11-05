@@ -5,7 +5,7 @@ const routes = require("./routes");
 const swaggerFile = require("./swagger-output");
 const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
-const connect = require("./models");
+const connect = require("./schema");
 connect();
 
 app.use(express.json());

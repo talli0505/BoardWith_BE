@@ -3,11 +3,10 @@ const mongoose = require("mongoose");
 const PostsSchema = new mongoose.Schema({
   postId: {
     type: Number,
-    unique: true
+    unique : true,
   },
   userId: {
     type: String,
-    unique: true
   },
   nickname: {
     type: String,
