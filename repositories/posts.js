@@ -1,4 +1,4 @@
-const { Posts } = require("../schema");
+const Posts = require("../schema/posts");
 
 class PostsRepository {
     
@@ -13,7 +13,7 @@ class PostsRepository {
     }
     
     findOnePost = async(postId) => {
-        const findOnePosts = await Posts.findOne({_id:postId})
+        const findOnePosts = await Posts.findOne({postId})
         return findOnePosts;
     }
 
