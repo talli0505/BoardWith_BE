@@ -26,7 +26,7 @@ class PostsRepository {
     }
 
     deletePost = async(postId, userId) => {
-        await Posts.destroy({id:postId, userId:userId});
+        await Posts.deleteOne({id:postId, userId:userId});
         return
     }
 }
