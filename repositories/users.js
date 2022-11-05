@@ -108,10 +108,10 @@ class UsersRepository {
   };
 
   // 회원 탈퇴
-  deleteUserData = async (_id) => {
-    await Comments.deleteMany({ _id : _id });
-    await Posts.deleteMany({ _id : _id });
-    const deleteUserData = await Users.deleteOne({ _id : _id });
+  deleteUserData = async (nickname) => {
+    await Comments.deleteMany({ nickname : nickname });
+    await Posts.deleteMany({ nickname : nickname });
+    const deleteUserData = await Users.deleteOne({ nickname : nickname });
     return deleteUserData;
   };
 

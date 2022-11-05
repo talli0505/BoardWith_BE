@@ -124,8 +124,8 @@ class UsersController {
   // 회원 탈퇴
   deleteUserData = async (req, res, next) => {
     try {
-      const { _id } = res.locals.user;
-      await this.usersService.deleteUserData(_id);
+      const { nickname } = res.locals.user;
+      await this.usersService.deleteUserData(nickname);
       res.status(200).json({ ok: 1, statusCode: 200, message: "삭제 완료" });
     } catch(err) {
       res.status(err.status || 400).json({
