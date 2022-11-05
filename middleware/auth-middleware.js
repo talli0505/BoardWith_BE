@@ -59,8 +59,8 @@ module.exports = async (req, res, next) => {
       });
     } else {
       const {id} = jwt.verify(tokenValue, process.env.DB_SECRET_KEY);
-      const user = await Users.findAll({where : {id}})
-      res.locals.user = user[0].dataValues;
+      const user = await Users.findOne({id : id})
+      res.locals.user = user;
       next();
     }
   } catch (err) {

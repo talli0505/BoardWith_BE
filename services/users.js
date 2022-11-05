@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users"); 
+const UsersRepository = require("../repositories/users");  
 const crypto = require("crypto");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{9,20}$/;
@@ -133,7 +133,6 @@ class UserService {
       id,
       password
     );
-    console.log(getNickname)
     return getNickname;
   };
 
@@ -217,8 +216,8 @@ class UserService {
   };
 
   // 회원 탈퇴
-  deleteUserData = async (userId) => {
-    const deleteUserData = await this.usersRepository.deleteUserData(userId);
+  deleteUserData = async (_id) => {
+    const deleteUserData = await this.usersRepository.deleteUserData(_id);
     return deleteUserData;
   };
 }

@@ -73,8 +73,14 @@ class UsersRepository {
 
   // 회원 정보 확인하기
   findUserData = async (id) => {
-    const findUserData = await Users.findOne({id:id}, {nickname : true, password : false, address : false, likePlace : true, birth : true, gender : true, likeGame : true});
-    return findUserData;
+    const findUserData = await Users.findOne({id:id});
+    return {
+      nickname : findUserData.nickname,
+      likeGame : findUserData.likeGame,
+      birth : findUserData.birth,
+      gender : findUserData.gender,
+      likePlace : findUserData.likePlace
+    };
   };
 
   // 회원 정보 변경하기
@@ -88,24 +94,24 @@ class UsersRepository {
     gender,
     likeGame
   ) => {
-    const updateUserData = await Users.update(
-      {
-        address: address,
+    const updateUserData = await Users.updateOne(
+      { id : id, nickname : nickname, password : password },
+      {$set:
+        {address: address,
         likePlace: likePlace,
         birth: birth,
         gender: gender,
-        likeGame: likeGame,
-      },
-      { where: { id: id, nickname, password } }
+        likeGame: likeGame,}
+      }
     );
     return updateUserData;
   };
 
   // 회원 탈퇴
-  deleteUserData = async (userId) => {
-    await Comments.destroy({ where: { userId } });
-    await Posts.destroy({ where: { userId } });
-    const deleteUserData = await Users.destroy({ where: { userId } });
+  deleteUserData = async (_id) => {
+    await Comments.deleteMany({ _id : _id });
+    await Posts.deleteMany({ _id : _id });
+    const deleteUserData = await Users.deleteOne({ _id : _id });
     return deleteUserData;
   };
 
