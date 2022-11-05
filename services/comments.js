@@ -53,6 +53,8 @@ class CommentsService {
 
     //댓글 수정
     updateComment = async (userId, commentId, comment) => {
+        console.log(commentId)
+        console.log(commentId.commentId)
         await this.commentsRepository.updateComment(userId, commentId, comment);
         const commentResult = await this.commentsRepository.findComment(userId, commentId);
         return commentResult;
