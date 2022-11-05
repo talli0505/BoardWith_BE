@@ -9,7 +9,7 @@ class UserService {
 
   // 회원가입 찾기위한 함수
   signUp = async (
-    id,
+    userId,
     nickname,
     password,
     confirm,
@@ -20,7 +20,7 @@ class UserService {
     likeGame
   ) => {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
-    const isSameId = await this.usersRepository.findUserAccountId(id);
+    const isSameId = await this.usersRepository.findUserAccountId(userId);
     const isSameNickname = await this.usersRepository.findUserAccountNick(
       nickname
     );
@@ -42,7 +42,7 @@ class UserService {
     }
 
     //아이디가 최소 9자리 아닐 경우
-    if (!CHECK_ID.test(id)) {
+    if (!CHECK_ID.test(userId)) {
       const err = new Error(`UserService Error`);
       err.status = 403;
       err.message = "아이디는 최소 9자리 이상으로 해주세요.";
@@ -73,7 +73,7 @@ class UserService {
 
     // userRepository안에 있는 createAccount 함수를 이용하여 선언 (salt도 넣어야함)
     const createAccountData = await this.usersRepository.signUp(
-      id,
+      userId,
       nickname,
       Password,
       address,
@@ -88,9 +88,9 @@ class UserService {
   };
 
   // 로그인 찾기위한 함수
-  login = async (id, password) => {
+  login = async (userId, password) => {
     // userRepository안에 있는 login 함수를 이용하여 선언
-    const loginData = await this.usersRepository.login(id);
+    const loginData = await this.usersRepository.login(userId);
 
     if (!loginData) {
       const err = new Error(`UserService Error`);
@@ -115,12 +115,12 @@ class UserService {
   };
 
   // refreshToken 업데이트 하는 함수
-  updateToken = async (id, refresh_token) => {
+  updateToken = async (userId, refresh_token) => {
     // console.log(refresh_Token)
-    await this.usersRepository.updateToken(id, refresh_token);
+    await this.usersRepository.updateToken(userId, refresh_token);
 
     const findData = await this.usersRepository.findUserAccount(
-      id,
+      userId,
       refresh_token
     );
 
@@ -128,23 +128,23 @@ class UserService {
   };
 
   // nickname 불러오기
-  getNickname = async (id, password) => {
+  getNickname = async (userId, password) => {
     const getNickname = await this.usersRepository.findUserAccount(
-      id,
+      userId,
       password
     );
     return getNickname;
   };
 
   // 회원 정보 불러오기
-  findUserData = async (id) => {
-    const findUserData = await this.usersRepository.findUserData(id);
+  findUserData = async (userId) => {
+    const findUserData = await this.usersRepository.findUserData(userId);
     return findUserData;
   };
 
   // 회원 정보 업데이트
   updateUserData = async (
-    id,
+    userId,
     nickname,
     password,
     confirm,
@@ -170,7 +170,7 @@ class UserService {
       throw err;
     }
 
-    const findUserAccountId = await this.usersRepository.findUserAccountId(id)
+    const findUserAccountId = await this.usersRepository.findUserAccountId(userId)
 
     if(address == "" ) {
       address = findUserAccountId.address
@@ -195,7 +195,7 @@ class UserService {
     
 
     // 암호화 풀기 위해서 가져옴
-    const loginData = await this.usersRepository.login(id);
+    const loginData = await this.usersRepository.login(userId);
 
     let salt = loginData.salt;
     let Password = crypto
@@ -203,7 +203,7 @@ class UserService {
       .toString("base64");
 
     const updateUserData = await this.usersRepository.updateUserData(
-      id,
+      userId,
       nickname,
       Password,
       address,

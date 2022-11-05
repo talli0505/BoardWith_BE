@@ -5,7 +5,7 @@ class PostsController {
 
     createPosts = async (req, res, next) => {
         try{
-        const userId = res.locals.user.id;
+        const userId = res.locals.user.userId;
         const nickname = res.locals.user.nickname;
         const { title, content, location, cafe, date, time, map, partyMember } =req.body;
         await this.postsService.createPosts( userId, nickname, title, content, location, cafe, date, time, map, partyMember );
@@ -33,7 +33,7 @@ class PostsController {
     updatePost = async (req, res, next) => {
         try{
         const postId = req.params.postId;
-        const userId = res.locals.user.id;
+        const userId = res.locals.user.userId;
         const { title, content, location, cafe, date, time, map, partyMember } = req.body
         await this.postsService.updatePost(postId, userId, title, content, location, cafe, date, time, map, partyMember);
         res.status(200).json({ message : "게시물 수정을 완료하였습니다."})
@@ -45,7 +45,7 @@ class PostsController {
     deletePost = async(req, res, next) => {
         try{
         const postId = req.params.postId;
-        const userId= res.locals.user.id;
+        const userId= res.locals.user.userId;
         console.log(postId,userId)
         await this.postsService.deletePost(postId, userId);
         res.status(200).json({message:"게시물 삭제를 완료하였습니다."})

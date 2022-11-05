@@ -1,4 +1,4 @@
-const CommentsService = require('../services/comments');
+const CommentsService = require('../services/comments'); 
 const PostsService = require('../services/posts');
 
 
@@ -27,7 +27,7 @@ class CommentsController {
     //신규 댓글!!
     createComment = async (req, res, next) => {
         try {
-            const userId = res.locals.user.id;
+            const userId = res.locals.user.userId;
             const nickname = res.locals.user.nickname;
             const {postId} = req.params;
             const {comment} = req.body;
@@ -51,8 +51,9 @@ class CommentsController {
 
     //댓글 수정
     editComment = async (req, res) => {
-        // try {
-            const userId = res.locals.user.id;
+        try {
+            const userId = res.locals.user.userId;
+            console.log(userId)
             const {commentId} = req.params;
             const {comment} = req.body;
 
@@ -63,28 +64,28 @@ class CommentsController {
                 res.status(412).json({errorMessage: "댓글 내용을 입력해주세요!"});
             }
 
-            //본인의 댓글 맞는지 확인하기
-            // const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
-            // console.log(whoWroteThisComment)
-            // if (userId !== whoWroteThisComment.userId) {
-            //     return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
-            // }
+            // 본인의 댓글 맞는지 확인하기
+            const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
+            console.log(whoWroteThisComment)
+            if (userId !== whoWroteThisComment.userId) {
+                return res.status(400).json({errorMessage: "댓글 작성자 본인만 수정할 수 있어요~!"});
+            }
 
             const updateComment = await this.commentsService.updateComment(userId, commentId, comment);
             res.status(200).json(updateComment);
 
-        // } catch (err) {
-        //     const errorMessage = `${req.method} ${req.originalUrl} : ${err.message}`;
-        //     console.log(errorMessage);
-        //     res.status(400).json({errorMessage});
-        // }
+        } catch (err) {
+            const errorMessage = `${req.method} ${req.originalUrl} : ${err.message}`;
+            console.log(errorMessage);
+            res.status(400).json({errorMessage});
+        }
     };
 
 
     //댓글 삭제
     deleteComment = async (req, res) => {
         try {
-            const userId = res.locals.user.id;
+            const userId = res.locals.user.userId;
             const commentId = req.params;
 
             //댓글 존재 여부 확인하기
