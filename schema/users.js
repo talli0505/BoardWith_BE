@@ -6,7 +6,7 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  nickname: {
+  nickName: {
     type: String,
   },
   password: {
