@@ -1,7 +1,6 @@
-const Users  = require("../models/users");
-const Posts = require("../models/posts"); 
-const Comments = require("../models/comments"); 
-const { Op } = require("sequelize");
+const Users  = require("../schema/users");
+const Posts = require("../schema/posts"); 
+const Comments = require("../schema/comments"); 
 
 class UsersRepository {
   // 회원가입을 위한 함수

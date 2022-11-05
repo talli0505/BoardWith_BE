@@ -1,4 +1,4 @@
-const {Comments} = require('../models/index');
+const {Comments} = require('../schema/index');
 
 class CommentsRepository {
     //댓글 전체 목록 보기
