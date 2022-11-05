@@ -1,27 +1,10 @@
 const CommentsRepository = require('../repositories/comments'); 
-const Posts = require("../schema/posts");
 
 class CommentsService {
     commentsRepository = new CommentsRepository();
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
         const findAllCommentResult = await this.commentsRepository.findAllComments(postId);
-        // const findAllCommentResultData = [];
-        // for (let i = 0; i < findAllCommentResult.length; i++) {
-        //     const data =
-        //         {
-        //             goodsId: findAllCommentResult[i].dataValues.goodsId,
-        //             commentsId: findAllCommentResult[i].dataValues.commentsId,
-        //             userId: findAllCommentResult[i].dataValues.userId,
-        //             userName: findAllCommentResult[i].dataValues.userName[0] + "*" + findAllCommentResult[i].dataValues.userName[2],
-        //             commentImage: findAllCommentResult[i].dataValues.commentImage,
-        //             content: findAllCommentResult[i].dataValues.content,
-        //             createdAt: findAllCommentResult[i].dataValues.createdAt,
-        //             updatedAt: findAllCommentResult[i].dataValues.updatedAt
-        //         };
-        //     findAllCommentResultData.push(data)
-        // }
-        // return findAllCommentResultData;
         return findAllCommentResult;
     };
 
@@ -41,9 +24,18 @@ class CommentsService {
         return createCommentResult;
     };
 
-    //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기
+    //댓글 존재 여부 확인하기, 본인의 댓글 맞는지 확인하기 for update
     findOneComment = async (commentId) => {
         const findOneComment = await this.commentsRepository.findOneComment({commentId});
+        if (!findOneComment) {
+            throw new Error("댓글이 없어요!!");
+        }
+        return findOneComment;
+    }
+
+    //본인의 댓글 맞는지 확인하기 for delete
+    findOneCommentforDelete = async (commentId) => {
+        const findOneComment = await this.commentsRepository.findOneCommentforDelete({commentId});
         if (!findOneComment) {
             throw new Error("댓글이 없어요!!");
         }
