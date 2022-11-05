@@ -6,7 +6,6 @@ const PostsSchema = new mongoose.Schema({
   },
   nickname: {
     type: String,
-    unique : true
   },
   title: {
     type: String

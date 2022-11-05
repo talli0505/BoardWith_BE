@@ -1,3 +1,4 @@
+
 const Posts = require("../schema/posts");
 
 class PostsRepository {
