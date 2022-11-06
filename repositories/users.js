@@ -9,7 +9,7 @@ class UsersRepository {
     nickName,
     password,
     address,
-    likePlace,
+    myPlace,
     birth,
     gender,
     likeGame,
@@ -21,7 +21,7 @@ class UsersRepository {
       nickName,
       password,
       address,
-      likePlace,
+      myPlace,
       birth,
       gender,
       likeGame,
@@ -77,9 +77,10 @@ class UsersRepository {
     return {
       nickName : findUserData.nickName,
       likeGame : findUserData.likeGame,
+      address : findUserData.address,
       birth : findUserData.birth,
       gender : findUserData.gender,
-      likePlace : findUserData.likePlace
+      myPlace : findUserData.myPlace
     };
   };
 
@@ -89,7 +90,7 @@ class UsersRepository {
     nickName,
     password,
     address,
-    likePlace,
+    myPlace,
     birth,
     gender,
     likeGame
@@ -98,7 +99,7 @@ class UsersRepository {
       { userId : userId, nickName : nickName, password : password },
       {$set:
         {address: address,
-        likePlace: likePlace,
+        myPlace: myPlace,
         birth: birth,
         gender: gender,
         likeGame: likeGame,}

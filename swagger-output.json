@@ -46,10 +46,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "userId": {
                   "example": "아이디"
                 },
-                "nickname": {
+                "nickName": {
                   "example": "닉네임"
                 },
                 "password": {
@@ -61,7 +61,7 @@
                 "address": {
                   "example": "주소"
                 },
-                "likePlace": {
+                "myPlace": {
                   "example": "선호하는지역"
                 },
                 "birth": {
@@ -101,7 +101,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "userId": {
                   "example": "아이디"
                 },
                 "password": {
@@ -165,7 +165,7 @@
                 "address": {
                   "example": "주소"
                 },
-                "likePlace": {
+                "myPlace": {
                   "example": "선호하는지역"
                 },
                 "birth": {
