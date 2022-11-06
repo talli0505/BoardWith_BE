@@ -15,7 +15,7 @@ const UsersSchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  likePlace: {
+  myPlace: {
     type: String,
   },
   birth: {

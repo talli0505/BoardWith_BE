@@ -14,7 +14,7 @@ class UserService {
     password,
     confirm,
     address,
-    likePlace,
+    myPlace,
     birth,
     gender,
     likeGame
@@ -77,7 +77,7 @@ class UserService {
       nickName,
       Password,
       address,
-      likePlace,
+      myPlace,
       birth,
       gender,
       likeGame,
@@ -149,7 +149,7 @@ class UserService {
     password,
     confirm,
     address,
-    likePlace,
+    myPlace,
     birth,
     gender,
     likeGame
@@ -176,8 +176,8 @@ class UserService {
       address = findUserAccountId.address
     }
 
-    if(likePlace == "" ) {
-      likePlace = findUserAccountId.likePlace
+    if(myPlace == "" ) {
+      myPlace = findUserAccountId.myPlace
     }
 
     if(birth == "" ) {
@@ -207,7 +207,7 @@ class UserService {
       nickName,
       Password,
       address,
-      likePlace,
+      myPlace,
       birth,
       gender,
       likeGame
