@@ -20,13 +20,13 @@ class PostsRepository {
 
     updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
         await Posts.updateOne(
-            {id:postId, userId:userId},{$set:{title:title,content:content,location:location,cafe:cafe,date:date,time:time,map:map,partyMember:partyMember}}
+            {_id:postId, userId:userId},{$set:{title:title,content:content,location:location,cafe:cafe,date:date,time:time,map:map,partyMember:partyMember}}
         )
         return 
     }
 
     deletePost = async(postId, userId) => {
-        await Posts.deleteOne({id:postId, userId:userId});
+        await Posts.deleteOne({_id:postId, userId:userId});
         return
     }
 }

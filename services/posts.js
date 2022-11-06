@@ -1,4 +1,5 @@
 const PostsRepository = require("../repositories/posts"); 
+const { findOne } = require("../schema/posts");
 
 class PostsService {
     postsRepository = new PostsRepository();
@@ -21,29 +22,39 @@ class PostsService {
     }
 
     findOnePost = async(postId) => {       
+        try{
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(findOnePosts.postId !== postId) {
-            throw { message :"없는 게시물입니다."}
-        }
-        return findOnePosts;        
+        return findOnePosts;
+        }catch(e){
+            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
+        }        
     }
 
-    updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
+    updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {   
+        try{     
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(findOnePosts.postId !== postId) {
-            throw { message :"없는 게시물입니다."}
-        } 
+        console.log(findOnePosts)
+        if(findOnePosts._id.toString() !== postId){
+            throw "없는 게시물입니다."
+        }        
         await this.postsRepository.updatePost(postId, userId, title, content, location, cafe, date, time, map, partyMember)
-        return; 
+        return 
+        }catch{
+            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
+        }
     }
     
     deletePost = async(postId, userId) => {
+        try{
         const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(findOnePosts.postId !== postId) {
-            throw { message :"없는 게시물입니다."}
-        }        
+        if(findOnePosts._id.toString() !== postId){
+            throw "없는 게시물입니다."
+        }          
         await this.postsRepository.deletePost(postId, userId);
-        return;      
+        return findOnePosts
+        }catch(e){
+            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
+        }      
     }
 
     
