@@ -17,7 +17,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.1",
     "mysql2": "^2.3.3",
+    "redis": "^4.4.0",
     "sequelize": "^6.25.3",
+    "socket.io": "^4.5.3",
+    "socketio": "^1.0.0",
     "swagger-autogen": "^2.22.0",
     "swagger-ui-express": "^4.5.0"
   },
