@@ -30,6 +30,9 @@ const UsersSchema = new mongoose.Schema({
   salt: {
     type: String,
   },
+  refresh_token : {
+    type : String,
+  },
   createdAt: { 
     type: Date, 
     default: Date.now 

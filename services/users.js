@@ -1,7 +1,7 @@
 const UsersRepository = require("../repositories/users");   
 const crypto = require("crypto");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
-const CHECK_ID = /^[a-zA-Z0-9]{9,20}$/;
+const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
 
 class UserService {
   // 새 인스턴스 생성
