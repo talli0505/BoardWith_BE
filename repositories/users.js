@@ -13,7 +13,7 @@ class UsersRepository {
     birth,
     gender,
     likeGame,
-    salt
+    salt,
   ) => {
     // create로 회원가입
     const createAccountData = await Users.create({

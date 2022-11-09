@@ -17,7 +17,7 @@ class UserService {
     myPlace,
     birth,
     gender,
-    likeGame
+    likeGame,
   ) => {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
     const isSameId = await this.usersRepository.findUserAccountId(userId);
