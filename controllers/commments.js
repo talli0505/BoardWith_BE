@@ -25,8 +25,8 @@ class CommentsController {
     //신규 댓글!!
     createComment = async (req, res, next) => {
         try {
-            const userId = res.locals.user.userId;
-            const nickname = res.locals.user.nickname;
+            const {userId} = res.locals.user;
+            const {nickname} = res.locals.user;
             const {postId} = req.params;
             const {comment} = req.body;
 

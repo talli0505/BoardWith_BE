@@ -24,7 +24,7 @@ class PostsController {
         }
     }
 
-    c
+
 
     findAllPosts = async (req, res, next) => {
         const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
