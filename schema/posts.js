@@ -8,7 +8,8 @@ const PostsSchema = new mongoose.Schema({
     type: String,
   },
   title: {
-    type: String
+    type: String,
+    index: true
   },
   content: {
     type: String

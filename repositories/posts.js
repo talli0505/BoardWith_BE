@@ -8,8 +8,8 @@ class PostsRepository {
         return;
     };
 
-    findAllPosts = async() => {
-        const findAllPosts = await Posts.find();
+    findAllPosts = async(skip) => {
+        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('title');
         return findAllPosts;
     }
     

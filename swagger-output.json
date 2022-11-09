@@ -269,7 +269,14 @@
       "get": {
         "tags": ["게시물API"],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "게시물 조회 완료"

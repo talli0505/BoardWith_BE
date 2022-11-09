@@ -16,8 +16,8 @@ class PostsService {
         }
     }
 
-    findAllPosts = async() => {
-        const findAllPosts = await this.postsRepository.findAllPosts();
+    findAllPosts = async(skip) => {
+        const findAllPosts = await this.postsRepository.findAllPosts(skip);
         return findAllPosts;
     }
 
