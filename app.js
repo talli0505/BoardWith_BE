@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
 const routes = require("./routes");
-// const mongoose = require('mongoose')
-// const redis = require("redis")
+
 
 const swaggerFile = require("./swagger-output");
 const swaggerUi = require("swagger-ui-express");
@@ -22,28 +21,6 @@ app.use(
 );
 
 app.use("/", routes);
-
-// const initRedis = () => redis.createClient();
-
-// const initMongo = async() => {
-//   await mongoose.connect('mongodb+srv://test:sparta@cluster0.h0u5sld.mongodb.net/?retryWrites=true&w=majority', { userNewUrlParser:true }, (error) => {
-//     if(error) {
-//       console.log('mongodb connect error', error)
-//     } else {
-//       console.log('mongodb connect success')
-//     }
-//   })
-// }
-
-// const main = () =>{
-//   initMongo().then(() => {
-//     const redisClient = initRedis();
-//     const server = initExpress(redisClient);
-//     const webSocket = require("./socket");
-//     webSocket(server);
-//   })
-// }
-// main();
 
 const port = 3000;
 app.listen(port, () => {

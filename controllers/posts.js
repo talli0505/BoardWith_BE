@@ -1,5 +1,14 @@
 const PostsService = require("../services/posts") 
 
+// const paging = (page, totalPost, maxPost) => {
+//     const maxPost = maxPost
+//     const maxPage = maxPage
+
+//     let currentPage = page ? parseInt(page) : 1
+//     const hidePost = page === 1 ? 0 : (page - 1) * maxPost
+//     const totlaPage = Math.ceil(totalPost / maxPost)
+// }
+
 class PostsController {
     postsService = new PostsService();
 
@@ -15,8 +24,11 @@ class PostsController {
         }
     }
 
+    c
+
     findAllPosts = async (req, res, next) => {
-        const findAllPosts = await this.postsService.findAllPosts();
+        const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+        const findAllPosts = await this.postsService.findAllPosts(skip);
         res.status(200).json({ data : findAllPosts })
     }
 
