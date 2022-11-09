@@ -15,7 +15,7 @@ const PostsSchema = new mongoose.Schema({
     type: String
   },
   location: {
-    type: String
+    type: Object, String,
   },
   cafe: {
     type: String
