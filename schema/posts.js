@@ -24,7 +24,7 @@ const PostsSchema = new mongoose.Schema({
     type: String
   },
   time: {
-    type : String
+    type : Array
   },
   map : {
     type : String
