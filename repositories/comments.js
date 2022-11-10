@@ -35,21 +35,21 @@ class CommentsRepository {
         return findOneComment;
     }
 
-    //본인의 댓글 맞는지 확인하기 for delete
-    findOneCommentforDelete = async (commentId) => {
-        const findOneComment = await Comments.findOne({ _id: commentId.commentId });
-        return findOneComment;
-    }
-
     //댓글 수정
     updateComment = async (userId, commentId, comment) => {
         const updatedCommentData = await Comments.updateOne({userId, commentId}, {$set: {comment}});
         return updatedCommentData;
     };
 
-    //댓글 삭제
-    deleteComment = async (userId, commentId) => {
-        const deleteCommentData = await Comments.deleteOne({userId, commentId});
+    //댓글 존재 여부 확인하기 for delete
+    findOneCommentforDelete = async (commentId) => {
+        const findOneComment = await Comments.findOne({ _id: commentId.commentId });
+        return findOneComment;
+    }
+
+    //본인 댓글 여부 확인 후 댓글 삭제
+    deleteComment = async (commentId) => {
+        const deleteCommentData = await Comments.deleteOne({_id: commentId});
         return deleteCommentData;
     };
 }

@@ -85,14 +85,17 @@ class CommentsController {
             const {userId} = res.locals.user;
             const {commentId} = req.params;
 
-            //댓글 존재 여부 확인하기
+            //댓글 존재 여부 확인하기 for delete
             await this.commentsService.findOneCommentforDelete(commentId);
 
-            //본인의 댓글 맞는지 확인하기 for delete
-            const deleteComment = await this.commentsService.deleteComment(userId, commentId);
-            if (deleteComment.deletedCount === 0) {
+            //본인 댓글 여부 확인 for delete
+            const whoWroteThisComment = await this.commentsService.findOneComment(commentId);
+            if (userId !== whoWroteThisComment.userId) {
                 return res.status(400).json({errorMessage: "댓글 작성자 본인만 삭제할 수 있어요~!"});
             }
+
+            //댓글 삭제
+            const deleteComment = await this.commentsService.deleteComment(commentId);
             res.status(200).json({message: "댓글 삭제 완료!!"})
 
         } catch (err) {
