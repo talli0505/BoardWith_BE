@@ -37,7 +37,7 @@ class CommentsRepository {
 
     //댓글 수정
     updateComment = async (userId, commentId, comment) => {
-        const updatedCommentData = await Comments.updateOne({userId, commentId}, {$set: {comment}});
+        const updatedCommentData = await Comments.updateOne({userId,  _id: commentId}, {$set: {comment}});
         return updatedCommentData;
     };
 
