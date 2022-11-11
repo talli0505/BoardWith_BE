@@ -69,7 +69,8 @@ class CommentsController {
             }
 
             const updateComment = await this.commentsService.updateComment(userId, commentId, comment);
-            res.status(200).json(updateComment);
+            const updateCommentData = await this.commentsService.findOneComment(commentId);
+            res.status(200).json(updateCommentData);
 
         } catch (err) {
             const errorMessage = `${req.method} ${req.originalUrl} : ${err.message}`;
