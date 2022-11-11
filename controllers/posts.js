@@ -15,9 +15,10 @@ class PostsController {
     createPosts = async (req, res, next) => {
         try{
         const userId = res.locals.user.userId;
-        const nickname = res.locals.user.nickname;
-        const { title, content, location, cafe, date, time, map, partyMember } =req.body;
-        await this.postsService.createPosts( userId, nickname, title, content, location, cafe, date, time, map, partyMember );
+        const {nickName} = res.locals.user
+        console.log(userId, nickName)
+        const { title, content, location, cafe, date, time, map, partyMember } =req.body;        
+        await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember );
         res.status(200).json({message:"게시물 생성 완료"})
         }catch(e) {
             res.status(400).json({message: e.message})

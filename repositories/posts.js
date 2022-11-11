@@ -3,8 +3,8 @@ const Posts = require("../schema/posts");
 
 class PostsRepository {
     
-    createPosts = async( userId, nickname, title, content, location, cafe, date, time, map, partyMember ) => {
-        await Posts.create({ userId, nickname, title, content, location, cafe, date, time, map, partyMember });
+    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember ) => {
+        await Posts.create({ userId, nickName, title, content, location, cafe, date, time, map, partyMember });
         return;
     };
 

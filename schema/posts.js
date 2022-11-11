@@ -4,7 +4,7 @@ const PostsSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
-  nickname: {
+  nickName: {
     type: String,
   },
   title: {
