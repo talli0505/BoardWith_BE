@@ -18,6 +18,7 @@ class UsersController {
         birth,
         gender,
         likeGame,
+        admin
       } = req.body;
 
       await this.usersService.signUp(
@@ -29,7 +30,8 @@ class UsersController {
         myPlace,
         birth,
         gender,
-        likeGame
+        likeGame,
+        admin
       );
 
       res
@@ -63,7 +65,7 @@ class UsersController {
 
       // accesstoken 생성
       const accessToken = jwt.sign({ userId: userId }, process.env.DB_SECRET_KEY, {
-        expiresIn: "15m",
+        expiresIn: "365d",
       });
 
       // refreshtoken 생성

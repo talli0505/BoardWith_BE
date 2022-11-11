@@ -33,6 +33,9 @@ const UsersSchema = new mongoose.Schema({
   refresh_token : {
     type : String,
   },
+  admin : {
+    type : String,
+  },
   createdAt: { 
     type: Date, 
     default: Date.now 

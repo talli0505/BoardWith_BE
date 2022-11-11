@@ -14,6 +14,7 @@ class UsersRepository {
     gender,
     likeGame,
     salt,
+    admin
   ) => {
     // create로 회원가입
     const createAccountData = await Users.create({
@@ -26,6 +27,7 @@ class UsersRepository {
       gender,
       likeGame,
       salt,
+      admin
     });
     return createAccountData;
   };
