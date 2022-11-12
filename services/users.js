@@ -1,5 +1,5 @@
-const UsersRepository = require("../repositories/users");   
-const crypto = require("crypto");
+const UsersRepository = require("../repositories/users");    
+const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
 
@@ -65,18 +65,15 @@ class UserService {
       err.message = "비밀번호와 확인 비밀번호가 일치하지 않습니다.";
       throw err;
     }
-
-    let salt = crypto.randomBytes(32).toString("base64");
+    const salt = await bcrypt.genSalt(11)
     // 반복 횟수 한번 늘려보자
-    let Password = crypto
-      .pbkdf2Sync(password, salt, 100, 32, "sha512")
-      .toString("base64");
+    password = await bcrypt.hash(password, salt)
 
     // userRepository안에 있는 createAccount 함수를 이용하여 선언 (salt도 넣어야함)
     const createAccountData = await this.usersRepository.signUp(
       userId,
       nickName,
-      Password,
+      password,
       address,
       myPlace,
       birth,
@@ -101,12 +98,9 @@ class UserService {
       throw err;
     }
 
-    let salt = loginData.salt;
-    let Password = crypto
-      .pbkdf2Sync(password, salt, 100, 32, "sha512")
-      .toString("base64");
+    const check = await bcrypt.compare(password, loginData.password)
 
-    if (Password !== loginData.password) {
+    if (!check) {
       const err = new Error(`UserService Error`);
       err.status = 403;
       err.message = "패스워드를 확인해주세요.";
@@ -199,21 +193,26 @@ class UserService {
     // 암호화 풀기 위해서 가져옴
     const loginData = await this.usersRepository.login(userId);
 
-    let salt = loginData.salt;
-    let Password = crypto
-      .pbkdf2Sync(password, salt, 100, 32, "sha512")
-      .toString("base64");
+    const check = await bcrypt.compare(password, loginData.password)
+
+    if(!check) {
+      const err = new Error(`UserService Error`);
+      err.status = 403;
+      err.message = "패스워드를 확인해주세요.";
+      throw err;
+    }
 
     const updateUserData = await this.usersRepository.updateUserData(
       userId,
       nickName,
-      Password,
+      password,
       address,
       myPlace,
       birth,
       gender,
       likeGame
     );
+
     return updateUserData;
   };
 
