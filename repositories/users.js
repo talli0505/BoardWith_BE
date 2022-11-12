@@ -1,4 +1,4 @@
-const Users  = require("../schema/users");
+const Users  = require("../schema/users"); 
 const Posts = require("../schema/posts"); 
 const Comments = require("../schema/comments"); 
 
@@ -98,7 +98,7 @@ class UsersRepository {
     likeGame
   ) => {
     const updateUserData = await Users.updateOne(
-      { userId : userId, nickName : nickName, password : password },
+      { userId : userId, nickName : nickName },
       {$set:
         {address: address,
         myPlace: myPlace,
