@@ -1,10 +1,11 @@
 
 const Posts = require("../schema/posts"); 
+const Users = require("../schema/users");
 
 class PostsRepository {
     
-    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember ) => {
-        await Posts.create({ userId, nickName, title, content, location, cafe, date, time, map, partyMember });
+    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant ) => {
+        await Posts.create({ userId, nickName, title, content, location, cafe, date, time, map, partyMember,participant:nickName});
         return;
     };
 
@@ -27,6 +28,11 @@ class PostsRepository {
 
     deletePost = async(postId, userId) => {
         await Posts.deleteOne({_id:postId, userId:userId});
+        return
+    }
+
+    participateMember = async(postId,userId, nickName) => {
+        await Posts.updateOne({_id:postId, userId:userId}, {$push:{participant: nickName}})
         return
     }
 }

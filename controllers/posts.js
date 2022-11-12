@@ -17,15 +17,13 @@ class PostsController {
         const userId = res.locals.user.userId;
         const {nickName} = res.locals.user
         console.log(userId, nickName)
-        const { title, content, location, cafe, date, time, map, partyMember } =req.body;        
-        await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember );
+        const { title, content, location, cafe, date, time, map, partyMember, participant } =req.body;        
+        await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant );
         res.status(200).json({message:"게시물 생성 완료"})
         }catch(e) {
             res.status(400).json({message: e.message})
         }
     }
-
-
 
     findAllPosts = async (req, res, next) => {
         const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
@@ -63,6 +61,19 @@ class PostsController {
         res.status(200).json({message:"게시물 삭제를 완료하였습니다."})
         }catch(e){
             res.status(400).json({message: e})
+        }
+    }
+
+    
+    participateMember = async (req, res, next) => {
+        try{
+        const postId = req.params.postId;
+        const userId = res.locals.user.userId;
+        const { nickName } = req.body
+        await this.postsService.participateMember( postId, userId, nickName );
+        res.status(200).json({message:"정상적으로 참가되었습니다."})
+        }catch(e){
+            res.status(409).json({message:e})
         }
     }
 }
