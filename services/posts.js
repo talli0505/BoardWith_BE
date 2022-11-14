@@ -4,6 +4,7 @@ const { findOne } = require("../schema/posts");
 class PostsService {
     postsRepository = new PostsRepository();
 
+    //✨추가추가
     createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
         try{
             await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)

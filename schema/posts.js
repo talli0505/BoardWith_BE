@@ -32,6 +32,9 @@ const PostsSchema = new mongoose.Schema({
   partyMember : {
     type : Number
   },
+  participant : {
+    type : Array
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -40,10 +43,10 @@ const PostsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  expireAt: {
+  expireAt: {   //✨추가추가
     type: Date,
-    default: Date.now(),
-    expire: 0
+    default: Date.now,
+    expires: 0
   },
 });
 
