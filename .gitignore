@@ -5,6 +5,8 @@
 # Logs
 logs
 *.log
+package-lock.json
+package.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -152,5 +154,3 @@ dist
 socket.js
 chat.js
 chat.router.js
-package-lock.json
-package.json
