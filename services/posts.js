@@ -4,9 +4,9 @@ const { findOne } = require("../schema/posts");
 class PostsService {
     postsRepository = new PostsRepository();
 
-    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose) => {
+    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
         try{
-            await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose)
+            await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
             return
         }catch(e){
             throw { message : "양식에 맞게 작성해주세요"}
@@ -52,6 +52,19 @@ class PostsService {
         }catch(e){
             throw "없는 게시물이거나 경로요청이 잘못되었습니다."
         }
+    }
+
+    participateMember = async (postId,userId, nickName) => {
+
+        const findMembersLength = await this.postsRepository.findOnePost(postId)
+        console.log(findMembersLength.partyMember)
+        console.log(findMembersLength.participant.length)
+        if( findMembersLength.partyMember <= (findMembersLength.participant.length - 1) ){
+            throw "참가 마감되었습니다."
+        } else if( findMembersLength.partyMember > findMembersLength.participant.length ){
+            await this.postsRepository.participateMember(postId, userId, nickName)
+        }
+        return
     }
 
 
