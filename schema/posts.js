@@ -43,6 +43,11 @@ const PostsSchema = new mongoose.Schema({
     type: Date, 
     default: Date.now 
   },
+  expireAt: {
+    type: Date,
+    default: new Date(),
+    expire: 0
+  },
 });
 
 module.exports = mongoose.model("Posts", PostsSchema);
