@@ -76,6 +76,13 @@ class PostsController {
             res.status(409).json({message:e})
         }
     }
+
+    deleteMember = async (req, res, next) => {
+        const { postId } = req.params;
+        const { userId } = req.body;
+        
+
+    }
 }
 
 module.exports = PostsController;
