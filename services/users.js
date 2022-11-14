@@ -22,9 +22,7 @@ class UserService {
   ) => {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
     const isSameId = await this.usersRepository.findUserAccountId(userId);
-    const isSameNickname = await this.usersRepository.findUserAccountNick(
-      nickName
-    );
+    const isSameNickname = await this.usersRepository.findUserAccountNick(nickName);
 
     // 유저 id 중복 검사
     if (isSameId) {
