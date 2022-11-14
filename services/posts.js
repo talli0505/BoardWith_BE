@@ -4,9 +4,9 @@ const { findOne } = require("../schema/posts");
 class PostsService {
     postsRepository = new PostsRepository();
 
-    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose) => {
+    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
         try{
-            await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose)
+            await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
             return
         }catch(e){
             throw { message : "양식에 맞게 작성해주세요"}
