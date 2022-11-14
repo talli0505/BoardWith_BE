@@ -473,7 +473,7 @@
     "/posts/cancelBan/{postId}": {
       "put": {
         "tags": ["게시물API"],
-        "description": "게시물에서 강퇴",
+        "description": "게시물에서 강퇴취소",
         "parameters": [
           {
             "name": "postId",
