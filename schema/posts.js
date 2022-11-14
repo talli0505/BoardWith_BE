@@ -32,20 +32,17 @@ const PostsSchema = new mongoose.Schema({
   partyMember : {
     type : Number
   },
-  participant : {
-    type : Array
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
-  },
-  updatedAt: { 
-    type: Date, 
-    default: Date.now 
+  updatedAt: {
+    type: Date,
+    default: Date.now
   },
   expireAt: {
     type: Date,
-    default: new Date(),
+    default: Date.now(),
     expire: 0
   },
 });

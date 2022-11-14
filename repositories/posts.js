@@ -1,6 +1,4 @@
-
-const Posts = require("../schema/posts"); 
-const Users = require("../schema/users");
+const Posts = require("../schema/posts");
 
 class PostsRepository {
 
@@ -10,30 +8,36 @@ class PostsRepository {
         return;
     };
 
-    findAllPosts = async(skip) => {
-        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
+    findAllPosts = async (skip) => {
+        const findAllPosts = await Posts.find({}, undefined, {skip, limit: 5}).sort('createdAt');
         return findAllPosts;
     }
-    
-    findOnePost = async(postId) => {
-        const findOnePosts = await Posts.findOne({_id:postId})
+
+    findOnePost = async (postId) => {
+        const findOnePosts = await Posts.findOne({_id: postId})
         return findOnePosts;
     }
 
-    updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
+    updatePost = async (postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
         await Posts.updateOne(
-            {_id:postId, userId:userId},{$set:{title:title,content:content,location:location,cafe:cafe,date:date,time:time,map:map,partyMember:partyMember}}
+            {_id: postId, userId: userId}, {
+                $set: {
+                    title: title,
+                    content: content,
+                    location: location,
+                    cafe: cafe,
+                    date: date,
+                    time: time,
+                    map: map,
+                    partyMember: partyMember
+                }
+            }
         )
-        return 
-    }
-
-    deletePost = async(postId, userId) => {
-        await Posts.deleteOne({_id:postId, userId:userId});
         return
     }
 
-    participateMember = async(postId,userId, nickName) => {
-        await Posts.updateOne({_id:postId, userId:userId}, {$push:{participant: nickName}})
+    deletePost = async (postId, userId) => {
+        await Posts.deleteOne({_id: postId, userId: userId});
         return
     }
 }
