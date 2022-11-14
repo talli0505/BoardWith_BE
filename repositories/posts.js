@@ -1,6 +1,6 @@
 
 const Posts = require("../schema/posts"); 
-const Users = require("../schema/users");
+const bans = require("../schema/ban")
 
 class PostsRepository {
 
@@ -34,6 +34,11 @@ class PostsRepository {
 
     participateMember = async(postId,userId, nickName) => {
         await Posts.updateOne({_id:postId, userId:userId}, {$push:{participant: nickName}})
+        return
+    }
+
+    banMember = async(postId, userId) => {
+        await Posts.updateOne({_id:postId},{$push:{banUser: userId}})
         return
     }
 }
