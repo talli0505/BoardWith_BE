@@ -14,12 +14,22 @@ class PostsController {
 
     createPosts = async (req, res, next) => {
         try{
-        const userId = res.locals.user.userId;
-        const {nickName} = res.locals.user
-        console.log(userId, nickName)
-        const { title, content, location, cafe, date, time, map, partyMember, participant } =req.body;        
-        await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant );
-        res.status(200).json({message:"게시물 생성 완료"})
+            const userId = res.locals.user.userId;
+            const {nickName} = res.locals.user
+            const { title, content, location, cafe, date, time, map, partyMember } =req.body;
+
+            const closingTime = time[1];
+            // const openTime = time[0];
+            const nowToClose = new Date(closingTime).getTime();  //마감시간 date화
+            // const timeDiff = new Date(closingTime).getTime() - new Date(openTime).getTime();  //마감시간 - 현재시간
+
+            console.log(new Date)  //지금 시간
+            console.log(closingTime)  //마감 시간
+            console.log(nowToClose) //마감시간 date화
+            // console.log(timeDiff)  //마감시간 - 오픈시간
+
+            await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose);
+            res.status(200).json({message:"게시물 생성 완료"})
         }catch(e) {
             res.status(400).json({message: e.message})
         }
