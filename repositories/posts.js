@@ -4,8 +4,8 @@ const Users = require("../schema/users");
 
 class PostsRepository {
 
-    createPosts = async (userId, nickName, title, content, location, cafe, date, time, map, partyMember, nowToClose) => {
-        await Posts.create({userId, nickName, title, content, location, cafe, date, time, map, partyMember, expireAt: nowToClose
+    createPosts = async (userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
+        await Posts.create({userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant:nickName, expireAt: nowToClose
         });
         return;
     };
