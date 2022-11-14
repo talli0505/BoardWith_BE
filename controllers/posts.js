@@ -89,12 +89,13 @@ class PostsController {
         }
     }
 
-    deleteMember = async (req, res, next) => {
+    banMember = async (req, res, next) => {
         const { postId } = req.params;
         const { userId } = req.body;
-
-
-    }
+        console.log(userId)
+        await this.postsService.banMember( postId, userId );
+        res.status(200).json({message:"강퇴하였습니다."})
+    }    
 }
 
 module.exports = PostsController;

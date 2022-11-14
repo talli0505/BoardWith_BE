@@ -35,15 +35,18 @@ const PostsSchema = new mongoose.Schema({
   participant : {
     type : Array
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  banUser : {
+    type : Array
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+  createdAt: { 
+    type: Date, 
+    default: Date.now 
   },
-  expireAt: {   //✨추가추가
+  updatedAt: { 
+    type: Date, 
+    default: Date.now 
+  },
+  expireAt: {   
     type: Date,
     default: Date.now,
     expires: 0
