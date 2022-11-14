@@ -1,5 +1,4 @@
 const PostsRepository = require("../repositories/posts"); 
-const { findOne } = require("../schema/posts");
 
 class PostsService {
     postsRepository = new PostsRepository();
@@ -57,15 +56,18 @@ class PostsService {
     participateMember = async (postId,userId, nickName) => {
                  
         const findMembersLength = await this.postsRepository.findOnePost(postId)
-        console.log(findMembersLength.partyMember)
-        console.log(findMembersLength.participant.length)
         if( findMembersLength.partyMember <= (findMembersLength.participant.length - 1) ){
             throw "참가 마감되었습니다."            
         } else if( findMembersLength.partyMember > findMembersLength.participant.length ){
             await this.postsRepository.participateMember(postId, userId, nickName) 
         }  
         return
-}
+    }
+
+    banMember = async(postId,userId) => {
+        await this.postsRepository.banMember(postId, userId)
+        return
+    }
 
     
 }

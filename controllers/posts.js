@@ -18,6 +18,7 @@ class PostsController {
             const {nickName} = res.locals.user
             const { title, content, location, cafe, date, time, map, partyMember, participant } =req.body;
 
+            //✨추가추가
             const closingTime = time[1];
             // const openTime = time[0];
             const nowToClose = new Date(closingTime).getTime();  //마감시간 date화
@@ -28,6 +29,7 @@ class PostsController {
             console.log(nowToClose) //마감시간 date화
             // console.log(timeDiff)  //마감시간 - 오픈시간
 
+            //✨추가추가
             await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
             res.status(200).json({message:"게시물 생성 완료"})
         }catch(e) {
@@ -87,12 +89,13 @@ class PostsController {
         }
     }
 
-    deleteMember = async (req, res, next) => {
+    banMember = async (req, res, next) => {
         const { postId } = req.params;
         const { userId } = req.body;
-
-
-    }
+        console.log(userId)
+        await this.postsService.banMember( postId, userId );
+        res.status(200).json({message:"강퇴하였습니다."})
+    }    
 }
 
 module.exports = PostsController;
