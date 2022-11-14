@@ -64,12 +64,15 @@ class PostsService {
         return
     }
 
-    banMember = async(postId,userId) => {
-        await this.postsRepository.banMember(postId, userId)
+    banMember = async(postId,nickName) => {
+        await this.postsRepository.banMember(postId, nickName)
+        return
+    } 
+
+    cancelBanMember = async(postId, nickName) => {
+        await this.postsRepository.cancelBanMember(postId, nickName)
         return
     }
-
-    
 }
 
 module.exports = PostsService;

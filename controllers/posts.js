@@ -91,11 +91,18 @@ class PostsController {
 
     banMember = async (req, res, next) => {
         const { postId } = req.params;
-        const { userId } = req.body;
-        console.log(userId)
-        await this.postsService.banMember( postId, userId );
+        const { nickName } = req.body;
+        console.log(nickName)
+        await this.postsService.banMember( postId, nickName );
         res.status(200).json({message:"강퇴하였습니다."})
-    }    
+    }
+    
+    cancelBanMember = async (req, res, next) => {
+        const { postId } = req.params;
+        const { nickName } = req.body;
+        await this.postsService.cancelBanMember( postId, nickName );
+        res.status(200).json({message:"강퇴를 취소하였습니다."})
+    }
 }
 
 module.exports = PostsController;
