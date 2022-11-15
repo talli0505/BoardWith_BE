@@ -13,6 +13,7 @@ router.delete("/:postId", authMiddleware, postsController.deletePost)
 router.put("/participate/:postId", authMiddleware, postsController.participateMember)
 router.put("/ban/:postId", authMiddleware, postsController.banMember)
 router.put("/cancelBan/:postId", authMiddleware, postsController.cancelBanMember)
+router.put("/closeParty/:postId", authMiddleware, postsController.closeParty);
 
 
 module.exports = router;

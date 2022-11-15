@@ -73,6 +73,11 @@ class PostsService {
         await this.postsRepository.cancelBanMember(postId, nickName)
         return
     }
+
+    closeParty = async(postId, userId) => {
+        await this.postsRepository.closeParty(postId, userId)
+        return
+    }
 }
 
 module.exports = PostsService;

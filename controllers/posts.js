@@ -24,9 +24,9 @@ class PostsController {
             const nowToClose = new Date(closingTime).getTime();  //마감시간 date화
             // const timeDiff = new Date(closingTime).getTime() - new Date(openTime).getTime();  //마감시간 - 현재시간
 
-            console.log(new Date)  //지금 시간
+            /*console.log(new Date)  //지금 시간
             console.log(closingTime)  //마감 시간
-            console.log(nowToClose) //마감시간 date화
+            console.log(nowToClose) //마감시간 date화*/
             // console.log(timeDiff)  //마감시간 - 오픈시간
 
             //✨추가추가
@@ -102,6 +102,13 @@ class PostsController {
         const { nickName } = req.body;
         await this.postsService.cancelBanMember( postId, nickName );
         res.status(200).json({message:"강퇴를 취소하였습니다."})
+    }
+
+    closeParty = async (req, res, next) => {
+        const { postId } = req.params;
+        const { userId } = req.body;
+        await this.postsService.closeParty( postId, userId );
+        res.status(200).json({ message: "파티원 모집 마감" });
     }
 }
 
