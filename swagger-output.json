@@ -216,7 +216,7 @@
     "/posts/": {
       "post": {
         "tags": ["게시물API"],
-        "description": "",
+        "description": "게시물 생성",
         "parameters": [
           {
             "name": "authorization",
@@ -268,7 +268,7 @@
       },
       "get": {
         "tags": ["게시물API"],
-        "description": "",
+        "description": "게시물 전체 조회",
         "parameters": [
           {
             "name": "skip",
@@ -290,7 +290,7 @@
     "/posts/{postId}": {
       "get": {
         "tags": ["게시물API"],
-        "description": "",
+        "description": "게시물 상세 조회",
         "parameters": [
           {
             "name": "postId",
@@ -310,7 +310,7 @@
       },
       "put": {
         "tags": ["게시물API"],
-        "description": "",
+        "description": "게시물 수정",
         "parameters": [
           {
             "name": "postId",
@@ -368,7 +368,7 @@
       },
       "delete": {
         "tags": ["게시물API"],
-        "description": "",
+        "description": "게시물 삭제",
         "parameters": [
           {
             "name": "postId",
@@ -388,6 +388,123 @@
           },
           "400": {
             "description": "없는 게시물입니다."
+          }
+        }
+      }
+    },    
+    "/posts/participate/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "파티에 참가",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "example": "닉네임 입력"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "게시물 조회 완료"
+          },
+          "400": {
+            "description": "오류"
+          }
+        }
+      }
+    },
+    "/posts/ban/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "게시물에서 강퇴",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "example": "닉네임 입력"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "강퇴 완료"
+          },
+          "400": {
+            "description": "오류"
+          }
+        }
+      }
+    },
+    "/posts/cancelBan/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "게시물에서 강퇴취소",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "example": "닉네임 입력"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "강퇴 취소"
+          },
+          "400": {
+            "description": "오류"
           }
         }
       }
