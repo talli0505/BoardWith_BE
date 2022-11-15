@@ -6,6 +6,7 @@ class CommentsService {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
         const findAllCommentResult = await this.commentsRepository.findAllComments(postId);
+        console.log(findAllCommentResult)
         return findAllCommentResult;
     };
 
@@ -20,8 +21,8 @@ class CommentsService {
     }
 
     //신규 댓글
-    createComment = async (postId, userId, nickname, comment) => {
-        const createCommentResult = await this.commentsRepository.createComment(postId, userId, nickname, comment);
+    createComment = async (postId, userId, nickName, comment) => {
+        const createCommentResult = await this.commentsRepository.createComment(postId, userId, nickName, comment);
         return createCommentResult;
     };
 

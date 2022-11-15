@@ -24,8 +24,8 @@ class CommentsRepository {
     }
 
     //신규 댓글
-    createComment = async (postId, userId, nickname, comment) => {
-        const createCommentData = await Comments.create({postId, userId, nickname, comment});
+    createComment = async (postId, userId, nickName, comment) => {
+        const createCommentData = await Comments.create({postId, userId, nickName, comment});
         return createCommentData;
     };
 
