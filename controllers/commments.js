@@ -26,7 +26,8 @@ class CommentsController {
     createComment = async (req, res, next) => {
         try {
             const {userId} = res.locals.user;
-            const {nickname} = res.locals.user;
+            const {nickName} = res.locals.user;
+            console.log(nickName)
             const {postId} = req.params;
             const {comment} = req.body;
 
@@ -38,7 +39,7 @@ class CommentsController {
                 return;
             }
 
-            const createComment = await this.commentsService.createComment(postId, userId, nickname, comment);
+            const createComment = await this.commentsService.createComment(postId, userId, nickName, comment);
             res.status(201).json({message: '댓글을 등록했어요😚', createComment});
 
         } catch (err) {
