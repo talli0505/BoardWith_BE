@@ -509,6 +509,33 @@
         }
       }
     },
+    "/posts/closeParty/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "파티원 모집 마감",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "파티원 모집 마감"
+          },
+          "400": {
+            "description": "오류"
+          }
+        }
+      }
+    },
     "/comments/{postId}": {
       "get": {
         "tags": ["댓글API"],

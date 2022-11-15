@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {NUMBER} = require("sequelize");
 
 const PostsSchema = new mongoose.Schema({
   userId: {
@@ -38,15 +39,19 @@ const PostsSchema = new mongoose.Schema({
   banUser : {
     type : Array
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  closed : {
+    type: Number,
+    default: 0
   },
-  updatedAt: { 
-    type: Date, 
-    default: Date.now 
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
-  expireAt: {   
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
+  expireAt: {
     type: Date,
     default: Date.now,
     expires: 0

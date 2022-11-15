@@ -47,6 +47,10 @@ class PostsRepository {
         await Posts.updateOne({_id:postId},{$pull:{banUser:nickName}})
         return
     }
+
+    closeParty = async(postId, userId) => {
+        await Posts.updateOne({_id: postId}, { $set: { closed: 1, expireAt: "" } });
+    }
 }
 
 module.exports = PostsRepository;
