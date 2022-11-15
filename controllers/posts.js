@@ -17,7 +17,7 @@ class PostsController {
             const userId = res.locals.user.userId;
             const {nickName} = res.locals.user
             const { title, content, location, cafe, date, time, map, partyMember, participant } =req.body;
-
+            
             //✨추가추가
             const closingTime = time[1];
             // const openTime = time[0];
@@ -32,8 +32,8 @@ class PostsController {
             //✨추가추가
             await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
             res.status(200).json({message:"게시물 생성 완료"})
-        }catch(e) {
-            res.status(400).json({message: e.message})
+        }catch(err) {
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
     }
 
@@ -48,8 +48,8 @@ class PostsController {
         const postId = req.params.postId;
         const findOnePosts = await this.postsService.findOnePost(postId);
         res.status(200).json({ data : findOnePosts })
-        }catch(e){
-            res.status(400).json({message: e})
+        }catch(err){
+            res.status(err.status || 400).json({ statusCode:err.status, message: err.message})
         }
     }
 
@@ -59,9 +59,9 @@ class PostsController {
         const userId = res.locals.user.userId;
         const { title, content, location, cafe, date, time, map, partyMember } = req.body
         await this.postsService.updatePost( postId, userId, title, content, location, cafe, date, time, map, partyMember );
-        res.status(200).json({ message : "게시물 수정을 완료하였습니다."})
-        }catch(e){
-            res.status(400).json({message : e})
+            res.status(200).json({ message : "게시물 수정을 완료하였습니다."})
+        }catch(err) {
+            res.status(err.status || 400).json({statusCode:err.status, message: err.message})
         }
     }
 
@@ -71,8 +71,8 @@ class PostsController {
         const userId= res.locals.user.userId;
         await this.postsService.deletePost(postId, userId);
         res.status(200).json({message:"게시물 삭제를 완료하였습니다."})
-        }catch(e){
-            res.status(400).json({message: e})
+        }catch(err){
+            res.status(err.status || 404 ).json({statusCode:err.status, message: err.message})
         }
     }
 
@@ -84,31 +84,43 @@ class PostsController {
         const { nickName } = req.body
         await this.postsService.participateMember( postId, userId, nickName );
         res.status(200).json({message:"정상적으로 참가되었습니다."})
-        }catch(e){
-            res.status(409).json({message:e})
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
     }
 
     banMember = async (req, res, next) => {
+        try{
         const { postId } = req.params;
         const { nickName } = req.body;
         console.log(nickName)
         await this.postsService.banMember( postId, nickName );
         res.status(200).json({message:"강퇴하였습니다."})
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
+        }
     }
     
     cancelBanMember = async (req, res, next) => {
+        try{
         const { postId } = req.params;
         const { nickName } = req.body;
         await this.postsService.cancelBanMember( postId, nickName );
         res.status(200).json({message:"강퇴를 취소하였습니다."})
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
+        }
     }
 
     closeParty = async (req, res, next) => {
+        try{
         const { postId } = req.params;
         const { userId } = req.body;
         await this.postsService.closeParty( postId, userId );
         res.status(200).json({ message: "파티원 모집 마감" });
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
+        }
     }
 }
 

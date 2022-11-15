@@ -3,13 +3,16 @@ const PostsRepository = require("../repositories/posts");
 class PostsService {
     postsRepository = new PostsRepository();
 
-    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
-        try{
+    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {     
+        if(!title || !content || !location || !cafe || !date || !time || !map || !partyMember){
+            const err = new Error('postService Error');
+            err.status = 403;
+            err.message = "빈칸을 입력해주세요."
+            throw err;
+        } else {
             await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
-            return
-        }catch(e){
-            throw { message : "양식에 맞게 작성해주세요"}
         }
+        return    
     }
 
     findAllPosts = async(skip) => {
@@ -17,44 +20,46 @@ class PostsService {
         return findAllPosts;
     }
 
-    findOnePost = async(postId) => {       
-        try{
+    findOnePost = async(postId) => {
+        try{   
         const findOnePosts = await this.postsRepository.findOnePost(postId);
         return findOnePosts;
-        }catch(e){
-            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
-        }        
+        }catch(err){        
+            err.status = 404
+            err.message = "게시물이 없습니다."
+            throw err;
+        }               
     }
 
-    updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {   
-        try{     
-        const findOnePosts = await this.postsRepository.findOnePost(postId);
-        console.log(findOnePosts)
-        if(findOnePosts._id.toString() !== postId){
-            throw "없는 게시물입니다."
-        }        
+    updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => { 
+        if(!title || !content || !location || !cafe || !date || !time || !map || !partyMember){
+            const err = new Error('postService Error');
+            err.status = 403;
+            err.message = "빈칸을 입력해주세요."
+            throw err;
+        }  
+        const findOnePost = await this.postsRepository.findOnePost(postId)
+        if(findOnePost._id.toString() == null){
+            const err = new Error('postService Error');
+            err.status = 404;
+            err.message = "게시물이 없습니다."
+        }
         await this.postsRepository.updatePost(postId, userId, title, content, location, cafe, date, time, map, partyMember)
         return 
-        }catch{
-            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
-        }
     }
     
     deletePost = async(postId, userId) => {
-        try{
-        const findOnePosts = await this.postsRepository.findOnePost(postId);
-        if(findOnePosts._id.toString() !== postId){
-            throw "없는 게시물입니다."
-        }          
+        try{        
         await this.postsRepository.deletePost(postId, userId);
-        return findOnePosts
-        }catch(e){
-            throw "없는 게시물이거나 경로요청이 잘못되었습니다."
+        return 
+        }catch(err){
+            err.status = 404
+            err.message = "경로 요청이 잘못되었습니다."
+            throw err
         }      
     }
 
-    participateMember = async (postId,userId, nickName) => {
-                 
+    participateMember = async (postId,userId, nickName) => {                 
         const findMembersLength = await this.postsRepository.findOnePost(postId)
         if( findMembersLength.partyMember <= (findMembersLength.participant.length - 1) ){
             throw "참가 마감되었습니다."            

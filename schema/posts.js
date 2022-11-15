@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {NUMBER} = require("sequelize");
 
 const PostsSchema = new mongoose.Schema({
   userId: {
