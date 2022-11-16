@@ -6,6 +6,7 @@ class UsersRepository {
   // 회원가입을 위한 함수
   signUp = async (
     userId,
+    img,
     nickName,
     password,
     address,
@@ -19,6 +20,7 @@ class UsersRepository {
     // create로 회원가입
     const createAccountData = await Users.create({
       userId,
+      img,
       nickName,
       password,
       address,
@@ -82,7 +84,8 @@ class UsersRepository {
       address : findUserData.address,
       birth : findUserData.birth,
       gender : findUserData.gender,
-      myPlace : findUserData.myPlace
+      myPlace : findUserData.myPlace,
+      visible : findUserData.visible
     };
   };
 

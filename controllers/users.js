@@ -10,6 +10,7 @@ class UsersController {
     try {
       const {
         userId,
+        img,
         nickName,
         password,
         confirm,
@@ -23,6 +24,7 @@ class UsersController {
 
       await this.usersService.signUp(
         userId,
+        img,
         nickName,
         password,
         confirm,
