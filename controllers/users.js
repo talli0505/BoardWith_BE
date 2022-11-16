@@ -137,6 +137,12 @@ class UsersController {
       });
     }
   };
+
+  updateSocket = async (req, res, nex) => {
+    const { room } = req.params
+    const updateSocket = await this.usersService.updateSocket(room);
+    res.status(200).json({ updateSocket : updateSocket });
+  }
 }
 
 module.exports = UsersController;
