@@ -110,8 +110,8 @@ class PostsController {
     //파티원 모집 마감
     closeParty = async (req, res, next) => {
         const { postId } = req.params;
-        await this.postsService.closeParty( postId );
-        res.status(200).json({ message: "파티원 모집 마감" });
+        const closePartyData = await this.postsService.closeParty( postId );
+        res.status(200).json({ message: "파티원 모집 마감", closePartyData });
     }
 
     //파티원 모집 리오픈
@@ -121,8 +121,8 @@ class PostsController {
 
         const nowToNewClose = new Date(time).getTime();  //새로운 마감 시간(절대적인 시점 자체) Date화
 
-        await this.postsService.reopenParty( postId, nowToNewClose);
-        res.status(200).json({ message: "파티원 모집 리오픈" });
+        const reopenPartyData = await this.postsService.reopenParty( postId, nowToNewClose);
+        res.status(200).json({ message: "파티원 모집 리오픈", reopenPartyData });
     }
 
     //게시글 랜덤 추출
