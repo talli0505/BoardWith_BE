@@ -23,6 +23,10 @@
     {
       "name": "댓글API",
       "description": ""
+    },
+    {
+      "name": "채팅API",
+      "description": ""
     }
   ],
   "schemes": [
@@ -647,6 +651,28 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/chats/{room}": {
+      "get": {
+        "tags": ["채팅API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "room",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
