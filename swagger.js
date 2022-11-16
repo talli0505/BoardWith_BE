@@ -5,7 +5,7 @@ const doc = {
     title: "My API",
     description: "Description",
   },
-  host: "www.spartaseosu.shop",
+  host: "www.iceflower.shop",
   schemes: ["https"],
   consumes: ["application/json"],
   produces: ["application/json"],

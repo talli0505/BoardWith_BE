@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users");    
+const UsersRepository = require("../repositories/users");     
 const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
@@ -219,6 +219,12 @@ class UserService {
     const deleteUserData = await this.usersRepository.deleteUserData(nickname);
     return deleteUserData;
   };
+
+  // 회원 성별 공개 여부
+  visibleGender = async (userId) => {
+    const visibleGender = await this.usersRepository.visibleGender(userId);
+    return visibleGender;
+  }
 }
 
 module.exports = UserService;
