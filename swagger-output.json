@@ -53,6 +53,9 @@
                 "userId": {
                   "example": "아이디"
                 },
+                "img": {
+                  "example": "이미지"
+                },
                 "nickName": {
                   "example": "닉네임"
                 },
