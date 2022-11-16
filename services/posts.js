@@ -82,14 +82,28 @@ class PostsService {
 
     //파티원 모집 마감
     closeParty = async(postId) => {
-        await this.postsRepository.closeParty(postId)
-        return
+        const closeParty = await this.postsRepository.closeParty(postId);
+        return {
+            userId: closeParty.userId,
+            nickName: closeParty.nickName,
+            title: closeParty.title,
+            time: closeParty.time,
+            expireAt: closeParty.expireAt,
+            closed: closeParty.closed
+        }
     }
 
     //파티원 모집 리오픈
     reopenParty = async(postId, nowToNewClose) => {
-        await this.postsRepository.reopenParty(postId, nowToNewClose)
-        return
+        const reopenParty = await this.postsRepository.reopenParty(postId, nowToNewClose)
+        return {
+            userId: reopenParty.userId,
+            nickName: reopenParty.nickName,
+            title: reopenParty.title,
+            time: reopenParty.time,
+            expireAt: reopenParty.expireAt,
+            closed: reopenParty.closed
+        }
     }
 
     //게시글 랜덤 추출
