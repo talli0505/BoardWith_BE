@@ -79,6 +79,7 @@ class UsersRepository {
   findUserData = async (userId) => {
     const findUserData = await Users.findOne({userId:userId});
     return {
+      img : findUserData.img,
       nickName : findUserData.nickName,
       likeGame : findUserData.likeGame,
       address : findUserData.address,
