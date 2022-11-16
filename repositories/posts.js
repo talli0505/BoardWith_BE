@@ -51,13 +51,15 @@ class PostsRepository {
     //파티원 모집 마감
     closeParty = async (postId) => {
         await Posts.updateOne({_id: postId}, {$set: {closed: 1, expireAt: ""}});
-        return
+        const closePartyResult = await Posts.findOne({_id:postId});
+        return closePartyResult;
     }
 
     //파티원 모집 리오픈
     reopenParty = async (postId, nowToNewClose) => {
         await Posts.updateOne({_id: postId}, {$set: {closed: 0, expireAt: nowToNewClose, "time.1": nowToNewClose}});
-        return
+        const reopenPartyResult = await Posts.findOne({_id:postId});
+        return reopenPartyResult;
     }
 
     //게시글 랜덤 추출
