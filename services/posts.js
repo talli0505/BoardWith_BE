@@ -1,4 +1,5 @@
-const PostsRepository = require("../repositories/posts"); 
+const PostsRepository = require("../repositories/posts");
+const shuffle_array = require('shuffle-array');
 
 class PostsService {
     postsRepository = new PostsRepository();
@@ -79,9 +80,31 @@ class PostsService {
         return
     }
 
-    closeParty = async(postId, userId) => {
-        await this.postsRepository.closeParty(postId, userId)
+    //파티원 모집 마감
+    closeParty = async(postId) => {
+        await this.postsRepository.closeParty(postId)
         return
+    }
+
+    //파티원 모집 리오픈
+    reopenParty = async(postId, nowToNewClose) => {
+        await this.postsRepository.reopenParty(postId, nowToNewClose)
+        return
+    }
+
+    //게시글 랜덤 추출
+    getRandomPost = async(skip) =>{
+        console.log("진입은 됨?")
+        const getRandomPost = await this.postsRepository.findAllPostsForRandomExtract(skip);
+        let getRandomPostResult = new Array();
+
+        for (let i = 0; i < getRandomPost.length; i++) {
+            getRandomPostResult.push(getRandomPost[i])
+        }
+
+        shuffle_array(getRandomPostResult);
+        let slicedGetRandomPostResult = getRandomPostResult.slice(0, 5);
+        return slicedGetRandomPostResult;
     }
 }
 

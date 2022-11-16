@@ -539,6 +539,69 @@
           }
         }
       }
+    }, "/posts/reopenParty/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "파티원 모집 리오픈",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "time": {
+                  "example": "새로운 마감 시간 입력ㄱㄱ"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "파티원 모집 리오픈"
+          },
+          "400": {
+            "description": "오류"
+          }
+        }
+      }
+    },
+    "/posts/randomPost": {
+      "get": {
+        "tags": [
+          "게시물API"
+        ],
+        "description": "포스트 랜덤 추출(w/ 무한스크롤)",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "포스트 랜덤 추출 완료"
+          },
+          "400": {
+            "description": "없는 게시물입니다."
+          }
+        }
+      }
     },
     "/comments/{postId}": {
       "get": {
