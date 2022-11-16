@@ -1,7 +1,11 @@
+require("dotenv").config();
 const express = require("express");
+const http = require("http");
 const app = express();
+const server = http.createServer(app);
 const routes = require("./routes");
-
+const socket = require('./socket')
+socket(server)
 
 const swaggerFile = require("./swagger-output");
 const swaggerUi = require("swagger-ui-express");
@@ -22,7 +26,7 @@ app.use(
 
 app.use("/", routes);
 
-const port = 3000;
-app.listen(port, () => {
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
   console.log(`${port}번 포트로 열렸습니다`);
 });
