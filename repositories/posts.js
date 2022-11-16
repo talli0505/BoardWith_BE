@@ -48,8 +48,22 @@ class PostsRepository {
         return
     }
 
-    closeParty = async(postId, userId) => {
-        await Posts.updateOne({_id: postId}, { $set: { closed: 1, expireAt: "" } });
+    //파티원 모집 마감
+    closeParty = async (postId) => {
+        await Posts.updateOne({_id: postId}, {$set: {closed: 1, expireAt: ""}});
+        return
+    }
+
+    //파티원 모집 리오픈
+    reopenParty = async (postId, nowToNewClose) => {
+        await Posts.updateOne({_id: postId}, {$set: {closed: 0, expireAt: nowToNewClose, "time.1": nowToNewClose}});
+        return
+    }
+
+    //게시글 랜덤 추출
+    findAllPostsForRandomExtract = async (skip) => {
+        const findAllPostsData = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
+        return findAllPostsData;
     }
 }
 
