@@ -6,6 +6,10 @@ const UsersSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  img : {
+    type : String,
+    default : "https://cdn.pixabay.com/photo/2017/09/24/23/38/cat-2783601__340.jpg"
+  },
   nickName: {
     type: String,
   },
