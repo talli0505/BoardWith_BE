@@ -587,8 +587,8 @@
         "description": "포스트 랜덤 추출(w/ 무한스크롤)",
         "parameters": [
           {
-            "name": "postId",
-            "in": "path",
+            "name": "skip",
+            "in": "query",
             "required": true,
             "type": "string"
           }
