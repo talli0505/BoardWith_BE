@@ -1,5 +1,4 @@
 const SocketIO = require("socket.io");
-const moment = require("moment");
 // 몽구스 연결
 const connect = require("./schema");
 connect();
@@ -41,7 +40,7 @@ module.exports = (server) => {
                   chat: {
                     nickName: nickName,
                     message: message,
-                    time: moment(new Date()).format("h:ss A"),
+                    time: Date.now(),
                   },
                 },
               }
