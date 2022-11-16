@@ -20,4 +20,7 @@ router.put("/", middleware, usersController.updateUserData);
 // 회원 탈퇴하기
 router.delete("/", middleware, usersController.deleteUserData);
 
+// 회원 성별 공개 여부
+router.put('/:userId', middleware, usersController.visibleGender);
+
 module.exports = router;

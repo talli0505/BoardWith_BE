@@ -138,10 +138,18 @@ class UsersController {
     }
   };
 
+  // 소켓 내용 꺼내오기
   updateSocket = async (req, res, nex) => {
     const { room } = req.params
     const updateSocket = await this.usersService.updateSocket(room);
     res.status(200).json({ updateSocket : updateSocket });
+  }
+
+  // 회원 성별 공개 여부
+  visibleGender = async (req, res, next) => {
+    const { userId } = req.params
+    const visibleGender = await this.usersService.visibleGender(userId);
+    res.status(200).json({ messgae : "완료" });
   }
 }
 

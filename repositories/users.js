@@ -1,4 +1,4 @@
-const Users  = require("../schema/users"); 
+const Users  = require("../schema/users");  
 const Posts = require("../schema/posts"); 
 const Comments = require("../schema/comments"); 
 
@@ -118,6 +118,25 @@ class UsersRepository {
     return deleteUserData;
   };
 
+  // 회원 성별 공개 여부
+  visibleGender = async (userId) => {
+    const visibleGender = await Users.findOne({userId : userId})
+    if(visibleGender.visible) {
+      await Users.updateOne(
+        {userId : userId},
+        {$set:
+          {visible:false}
+        }
+      )
+      } else {
+        await Users.updateOne(
+          {userId : userId},
+          {$set:
+            {visible:true}
+          }
+        )
+      }
+    }
 }
 
 module.exports = UsersRepository;

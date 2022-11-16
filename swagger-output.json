@@ -217,6 +217,33 @@
         }
       }
     },
+    "/users/{userId}": {
+      "put": {
+        "tags": ["회원정보 관련API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],

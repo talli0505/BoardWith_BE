@@ -24,8 +24,12 @@ const UsersSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
+  visible : {
+    type : Boolean,
+    default : true
+  },
   likeGame: {
-    type: String,
+    type: Array,
   },
   refresh_token : {
     type : String,
