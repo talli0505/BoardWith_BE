@@ -14,7 +14,7 @@ class UsersRepository {
     birth,
     gender,
     likeGame,
-    salt,
+    introduce,
     admin
   ) => {
     // create로 회원가입
@@ -28,7 +28,7 @@ class UsersRepository {
       birth,
       gender,
       likeGame,
-      salt,
+      introduce,
       admin
     });
     return createAccountData;
@@ -86,6 +86,7 @@ class UsersRepository {
       birth : findUserData.birth,
       gender : findUserData.gender,
       myPlace : findUserData.myPlace,
+      introduce : findUserData.introduce,
       visible : findUserData.visible
     };
   };
@@ -99,7 +100,8 @@ class UsersRepository {
     myPlace,
     birth,
     gender,
-    likeGame
+    likeGame,
+    introduce
   ) => {
     const updateUserData = await Users.updateOne(
       { userId : userId, nickName : nickName },
@@ -108,7 +110,8 @@ class UsersRepository {
         myPlace: myPlace,
         birth: birth,
         gender: gender,
-        likeGame: likeGame,}
+        likeGame: likeGame,
+        introduce : introduce}
       }
     );
     return updateUserData;
