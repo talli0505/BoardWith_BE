@@ -71,7 +71,6 @@ class PostsRepository {
     // 참여 예약한 모임 조회
     partyReservedData = async(nickName) => {
         const partyReservedData = await Posts.find({nickName}).sort('date');
-        console.log(partyReservedData)
         return partyReservedData;
     }
 
