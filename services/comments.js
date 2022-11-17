@@ -6,17 +6,16 @@ class CommentsService {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
         const findAllCommentResult = await this.commentsRepository.findAllComments(postId);
-        console.log(findAllCommentResult)
         return findAllCommentResult;
     };
 
     //게시글 존재 여부 확인
     findOnePost = async (postId) => {
-        try {
-            const findOnePost = await this.commentsRepository.findOnePost({postId});
+        const findOnePost = await this.commentsRepository.findOnePost(postId);
+        if (!findOnePost) {
+            throw new Error("게시글이 없어요!!");
+        } else {
             return findOnePost;
-        } catch (e) {
-            throw new Error("게시글이 없어요!!");   //service단에는 res, req, next 이런거 받는거 없으니까 res.status...이런거 못씀. throw new Error 던지면 cont단으로 들어가서 catch로 빠지는 것.
         }
     }
 
