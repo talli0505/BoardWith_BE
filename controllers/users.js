@@ -170,6 +170,13 @@ class UsersController {
     const partyGoData = await this.usersService.partyGoData(nickName);
     res.status(200).json({partyGoData})
   }
+
+  // 다른 유저 정보를 보기
+  lookOtherUser = async(req, res, next) => {
+    const {nickName} = req.params;
+    const lookOtherUser = await this.usersService.lookOtherUser(nickName);
+    res.status(200).json({lookOtherUser : lookOtherUser})
+  }
 }
 
-module.exports = UsersController;
+module.exports = UsersController; 

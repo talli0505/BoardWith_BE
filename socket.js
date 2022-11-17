@@ -4,6 +4,7 @@ const connect = require("./schema");
 connect();
 const Room = require("./schema/room");
 const Ban = require("./schema/ban");
+const Posts = require("./schema/posts");
 
 module.exports = (server) => {
   // path 설정 하지 말기
@@ -75,6 +76,8 @@ module.exports = (server) => {
       }
   
       await Ban.create({ room: room, banUser: nickName });
+      await Posts.updateOne({_id:postId},{$push:{banUser: nickName}})
+      await Posts.updateOne({_id:postId},{$pull:{participant: nickName}})
       const RoomM = await Room.findOne({room : room})
       io.to(room).emit("roomUsers", ({nickName : RoomM.member, room : RoomM.room}))
     });
