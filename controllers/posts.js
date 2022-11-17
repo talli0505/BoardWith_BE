@@ -15,7 +15,7 @@ class PostsController {
     createPosts = async (req, res, next) => {
         try{
             const userId = res.locals.user.userId;
-            const {nickName} = res.locals.user
+            const {nickName, img} = res.locals.user
             const { title, content, location, cafe, date, time, map, partyMember, participant } =req.body;
 
             const closingTime = time[1];
@@ -25,7 +25,7 @@ class PostsController {
             //console.log(closingTime)  //마감시간
             //console.log(nowToClose) //마감시간 date화
 
-            await this.postsService.createPosts( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
+            await this.postsService.createPosts( userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
             res.status(200).json({message:"게시물 생성 완료"})
         }catch(e) {
             res.status(400).json({message: e.message})
@@ -82,6 +82,17 @@ class PostsController {
         }catch(err){
             res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
+    }
+
+    confirmMember = async(req, res, next) => {
+        try{
+        const postId = req.params.postId;
+        const { nickName } = req.body
+        await this.postsService.confirmMember(postId,nickName);
+        res.status(200).json({message:"confirm"})
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
+        } 
     }
 
     banMember = async (req, res, next) => {

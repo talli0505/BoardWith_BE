@@ -1,17 +1,16 @@
 const PostsRepository = require("../repositories/posts");
-const shuffle_array = require('shuffle-array');
 
 class PostsService {
     postsRepository = new PostsRepository();
 
-    createPosts = async( userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {     
+    createPosts = async( userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {     
         if(!title || !content || !location || !cafe || !date || !time || !map || !partyMember){
             const err = new Error('postService Error');
             err.status = 403;
             err.message = "빈칸을 입력해주세요."
             throw err;
         } else {
-            await this.postsRepository.createPosts(userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
+            await this.postsRepository.createPosts(userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
         }
         return    
     }
@@ -68,6 +67,17 @@ class PostsService {
             await this.postsRepository.participateMember(postId, userId, nickName) 
         }  
         return
+    }
+
+    //participate => confirm
+    confirmMember = async (postId, nickName) => {
+        const confirmMember = await this.postsRepository.confirmMember(postId, nickName)
+        if(confirmMember.participant.includes(nickName)) {
+           await this.postsRepository.pushconfirmMember(postId, nickName)                       
+        } else {
+            await this.postsRepository.pullconfirmMember(postId,nickName)
+        }        
+        return confirmMember       
     }
 
     banMember = async(postId,nickName) => {
