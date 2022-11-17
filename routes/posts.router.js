@@ -16,6 +16,8 @@ router.put("/ban/:postId", authMiddleware, postsController.banMember)
 router.put("/cancelBan/:postId", authMiddleware, postsController.cancelBanMember)
 router.put("/closeParty/:postId", authMiddleware, postsController.closeParty);  //파티원 모집 마감
 router.put("/reopenParty/:postId", authMiddleware, postsController.reopenParty);  //파티원 모집 리오픈
+router.get("/user/:nickName", authMiddleware, postsController.findPostsByUser) // 자기가 쓴 게시글만 보이게
+
 
 
 module.exports = router;

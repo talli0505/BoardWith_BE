@@ -120,6 +120,11 @@ class PostsService {
         let slicedGetRandomPostResult = getRandomPostResult.slice(0, 5);
         return slicedGetRandomPostResult;
     }
+
+    findPostsByUser = async(nickName) => {
+        const findPostsByUser = await this.postsRepository.findPostsByUser(nickName)
+        return findPostsByUser
+    }
 }
 
 module.exports = PostsService;
