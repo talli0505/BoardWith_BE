@@ -305,9 +305,7 @@
     },
     "/users/{nickName}": {
       "get": {
-        "tags": [
-          "회원정보 관련API"
-        ],
+        "tags": ["회원정보 관련API"],
         "description": "",
         "parameters": [
           {
