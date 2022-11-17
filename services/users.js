@@ -248,6 +248,12 @@ class UserService {
     const partyGoData = await this.postsRepository.partyGoData(nickName);
     return partyGoData;
   }
+
+  // 다른 유저 정보를 보기
+  lookOtherUser = async(nickName) => {
+    const lookOtherUser = await this.usersRepository.lookOtherUser(nickName);
+    return lookOtherUser;
+  }
 }
 
-module.exports = UserService;
+module.exports = UserService; 

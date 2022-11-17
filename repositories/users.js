@@ -144,6 +144,21 @@ class UsersRepository {
         )
       }
     }
-}
 
-module.exports = UsersRepository;
+  // 다른 유저 정보를 보기
+  lookOtherUser = async (nickName) => {
+    const lookOtherUser = await Users.findOne({nickName : nickName})
+    return {
+      img : lookOtherUser.img,
+      nickName : lookOtherUser.nickName,
+      likeGame : lookOtherUser.likeGame,
+      birth : lookOtherUser.birth,
+      gender : lookOtherUser.gender,
+      myPlace : lookOtherUser.myPlace,
+      introduce : lookOtherUser.introduce,
+      visible : lookOtherUser.visible
+    };
+  }  
+};
+
+module.exports = UsersRepository; 

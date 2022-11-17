@@ -29,4 +29,7 @@ router.get("/partyReserved", middleware, usersController.partyReservedData);
 // 참여 확정된 모임
 router.get("/partyGo", middleware, usersController.partyGoData);
 
+// 다른 유저 정보보기
+router.get("/:nickName", usersController.lookOtherUser)
+
 module.exports = router;
