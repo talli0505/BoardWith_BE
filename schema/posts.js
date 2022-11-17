@@ -4,6 +4,9 @@ const PostsSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
+  img : {
+    type : String,
+  },
   nickName: {
     type: String,
   },
@@ -33,6 +36,9 @@ const PostsSchema = new mongoose.Schema({
     type : Number
   },
   participant : {
+    type : Array
+  },
+  confirmMember : {
     type : Array
   },
   banUser : {

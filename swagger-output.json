@@ -303,6 +303,21 @@
         }
       }
     },
+    "/users/{nickName}": {
+      "get": {
+        "tags": ["회원정보 관련API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "nickName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],
@@ -481,7 +496,34 @@
           }
         }
       }
-    },    
+    },
+    "/posts/user/{nickName}": {
+      "get": {
+        "tags": ["게시물API"],
+        "description": "유저가 쓴 게시물",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "nickName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "게시물 조회 완료"
+          },
+          "400": {
+            "description": "없는 게시물입니다."
+          }
+        }
+      }
+    },
     "/posts/participate/{postId}": {
       "put": {
         "tags": ["게시물API"],
@@ -513,10 +555,49 @@
         ],
         "responses": {
           "200": {
-            "description": "게시물 조회 완료"
+            "description": "confirm"
           },
           "400": {
-            "description": "오류"
+            "description": "error Message"
+          }
+        }
+      }
+    },    
+    "/posts/confirm/{postId}": {
+      "put": {
+        "tags": ["게시물API"],
+        "description": "파티에 참가",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "example": "닉네임 입력"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "confirm"
+          },
+          "400": {
+            "description": "error Message"
           }
         }
       }

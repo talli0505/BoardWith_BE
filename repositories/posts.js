@@ -4,8 +4,8 @@ const bans = require("../schema/ban")
 
 class PostsRepository {
 
-    createPosts = async (userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
-        await Posts.create({userId, nickName, title, content, location, cafe, date, time, map, partyMember, participant:nickName, expireAt: nowToClose
+    createPosts = async (userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
+        await Posts.create({userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, confirmMember:nickName, expireAt: nowToClose
         });
         return;
     };
@@ -35,6 +35,23 @@ class PostsRepository {
     participateMember = async(postId,userId, nickName) => {
         await Posts.updateOne({_id:postId, userId:userId}, {$push:{participant: nickName}})
         return
+    }
+
+    confirmMember = async(postId,nickName) => {
+        const confirmMember = await Posts.findById(postId)
+        return confirmMember
+    }
+
+    pushconfirmMember = async(postId, nickName) => {
+        await Posts.updateOne({_id:postId},{$push:{confirmMember:nickName}})
+        await Posts.updateOne({_id:postId},{$pull:{participant:nickName}})
+        return
+    }
+
+    pullconfirmMember = async(postId, nickName) => {
+        await Posts.updateOne({_id:postId},{$pull:{confirmMember:nickName}})
+        await Posts.updateOne({_id:postId},{$push:{participant:nickName}})
+        return 
     }
 
     banMember = async(postId, nickName) => {
