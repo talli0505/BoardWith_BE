@@ -153,6 +153,20 @@ class UsersController {
     const visibleGender = await this.usersService.visibleGender(userId);
     res.status(200).json({ messgae : "완료" });
   }
+
+  // 참여 예약한 모임
+  partyReservedData = async(req, res, next) => {
+    const { nickName } = res.locals.user;
+    const partyReservedData = await this.usersService.partyReservedData(nickName);
+    res.status(200).json({ partyReservedData})
+  };
+
+  // 참여 확정된 모임
+  partyGoData = async(req, res, next) => {
+    const {nickName} = res.locals.user;
+    const partyGoData = await this.usersService.partyGoData(nickName);
+    res.status(200).json({partyGoData})
+  }
 }
 
 module.exports = UsersController;

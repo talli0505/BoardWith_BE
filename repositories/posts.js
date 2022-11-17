@@ -67,6 +67,19 @@ class PostsRepository {
         const findAllPostsData = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
         return findAllPostsData;
     }
+
+    // 참여 예약한 모임 조회
+    partyReservedData = async(nickName) => {
+        const partyReservedData = await Posts.find({nickName}).sort('date');
+        console.log(partyReservedData)
+        return partyReservedData;
+    }
+
+    // 참여 확정된 모임 조회
+    partyGoData = async(nickName) => {
+        const partyGoData = await Posts.find({participant: nickName}).sort('date');
+        return partyGoData;
+    }
 }
 
 module.exports = PostsRepository;

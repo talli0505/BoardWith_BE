@@ -1,4 +1,5 @@
-const UsersRepository = require("../repositories/users");     
+const UsersRepository = require("../repositories/users");
+const PostsRepository = require("../repositories/posts");
 const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
@@ -6,6 +7,7 @@ const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
 class UserService {
   // 새 인스턴스 생성
   usersRepository = new UsersRepository();
+  postsRepository = new PostsRepository();
 
   // 회원가입 찾기위한 함수
   signUp = async (
@@ -226,6 +228,18 @@ class UserService {
   visibleGender = async (userId) => {
     const visibleGender = await this.usersRepository.visibleGender(userId);
     return visibleGender;
+  }
+
+  // 참여 예약한 모임
+  partyReservedData = async(nickName) => {
+    const partyReservedData = await this.postsRepository.partyReservedData(nickName);
+    return partyReservedData;
+  }
+
+  // 참여 확정된 모임
+  partyGoData = async(nickName) => {
+    const partyGoData = await this.postsRepository.partyGoData(nickName);
+    return partyGoData;
   }
 }
 
