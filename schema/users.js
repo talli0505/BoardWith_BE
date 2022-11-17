@@ -20,7 +20,7 @@ const UsersSchema = new mongoose.Schema({
     type: String,
   },
   myPlace: {
-    type: String,
+    type: Array,
   },
   birth: {
     type: String,

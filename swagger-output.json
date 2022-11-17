@@ -303,6 +303,21 @@
         }
       }
     },
+    "/users/{nickName}": {
+      "get": {
+        "tags": ["회원정보 관련API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "nickName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],
