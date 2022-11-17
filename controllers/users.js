@@ -19,6 +19,7 @@ class UsersController {
         birth,
         gender,
         likeGame,
+        introduce,
         admin
       } = req.body;
 
@@ -33,6 +34,7 @@ class UsersController {
         birth,
         gender,
         likeGame,
+        introduce,
         admin
       );
 
@@ -102,7 +104,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const { userId, nickName } = res.locals.user;
-      const { password, confirm, address, myPlace, birth, gender, likeGame } =
+      const { password, confirm, address, myPlace, birth, gender, likeGame, introduce } =
         req.body;
       await this.usersService.updateUserData(
         userId,
@@ -113,7 +115,8 @@ class UsersController {
         myPlace,
         birth,
         gender,
-        likeGame
+        likeGame,
+        introduce,
       );
       res.status(200).json({ ok: 1, statusCode: 200, message: "수정 완료" });
     } catch (err) {

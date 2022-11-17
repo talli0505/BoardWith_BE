@@ -21,6 +21,7 @@ class UserService {
     birth,
     gender,
     likeGame,
+    introduce,
     admin
   ) => {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
@@ -81,7 +82,7 @@ class UserService {
       birth,
       gender,
       likeGame,
-      salt,
+      introduce,
       admin
     );
 
@@ -150,7 +151,8 @@ class UserService {
     myPlace,
     birth,
     gender,
-    likeGame
+    likeGame,
+    introduce,
   ) => {
     // 비밀번호 안 적을 경우
     if (!password) {
@@ -190,6 +192,10 @@ class UserService {
       likeGame = findUserAccountId.likeGame
     }
 
+    if(introduce == "" ) {
+      introduce = findUserAccountId.introduce
+    }
+
     
 
     // 암호화 풀기 위해서 가져옴
@@ -212,7 +218,8 @@ class UserService {
       myPlace,
       birth,
       gender,
-      likeGame
+      likeGame,
+      introduce
     );
 
     return updateUserData;

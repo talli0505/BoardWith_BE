@@ -35,6 +35,9 @@ const UsersSchema = new mongoose.Schema({
   likeGame: {
     type: Array,
   },
+  introduce : {
+    type : String,
+  },
   refresh_token : {
     type : String,
   },

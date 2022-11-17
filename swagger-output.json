@@ -79,6 +79,9 @@
                 },
                 "likeGame": {
                   "example": "선호하는게임"
+                },
+                "introduce": {
+                  "example" : "자기소개"
                 }
               }
             }
@@ -183,6 +186,9 @@
                 },
                 "likeGame": {
                   "example": "선호하는게임"
+                },
+                "introduce": {
+                  "example": "자기소개"
                 }
               }
             }
