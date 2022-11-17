@@ -76,8 +76,8 @@ module.exports = (server) => {
       }
   
       await Ban.create({ room: room, banUser: nickName });
-      await Posts.updateOne({_id:postId},{$push:{banUser: nickName}})
-      await Posts.updateOne({_id:postId},{$pull:{participant: nickName}})
+      await Posts.updateOne({_id:room},{$push:{banUser: nickName}})
+      await Posts.updateOne({_id:room},{$pull:{participant: nickName}})
       const RoomM = await Room.findOne({room : room})
       io.to(room).emit("roomUsers", ({nickName : RoomM.member, room : RoomM.room}))
     });
