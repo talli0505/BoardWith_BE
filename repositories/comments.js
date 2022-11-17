@@ -4,7 +4,6 @@ const Posts = require('../schema/posts');
 class CommentsRepository {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
-        console.log(postId)
         const allCommentsData = await Comments.find({postId}).sort({updatedAt: -1});
         return allCommentsData;
     };
@@ -17,15 +16,14 @@ class CommentsRepository {
 
     //게시글 존재 여부 확인
     findOnePost = async (postId) => {
-        // console.log(postId)
-        const findOnePostResult = await Posts.findOne({_id: postId.postId});
-        // console.log(findOnePostResult)
-        return findOnePostResult
+        const findOnePostResult = await Posts.findOne({_id: postId});
+        return findOnePostResult;
     }
 
     //신규 댓글
     createComment = async (postId, userId, nickName, comment) => {
-        const createCommentData = await Comments.create({postId, userId, nickName, comment});
+        const createCommentData = await Comments.create({ postId, userId, nickName, comment });
+        await Posts.updateOne( { _id: postId},{ $push:{participant: nickName}} );
         return createCommentData;
     };
 
