@@ -5,7 +5,7 @@
     "description": "프론트 분들을 위한 스웨거 입니다.",
     "version": "1.0.0"
   },
-  "host": "www.iceflower.shop",
+  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -30,7 +30,7 @@
     }
   ],
   "schemes": [
-    "https"
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -243,6 +243,56 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/partyReserved": {
+      "get": {
+        "tags": [
+          "회원정보 관련API"
+        ],
+        "description": "참여 예약한 모임",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "참여 예약한 모임 조회 완료!!!"
+          },
+          "404": {
+            "description": "잘못된 경로 요청,,,😅"
+          }
+        }
+      }
+    },
+    "/users/partyGo": {
+      "get": {
+        "tags": [
+          "회원정보 관련API"
+        ],
+        "description": "참여 확정된 모임",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "참여 확정된 모임 조회 완료~!~~!!~"
+          },
+          "404": {
+            "description": "잘못된 경로 요청,,,🥲"
           }
         }
       }
