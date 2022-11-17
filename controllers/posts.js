@@ -136,6 +136,20 @@ class PostsController {
             res.status(404).json({ error: error.message });
         }
     }
+
+    findPostsByUser = async(req, res, next) => {
+        try{
+        const nickName = res.locals.user.nickName
+        console.log(nickName)
+        const findPostsByUser = await this.postsService.findPostsByUser(nickName);
+        res.status(200).json({data : findPostsByUser})
+        }catch{
+            res.status(401).json({message:"권한이 없습니다."})
+        }
+    }
 }
 
 module.exports = PostsController;
+
+
+
