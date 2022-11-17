@@ -79,11 +79,6 @@ class PostsRepository {
         const partyGoData = await Posts.find({participant: nickName}).sort('date');
         return partyGoData;
     }
-
-    findPostsByUser = async(nickName) => {
-        const findPostsByUser = await Posts.find({nickName:nickName})
-        return findPostsByUser
-    }
 }
 
 module.exports = PostsRepository;

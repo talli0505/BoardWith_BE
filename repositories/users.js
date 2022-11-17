@@ -80,6 +80,7 @@ class UsersRepository {
     const findUserData = await Users.findOne({userId:userId});
     return {
       img : findUserData.img,
+      userId : findUserData.userId,
       nickName : findUserData.nickName,
       likeGame : findUserData.likeGame,
       address : findUserData.address,
