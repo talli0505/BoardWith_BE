@@ -116,6 +116,16 @@ class PostsRepository {
         const pullBookmark = await Bookmarks.updateOne({nickName:nickName}, {$pull:{postId:postId}})
         return pullBookmark
     }
+
+    getBookmark = async(nickName) => {
+        const getBookmark = await Bookmarks.find({nickName:nickName})
+        return getBookmark
+    }
+
+    AllgetBookmark = async(postId) => {
+        const AllgetBookmark = await Posts.find({_id:postId});
+        return AllgetBookmark
+    }
 }
 
 module.exports = PostsRepository;

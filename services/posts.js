@@ -39,10 +39,11 @@ class PostsService {
             throw err;
         }  
         const findOnePost = await this.postsRepository.findOnePost(postId)
-        if(findOnePost._id.toString() == null){
+        if(findOnePost._id.toString() !== postId){
             const err = new Error('postService Error');
             err.status = 404;
             err.message = "게시물이 없습니다."
+            throw err
         }
         await this.postsRepository.updatePost(postId, userId, title, content, location, cafe, date, time, map, partyMember)
         return 
@@ -144,6 +145,25 @@ class PostsService {
             await this.postsRepository.pullBookmark(postId, nickName)
         }        
         return findBookmark
+    }
+
+    getBookmark = async(nickName) => {
+        let result = []
+        const getBookmark = await this.postsRepository.getBookmark(nickName);
+        const GetBookmark = getBookmark.map((p) => p.postId)
+        for (let i = 0; i < GetBookmark.length; i++){
+           const AllgetBookmark = await this.postsRepository.AllgetBookmark(GetBookmark[i])
+           if(AllgetBookmark.length === 0) {
+            const err = new Error('postsService Error');
+            err.status = 200
+            err.message = "등록된 게시물이 없습니다."
+            throw err
+            } else if(AllgetBookmark.length !== 0){
+                result.push(AllgetBookmark)
+            }
+            console.log(AllgetBookmark.length)
+        }        
+        return result        
     }
 }
 

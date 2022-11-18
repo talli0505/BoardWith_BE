@@ -19,7 +19,6 @@ router.put("/closeParty/:postId", authMiddleware, postsController.closeParty);  
 router.put("/reopenParty/:postId", authMiddleware, postsController.reopenParty);  //파티원 모집 리오픈
 router.get("/user/:nickName", authMiddleware, postsController.findPostsByUser); // 자기가 쓴 게시글만 보이게
 router.put("/bookmark/:postId", authMiddleware, postsController.pushBookmark); // 북마크
-
-
+router.get("/bookmark/:nickName", authMiddleware, postsController.getBookmark);
 
 module.exports = router;

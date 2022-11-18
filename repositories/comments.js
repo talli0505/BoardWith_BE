@@ -23,7 +23,7 @@ class CommentsRepository {
     //신규 댓글
     createComment = async (postId, userId, nickName, birth, gender, myPlace, comment) => {
         const createCommentData = await Comments.create({ postId, userId, nickName, birth, gender, myPlace, comment });
-        await Posts.updateOne( { _id: postId},{ $push:{participant: nickName}} );
+        await Posts.updateOne( { _id: postId},{ $push:{participant: nickName}});
         return createCommentData;
     };
 
