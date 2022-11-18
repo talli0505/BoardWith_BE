@@ -20,8 +20,8 @@ class CommentsService {
     }
 
     //신규 댓글
-    createComment = async (postId, userId, nickName, comment) => {
-        const createCommentResult = await this.commentsRepository.createComment(postId, userId, nickName, comment);
+    createComment = async (postId, userId, nickName, birth, gender, myPlace, comment) => {
+        const createCommentResult = await this.commentsRepository.createComment(postId, userId, nickName, birth, gender, myPlace, comment);
         return createCommentResult;
     };
 
