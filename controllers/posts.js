@@ -151,12 +151,18 @@ class PostsController {
     findPostsByUser = async(req, res, next) => {
         try{
         const nickName = res.locals.user.nickName
-        console.log(nickName)
         const findPostsByUser = await this.postsService.findPostsByUser(nickName);
         res.status(200).json({data : findPostsByUser})
         }catch{
             res.status(401).json({message:"권한이 없습니다."})
         }
+    }
+    //북마크
+    pushBookmark = async(req, res, next) => {
+        const { postId } = req.params;
+        const nickName = res.locals.user.nickName;
+        await this.postsService.pushBookmark(postId, nickName)
+        res.status(200).json({message:"추가되었습니다."})
     }
 }
 

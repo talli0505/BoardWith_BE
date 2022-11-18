@@ -1,6 +1,7 @@
 const Users  = require("../schema/users");  
 const Posts = require("../schema/posts"); 
 const Comments = require("../schema/comments"); 
+const bookmark = require("../schema/bookmark");
 
 class UsersRepository {
   // 회원가입을 위한 함수
@@ -31,6 +32,7 @@ class UsersRepository {
       introduce,
       admin
     });
+    await bookmark.create({nickName})
     return createAccountData;
   };
 

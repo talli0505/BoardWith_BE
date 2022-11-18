@@ -135,6 +135,16 @@ class PostsService {
         const findPostsByUser = await this.postsRepository.findPostsByUser(nickName)
         return findPostsByUser
     }
+
+    pushBookmark = async(postId, nickName) => {
+        const findBookmark = await this.postsRepository.findBookmark(postId, nickName)
+        if(!findBookmark.postId.includes(postId)){
+            await this.postsRepository.pushBookmark(postId, nickName)
+        } else if(findBookmark.postId.includes(postId)){
+            await this.postsRepository.pullBookmark(postId, nickName)
+        }        
+        return findBookmark
+    }
 }
 
 module.exports = PostsService;
