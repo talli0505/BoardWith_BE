@@ -1,4 +1,4 @@
-const Comments = require('../schema/comments'); 
+const Comments = require('../schema/comments');
 const Posts = require('../schema/posts');
 
 class CommentsRepository {
@@ -21,8 +21,8 @@ class CommentsRepository {
     }
 
     //신규 댓글
-    createComment = async (postId, userId, nickName, comment) => {
-        const createCommentData = await Comments.create({ postId, userId, nickName, comment });
+    createComment = async (postId, userId, nickName, birth, gender, myPlace, comment) => {
+        const createCommentData = await Comments.create({ postId, userId, nickName, birth, gender, myPlace, comment });
         await Posts.updateOne( { _id: postId},{ $push:{participant: nickName}} );
         return createCommentData;
     };

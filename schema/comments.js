@@ -10,16 +10,25 @@ const CommentsSchema = new mongoose.Schema({
   nickName: {
     type: String,
   },
+  birth: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  myPlace: {
+    type: Array,
+  },
   comment: {
     type: String
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
-  updatedAt: { 
-    type: Date, 
-    default: Date.now 
+  updatedAt: {
+    type: Date,
+    default: Date.now
   },
 });
 
