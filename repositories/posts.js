@@ -1,6 +1,6 @@
-
 const Posts = require("../schema/posts"); 
 const bans = require("../schema/ban")
+const Bookmarks = require("../schema/bookmark");
 
 class PostsRepository {
 
@@ -100,6 +100,21 @@ class PostsRepository {
     findPostsByUser = async(nickName) => {
         const findPostsByUser = await Posts.find({nickName:nickName})
         return findPostsByUser
+    }
+
+    findBookmark = async(postId, nickName) => {
+        const findBookmark = await Bookmarks.findOne({nickName:nickName})
+        return findBookmark
+    }
+
+    pushBookmark = async(postId, nickName) => {
+        const pushBookmark = await Bookmarks.updateOne({nickName:nickName},{$push:{postId: postId}})
+        return pushBookmark
+    } 
+
+    pullBookmark = async(postId, nickName) => {
+        const pullBookmark = await Bookmarks.updateOne({nickName:nickName}, {$pull:{postId:postId}})
+        return pullBookmark
     }
 }
 

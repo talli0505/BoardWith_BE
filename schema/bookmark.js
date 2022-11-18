@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
-const bookmarksSchema = new mongoose.Schema({
-  postId: {
-    type: String,
-  },
+const BookmarksSchema = new mongoose.Schema({
   nickName: {
     type: String,
+  },
+  postId: {
+    type: Array,
   },
   createdAt: { 
     type: Date, 
@@ -17,4 +17,4 @@ const bookmarksSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("bookmarks", bookmarksSchema);
+module.exports = mongoose.model("Bookmarks", BookmarksSchema);
