@@ -5,7 +5,7 @@ const usersRouter = require("./users.router");
 const postsRouter = require("./posts.router");
 const commentsRouter = require("./comments.router");
 const chatRouter = require("./chat.router");
-const kakaoRouter = require("./kakao.router")
+const kakaoRouter = require("./kakao.router");
 
 router.use("/chats", chatRouter);
 router.use("/users", usersRouter);

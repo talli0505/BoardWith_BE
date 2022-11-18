@@ -98,8 +98,7 @@ class PostsController {
     banMember = async (req, res, next) => {
         try{
         const { postId } = req.params;
-        const { nickName } = req.body;
-        console.log(nickName)
+        const { nickName } = req.body;        
         await this.postsService.banMember( postId, nickName );
         res.status(200).json({message:"강퇴하였습니다."})
         }catch(err){
@@ -163,6 +162,16 @@ class PostsController {
         const nickName = res.locals.user.nickName;
         await this.postsService.pushBookmark(postId, nickName)
         res.status(200).json({message:"추가되었습니다."})
+    }
+
+    getBookmark = async(req, res, next) => {
+        try{
+        const { nickName } = res.locals.user;
+        const getBookmark = await this.postsService.getBookmark(nickName);
+        res.status(200).json({data:getBookmark, message:"조회 완료"});
+        }catch(err){
+        res.status(err.status || 400).json({statusCode:err.status, message: err.message})
+        }
     }
 }
 

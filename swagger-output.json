@@ -523,45 +523,6 @@
           }
         }
       }
-    },
-    "/posts/participate/{postId}": {
-      "put": {
-        "tags": ["게시물API"],
-        "description": "파티에 참가",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nickName": {
-                  "example": "닉네임 입력"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "confirm"
-          },
-          "400": {
-            "description": "error Message"
-          }
-        }
-      }
     },    
     "/posts/confirm/{postId}": {
       "put": {
@@ -766,6 +727,64 @@
           },
           "404": {
             "description": "잘못된 경로 요청."
+          }
+        }
+      }
+    },
+    "/posts/bookmark/{postId}": {
+      "put": {
+        "tags": [
+          "게시물API"
+        ],
+        "description": "북마크 추가or제거",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "추가되었습니다."
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/posts/bookmark/{nickName}": {
+      "get": {
+        "tags": [
+          "게시물API"
+        ],
+        "description": "북마크 조회",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "nickName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 완료."
+          },
+          "400": {
+            "description": "추가한 게시글이 없습니다."
           }
         }
       }
