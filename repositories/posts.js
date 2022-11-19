@@ -10,16 +10,16 @@ class PostsRepository {
         return;
     };
 
-    //게시글 키워드 검색
+    //키워드(제목, 닉네임)로 게시글 검색
     searchPost = async(keyword) => {
-        console.log(keyword)
         // const searchPost = await Posts.find({$text:{$search:keyword}})
         const searchPost = await Posts.find(
             {$or: [
-                    { title: { $regex: keyword}},
-                    { nickName: {$regex: keyword}}
+                    { title: { $regex: keyword, $options: "xi"}},  //“x” is to ignore the white space,
+                    { nickName: {$regex: keyword, $options: "xi"}}  //“i” is to make it not case-sensitive
                 ]}
-        );
+        )
+            .sort({ createdAt: "desc"});
         return searchPost
     }
 
