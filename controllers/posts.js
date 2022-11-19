@@ -32,7 +32,7 @@ class PostsController {
         }
     }
 
-    //게시글 키워드 검색
+    //키워드(제목, 닉네임)로 게시글 검색
     searchPost = async(req, res, next) => {
         const { keyword }  = req.params;
         const searchPost = await this.postsService.searchPost(keyword);
