@@ -21,7 +21,7 @@ router.put("/", middleware, usersController.updateUserData);
 router.delete("/", middleware, usersController.deleteUserData);
 
 // 회원 성별 공개 여부
-router.put('/:userId', middleware, usersController.visibleGender);
+router.get('/visible/:userId', middleware, usersController.visibleGender);
 
 // 참여 예약한 모임
 router.get("/partyReserved", middleware, usersController.partyReservedData);
