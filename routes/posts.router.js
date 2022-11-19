@@ -7,7 +7,7 @@ const PostsController =require("../controllers/posts");
 const postsController = new PostsController();
 
 router.post("/",authMiddleware, postsController.createPosts);
-router.get("/search", postsController.searchPost);
+router.get("/search/:keyword", postsController.searchPost);  //게시글 키워드 검색
 router.get("/", postsController.findAllPosts);
 router.get("/randomPost", postsController.randomPost);  //게시글 랜덤 추출
 router.get("/:postId", postsController.findOnePost);

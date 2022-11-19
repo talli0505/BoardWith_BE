@@ -1,4 +1,4 @@
-const PostsService = require("../services/posts") 
+const PostsService = require("../services/posts")
 
 // const paging = (page, totalPost, maxPost) => {
 //     const maxPost = maxPost
@@ -32,13 +32,14 @@ class PostsController {
         }
     }
 
+    //게시글 키워드 검색
     searchPost = async(req, res, next) => {
-        const {keyword} = req.query
-        const searchPost = await this.postsService.searchPost(keyword)
-        res.status(200).json({data: searchPost})
+        const { keyword }  = req.params;
+        const searchPost = await this.postsService.searchPost(keyword);
+        res.status(200).json({ data: searchPost })
     }
 
-    findAllPosts = async (req, res, next) => {        
+    findAllPosts = async (req, res, next) => {
         const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
         const findAllPosts = await this.postsService.findAllPosts(skip);
         res.status(200).json({ data : findAllPosts })
@@ -46,9 +47,9 @@ class PostsController {
 
     findOnePost = async (req, res, next) => {
         try{
-        const postId = req.params.postId;
-        const findOnePosts = await this.postsService.findOnePost(postId);
-        res.status(200).json({ data : findOnePosts })
+            const postId = req.params.postId;
+            const findOnePosts = await this.postsService.findOnePost(postId);
+            res.status(200).json({ data : findOnePosts })
         }catch(err){
             res.status(err.status || 400).json({ statusCode:err.status, message: err.message})
         }
@@ -56,10 +57,10 @@ class PostsController {
 
     updatePost = async (req, res, next) => {
         try{
-        const postId = req.params.postId;
-        const userId = res.locals.user.userId;
-        const { title, content, location, cafe, date, time, map, partyMember } = req.body
-        await this.postsService.updatePost( postId, userId, title, content, location, cafe, date, time, map, partyMember );
+            const postId = req.params.postId;
+            const userId = res.locals.user.userId;
+            const { title, content, location, cafe, date, time, map, partyMember } = req.body
+            await this.postsService.updatePost( postId, userId, title, content, location, cafe, date, time, map, partyMember );
             res.status(200).json({ message : "게시물 수정을 완료하였습니다."})
         }catch(err) {
             res.status(err.status || 400).json({statusCode:err.status, message: err.message})
@@ -68,23 +69,23 @@ class PostsController {
 
     deletePost = async(req, res, next) => {
         try{
-        const postId = req.params.postId;
-        const userId= res.locals.user.userId;
-        await this.postsService.deletePost(postId, userId);
-        res.status(200).json({message:"게시물 삭제를 완료하였습니다."})
+            const postId = req.params.postId;
+            const userId= res.locals.user.userId;
+            await this.postsService.deletePost(postId, userId);
+            res.status(200).json({message:"게시물 삭제를 완료하였습니다."})
         }catch(err){
             res.status(err.status || 404 ).json({statusCode:err.status, message: err.message})
         }
     }
 
-    
+
     participateMember = async (req, res, next) => {
         try{
-        const postId = req.params.postId;
-        const userId = res.locals.user.userId;
-        const { nickName } = req.body
-        await this.postsService.participateMember( postId, userId, nickName );
-        res.status(200).json({message:"정상적으로 참가되었습니다."})
+            const postId = req.params.postId;
+            const userId = res.locals.user.userId;
+            const { nickName } = req.body
+            await this.postsService.participateMember( postId, userId, nickName );
+            res.status(200).json({message:"정상적으로 참가되었습니다."})
         }catch(err){
             res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
@@ -92,32 +93,32 @@ class PostsController {
 
     confirmMember = async(req, res, next) => {
         try{
-        const postId = req.params.postId;
-        const { nickName } = req.body
-        await this.postsService.confirmMember(postId,nickName);
-        res.status(200).json({message:"confirm"})
-        }catch(err){
-            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
-        } 
-    }
-
-    banMember = async (req, res, next) => {
-        try{
-        const { postId } = req.params;
-        const { nickName } = req.body;        
-        await this.postsService.banMember( postId, nickName );
-        res.status(200).json({message:"강퇴하였습니다."})
+            const postId = req.params.postId;
+            const { nickName } = req.body
+            await this.postsService.confirmMember(postId,nickName);
+            res.status(200).json({message:"confirm"})
         }catch(err){
             res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
     }
-    
+
+    banMember = async (req, res, next) => {
+        try{
+            const { postId } = req.params;
+            const { nickName } = req.body;
+            await this.postsService.banMember( postId, nickName );
+            res.status(200).json({message:"강퇴하였습니다."})
+        }catch(err){
+            res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
+        }
+    }
+
     cancelBanMember = async (req, res, next) => {
         try{
-        const { postId } = req.params;
-        const { nickName } = req.body;
-        await this.postsService.cancelBanMember( postId, nickName );
-        res.status(200).json({message:"강퇴를 취소하였습니다."})
+            const { postId } = req.params;
+            const { nickName } = req.body;
+            await this.postsService.cancelBanMember( postId, nickName );
+            res.status(200).json({message:"강퇴를 취소하였습니다."})
         }catch(err){
             res.status(err.status || 400 ).json({statusCode:err.status, message: err.message})
         }
@@ -155,9 +156,9 @@ class PostsController {
 
     findPostsByUser = async(req, res, next) => {
         try{
-        const nickName = res.locals.user.nickName
-        const findPostsByUser = await this.postsService.findPostsByUser(nickName);
-        res.status(200).json({data : findPostsByUser})
+            const nickName = res.locals.user.nickName
+            const findPostsByUser = await this.postsService.findPostsByUser(nickName);
+            res.status(200).json({data : findPostsByUser})
         }catch{
             res.status(401).json({message:"권한이 없습니다."})
         }
@@ -172,17 +173,13 @@ class PostsController {
 
     getBookmark = async(req, res, next) => {
         try{
-        const { nickName } = res.locals.user;
-        const getBookmark = await this.postsService.getBookmark(nickName);
-        res.status(200).json({data:getBookmark, message:"조회 완료"});
+            const { nickName } = res.locals.user;
+            const getBookmark = await this.postsService.getBookmark(nickName);
+            res.status(200).json({data:getBookmark, message:"조회 완료"});
         }catch(err){
-        res.status(err.status || 400).json({statusCode:err.status, message: err.message})
+            res.status(err.status || 400).json({statusCode:err.status, message: err.message})
         }
     }
-
-
-
-
 }
 
 module.exports = PostsController;
