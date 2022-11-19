@@ -12,10 +12,9 @@ const PostsSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    index: true
   },
   content: {
-    type: String
+    type: String,
   },
   location: {
     type: Object, String,
@@ -62,5 +61,5 @@ const PostsSchema = new mongoose.Schema({
     expires: 0
   },
 });
-// PostsSchema.index({title:'text'},{content:'text'},{nickName:'text'});
+// PostsSchema.index({title:'text',content:'text',nickName:'text'});
 module.exports = mongoose.model("Posts", PostsSchema);
