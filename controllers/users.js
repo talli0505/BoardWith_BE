@@ -10,7 +10,6 @@ class UsersController {
     try {
       const {
         userId,
-        img,
         nickName,
         password,
         confirm,
@@ -25,7 +24,6 @@ class UsersController {
 
       await this.usersService.signUp(
         userId,
-        img,
         nickName,
         password,
         confirm,
@@ -154,7 +152,7 @@ class UsersController {
   visibleGender = async (req, res, next) => {
     const { userId } = req.params
     const visibleGender = await this.usersService.visibleGender(userId);
-    res.status(200).json({ messgae : "완료" });
+    res.status(200).json({ messgae : visibleGender });
   }
 
   // 참여 예약한 모임

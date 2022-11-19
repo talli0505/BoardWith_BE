@@ -7,7 +7,6 @@ class UsersRepository {
   // 회원가입을 위한 함수
   signUp = async (
     userId,
-    img,
     nickName,
     password,
     address,
@@ -21,7 +20,6 @@ class UsersRepository {
     // create로 회원가입
     const createAccountData = await Users.create({
       userId,
-      img,
       nickName,
       password,
       address,
@@ -81,7 +79,6 @@ class UsersRepository {
   findUserData = async (userId) => {
     const findUserData = await Users.findOne({userId:userId});
     return {
-      img : findUserData.img,
       userId : findUserData.userId,
       nickName : findUserData.nickName,
       likeGame : findUserData.likeGame,
@@ -152,7 +149,6 @@ class UsersRepository {
   lookOtherUser = async (nickName) => {
     const lookOtherUser = await Users.findOne({nickName : nickName})
     return {
-      img : lookOtherUser.img,
       nickName : lookOtherUser.nickName,
       likeGame : lookOtherUser.likeGame,
       birth : lookOtherUser.birth,
