@@ -1,4 +1,4 @@
-const Posts = require("../schema/posts"); 
+const Posts = require("../schema/posts");
 const bans = require("../schema/ban")
 const Bookmarks = require("../schema/bookmark");
 
@@ -10,8 +10,16 @@ class PostsRepository {
         return;
     };
 
+    //게시글 키워드 검색
     searchPost = async(keyword) => {
-        const searchPost = await Posts.find({$text:{$search:keyword}})
+        console.log(keyword)
+        // const searchPost = await Posts.find({$text:{$search:keyword}})
+        const searchPost = await Posts.find(
+            {$or: [
+                    { title: { $regex: keyword}},
+                    { nickName: {$regex: keyword}}
+                ]}
+        );
         return searchPost
     }
 
@@ -19,7 +27,7 @@ class PostsRepository {
         const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
         return findAllPosts;
     }
-    
+
     findOnePost = async(postId) => {
         const findOnePosts = await Posts.findOne({_id:postId})
         return findOnePosts;
@@ -29,7 +37,7 @@ class PostsRepository {
         await Posts.updateOne(
             {_id:postId, userId:userId},{$set:{title:title,content:content,location:location,cafe:cafe,date:date,time:time,map:map,partyMember:partyMember}}
         )
-        return 
+        return
     }
 
     deletePost = async(postId, userId) => {
@@ -56,7 +64,7 @@ class PostsRepository {
     pullconfirmMember = async(postId, nickName) => {
         await Posts.updateOne({_id:postId},{$pull:{confirmMember:nickName}})
         await Posts.updateOne({_id:postId},{$push:{participant:nickName}})
-        return 
+        return
     }
 
     banMember = async(postId, nickName) => {
@@ -115,7 +123,7 @@ class PostsRepository {
     pushBookmark = async(postId, nickName) => {
         const pushBookmark = await Bookmarks.updateOne({nickName:nickName},{$push:{postId: postId}})
         return pushBookmark
-    } 
+    }
 
     pullBookmark = async(postId, nickName) => {
         const pullBookmark = await Bookmarks.updateOne({nickName:nickName}, {$pull:{postId:postId}})
