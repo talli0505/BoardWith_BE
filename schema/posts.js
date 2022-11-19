@@ -62,5 +62,5 @@ const PostsSchema = new mongoose.Schema({
     expires: 0
   },
 });
-
+// PostsSchema.index({title:'text'},{content:'text'},{nickName:'text'});
 module.exports = mongoose.model("Posts", PostsSchema);

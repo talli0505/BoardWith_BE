@@ -1,4 +1,5 @@
 const PostsRepository = require("../repositories/posts");
+const Posts = require("../schema/posts")
 
 class PostsService {
     postsRepository = new PostsRepository();
@@ -15,8 +16,13 @@ class PostsService {
         return    
     }
 
-    findAllPosts = async(skip) => {
-        const findAllPosts = await this.postsRepository.findAllPosts(skip);
+    searchPost = async(keyword) => {
+        const searchPost = await this.postsRepository.searchPost(keyword)
+        return searchPost
+    }
+
+    findAllPosts = async(skip, keyword) => {
+        const findAllPosts = await this.postsRepository.findAllPosts(skip, keyword);
         return findAllPosts;
     }
 
@@ -165,6 +171,9 @@ class PostsService {
         }        
         return result        
     }
+
+
+
 }
 
 module.exports = PostsService;

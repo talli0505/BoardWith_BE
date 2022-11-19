@@ -10,7 +10,12 @@ class PostsRepository {
         return;
     };
 
-    findAllPosts = async(skip) => {
+    searchPost = async(keyword) => {
+        const searchPost = await Posts.find({$text:{$search:keyword}})
+        return searchPost
+    }
+
+    findAllPosts = async(skip, keyword) => {
         const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
         return findAllPosts;
     }
