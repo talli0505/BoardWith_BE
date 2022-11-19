@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const Posts = require("../schema/posts")
 
 const authMiddleware = require("../middleware/auth-middleware");
 const PostsController =require("../controllers/posts");
 const postsController = new PostsController();
 
 router.post("/",authMiddleware, postsController.createPosts);
+router.get("/search", postsController.searchPost);
 router.get("/", postsController.findAllPosts);
 router.get("/randomPost", postsController.randomPost);  //게시글 랜덤 추출
 router.get("/:postId", postsController.findOnePost);
@@ -20,5 +22,6 @@ router.put("/reopenParty/:postId", authMiddleware, postsController.reopenParty);
 router.get("/user/:nickName", authMiddleware, postsController.findPostsByUser); // 자기가 쓴 게시글만 보이게
 router.put("/bookmark/:postId", authMiddleware, postsController.pushBookmark); // 북마크
 router.get("/bookmark/:nickName", authMiddleware, postsController.getBookmark);
+
 
 module.exports = router;
