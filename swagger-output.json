@@ -189,6 +189,12 @@
                 },
                 "introduce": {
                   "example": "자기소개"
+                },
+                "userAvater": {
+                  "example" : "아바타"
+                },
+                "point" : {
+                  "example" : "포인트"
                 }
               }
             }
@@ -315,7 +321,14 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "401": {
+            "description": "로그인을 하시기 바랍니다."
+          },
+          "403": {
+            "description": "비밀번호 값을 제대로 넣지 않았습니다."
+          }
+        }
       }
     },
     "/posts/": {
