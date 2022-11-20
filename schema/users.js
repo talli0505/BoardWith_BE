@@ -34,6 +34,14 @@ const UsersSchema = new mongoose.Schema({
   introduce : {
     type : String,
   },
+  userAvater : {
+    type : Object,
+    default : { Eye : 1, Hair : 1, Mouth : 1, Back : 1 }
+  },
+  point : {
+    type : Number,
+    default : 0
+  },
   refresh_token : {
     type : String,
   },

@@ -1,4 +1,4 @@
-const Users  = require("../schema/users");  
+const Users  = require("../schema/users");   
 const Posts = require("../schema/posts"); 
 const Comments = require("../schema/comments"); 
 const bookmark = require("../schema/bookmark");
@@ -87,6 +87,8 @@ class UsersRepository {
       gender : findUserData.gender,
       myPlace : findUserData.myPlace,
       introduce : findUserData.introduce,
+      userAvater : findUserData.userAvater,
+      point : findUserData.point,
       visible : findUserData.visible
     };
   };
@@ -101,7 +103,9 @@ class UsersRepository {
     birth,
     gender,
     likeGame,
-    introduce
+    introduce,
+    userAvater,
+    point
   ) => {
     const updateUserData = await Users.updateOne(
       { userId : userId, nickName : nickName },
@@ -111,7 +115,9 @@ class UsersRepository {
         birth: birth,
         gender: gender,
         likeGame: likeGame,
-        introduce : introduce}
+        introduce : introduce,
+        userAvater : userAvater,
+        point: point}
       }
     );
     return updateUserData;
@@ -155,7 +161,9 @@ class UsersRepository {
       gender : lookOtherUser.gender,
       myPlace : lookOtherUser.myPlace,
       introduce : lookOtherUser.introduce,
-      visible : lookOtherUser.visible
+      userAvater : lookOtherUser.userAvater,
+      visible : lookOtherUser.visible,
+      point : lookOtherUser.point
     };
   }  
 };

@@ -1,4 +1,4 @@
-const UsersService = require("../services/users");    
+const UsersService = require("../services/users");     
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -102,7 +102,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const { userId, nickName } = res.locals.user;
-      const { password, confirm, address, myPlace, birth, gender, likeGame, introduce } =
+      const { password, confirm, address, myPlace, birth, gender, likeGame, introduce, userAvater, point } =
         req.body;
       await this.usersService.updateUserData(
         userId,
@@ -115,6 +115,8 @@ class UsersController {
         gender,
         likeGame,
         introduce,
+        userAvater,
+        point,
       );
       res.status(200).json({ ok: 1, statusCode: 200, message: "수정 완료" });
     } catch (err) {
