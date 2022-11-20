@@ -510,10 +510,31 @@
         }
       }
     },
-    "/posts/search/{keyword}": {
+    "/posts/searchTitle/{keyword}": {
       "get": {
         "tags": ["게시물API"],
-        "description": "게시글 키워드 검색",
+        "description": "게시글 검색 by 제목",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "키워드로 게시글 검색 완료"
+          },
+          "400": {
+            "description": "검색을 연속해서 너무 빨리 하셨거나,,😂 찾으시는 게시물이 없습니다,,!!!"
+          }
+        }
+      }
+    },"/posts/searchNickname/{keyword}": {
+      "get": {
+        "tags": ["게시물API"],
+        "description": "게시글 검색 by 닉네임",
         "parameters": [
           {
             "name": "keyword",

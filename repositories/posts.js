@@ -10,17 +10,20 @@ class PostsRepository {
         return;
     };
 
-    //키워드(제목, 닉네임)로 게시글 검색
-    searchPost = async(keyword) => {
-        // const searchPost = await Posts.find({$text:{$search:keyword}})
-        const searchPost = await Posts.find(
-            {$or: [
+   //게시글 검색 by 제목
+    searchTitle = async(keyword) => {
+        const searchTitle = await Posts.find( { title: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
+            /*{$or: [
                     { title: { $regex: keyword, $options: "xi"}},  //“x” is to ignore the white space,
                     { nickName: {$regex: keyword, $options: "xi"}}  //“i” is to make it not case-sensitive
-                ]}
-        )
-            .sort({ createdAt: "desc"});
-        return searchPost
+                ]}*/
+        return searchTitle
+    }
+
+    //키워드(닉네임)로 게시글 검색
+    searchNickName = async(keyword) => {
+        const searchNickName = await Posts.find( { nickName: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
+        return searchNickName
     }
 
     findAllPosts = async(skip, keyword) => {

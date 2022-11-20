@@ -16,10 +16,16 @@ class PostsService {
         return
     }
 
-    //키워드(제목, 닉네임)로 게시글 검색
-    searchPost = async(keyword) => {
-        const searchPost = await this.postsRepository.searchPost(keyword)
-        return searchPost
+    //게시글 검색 by 제목
+    searchTitle = async(keyword) => {
+        const searchTitle = await this.postsRepository.searchTitle(keyword)
+        return searchTitle
+    }
+
+    //게시글 검색 by 닉네임
+    searchNickName = async(keyword) => {
+        const searchNickName = await this.postsRepository.searchNickName(keyword)
+        return searchNickName
     }
 
     findAllPosts = async(skip, keyword) => {
