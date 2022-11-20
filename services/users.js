@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users");
+const UsersRepository = require("../repositories/users"); 
 const PostsRepository = require("../repositories/posts");
 const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
@@ -151,6 +151,8 @@ class UserService {
     gender,
     likeGame,
     introduce,
+    userAvater,
+    point
   ) => {
     // 비밀번호 안 적을 경우
     if (!password) {
@@ -194,8 +196,15 @@ class UserService {
       introduce = findUserAccountId.introduce
     }
 
-    
+    if(userAvater == "" ) {
+      userAvater = findUserAccountId.userAvater
+    }
 
+    if(point == "" ) {
+      point = findUserAccountId.point
+    }
+
+  
     // 암호화 풀기 위해서 가져옴
     const loginData = await this.usersRepository.login(userId);
 
@@ -217,7 +226,9 @@ class UserService {
       birth,
       gender,
       likeGame,
-      introduce
+      introduce,
+      userAvater,
+      point
     );
 
     return updateUserData;
