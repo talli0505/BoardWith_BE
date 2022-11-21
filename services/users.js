@@ -15,6 +15,7 @@ class UserService {
     nickName,
     password,
     confirm,
+    phoneNumber,
     address,
     myPlace,
     age,
@@ -75,6 +76,7 @@ class UserService {
       userId,
       nickName,
       password,
+      phoneNumber,
       address,
       myPlace,
       age,
@@ -263,6 +265,15 @@ class UserService {
   lookOtherUser = async(nickName) => {
     const lookOtherUser = await this.usersRepository.lookOtherUser(nickName);
     return lookOtherUser;
+  }
+
+  // 비밀번호 변경
+  changePW = async(userId, password) => {
+    const salt = await bcrypt.genSalt(11)
+    password = await bcrypt.hash(password, salt)
+
+    const changePW = await this.usersRepository.changePW(userId, password);
+    return changePW;
   }
 }
 

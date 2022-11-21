@@ -9,6 +9,7 @@ class UsersRepository {
     userId,
     nickName,
     password,
+    phoneNumber,
     address,
     myPlace,
     age,
@@ -22,6 +23,7 @@ class UsersRepository {
       userId,
       nickName,
       password,
+      phoneNumber,
       address,
       myPlace,
       age,
@@ -166,6 +168,17 @@ class UsersRepository {
       point : lookOtherUser.point
     };
   }  
+
+  // 비밀번호 변경
+  changePW = async (userId, password) => {
+    const changePW = await Users.updateOne(
+      { userId : userId},
+      {$set:
+        {password : password}
+      }
+    )
+    return changePW;
+  }
 };
 
 module.exports = UsersRepository; 

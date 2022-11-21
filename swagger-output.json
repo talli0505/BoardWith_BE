@@ -27,6 +27,10 @@
     {
       "name": "채팅API",
       "description": ""
+    },
+    {
+      "name" : "인증번호API",
+      "description" : ""
     }
   ],
   "schemes": [
@@ -327,6 +331,34 @@
           },
           "403": {
             "description": "비밀번호 값을 제대로 넣지 않았습니다."
+          }
+        }
+      }
+    },
+    "/users/change/password": {
+      "get": {
+        "tags": ["회원정보 관련API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "아이디"
+                },
+                "password": {
+                  "example": "변경할 비밀번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "비밀번호 변경 완료"
           }
         }
       }
@@ -987,6 +1019,146 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sms/send": {
+      "post": {
+        "tags": ["인증번호API"],
+        "description": "회원가입 시 사용되는 인증번호 보내기",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "example": "핸드폰 번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sms/verify": {
+      "post": {
+        "tags": ["인증번호API"],
+        "description": "회원가입 및 비밀번호 변경 시 사용되는 인증번호 확인",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "example": "핸드폰 번호"
+                },
+                "verifyCode": {
+                  "example": "인증 번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sms/sendID": {
+      "post": {
+        "tags": ["인증번호API"],
+        "description": "아이디 찾기 할때 사용되는 인증번호 보내기",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "example": "휴대폰 번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/sms/verifyID": {
+      "post": {
+        "tags": ["인증번호API"],
+        "description": "아이디 찾기 시 받은 인증번호 확인",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "example": "휴대폰 번호"
+                },
+                "verifyCode": {
+                  "example": "인증번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sms/sendPW": {
+      "post": {
+        "tags": ["인증번호API"],
+        "description": "비밀번호 변경 시 사용되는 인증번호 보내기",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "아이디"
+                },
+                "phoneNumber": {
+                  "example": "휴대폰 번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
