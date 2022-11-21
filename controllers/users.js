@@ -13,6 +13,7 @@ class UsersController {
         nickName,
         password,
         confirm,
+        phoneNumber,
         address,
         myPlace,
         age,
@@ -27,6 +28,7 @@ class UsersController {
         nickName,
         password,
         confirm,
+        phoneNumber,
         address,
         myPlace,
         age,
@@ -176,6 +178,13 @@ class UsersController {
     const {nickName} = req.params;
     const lookOtherUser = await this.usersService.lookOtherUser(nickName);
     res.status(200).json({lookOtherUser : lookOtherUser})
+  }
+
+  // 비밀번호 변경 하기 위한 것
+  changePW = async(req, res, next) => {
+    const {userId, password} = req.body;
+    const changePW = await this.usersService.changePW(userId, password);
+    res.status(200).json({message : "축하합니다 변경이 완료되었습니다."});
   }
 }
 

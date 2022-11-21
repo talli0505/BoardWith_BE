@@ -30,6 +30,9 @@ router.get("/partyReserved", middleware, usersController.partyReservedData);
 router.get("/partyGo", middleware, usersController.partyGoData);
 
 // 다른 유저 정보보기
-router.get("/:nickName", usersController.lookOtherUser)
+router.get("/:nickName", usersController.lookOtherUser);
+
+// 비밀번호 변경하기
+router.get("/change/password", usersController.changePW);
 
 module.exports = router;

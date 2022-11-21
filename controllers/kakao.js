@@ -1,8 +1,8 @@
 // const Acess_ = require('../models/access_token');
 require("dotenv").config();
-const axios = require('axios');
-const jwt = require('jsonwebtoken');
-const Kakao = require('../schema/kakao');
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const Users = require("../schema/users");
 
 // 순서
 // 1. 프론트에게 인가코드 받기
@@ -11,55 +11,78 @@ const Kakao = require('../schema/kakao');
 // 4. DB에 저장 후 token을 다시 만들어서 프론트에게 보내기
 
 // token을 전역으로 받기 위한 것
-let token = ""
+let acess_token = "";
+// let refresh_token = "";
 
-const KAKAO_GRANT_TYPE = 'authorization_code';
+const KAKAO_GRANT_TYPE = "authorization_code";
 const REST_API_KEY = process.env.client_id;
 const KAKAO_REDIRECT_URL = process.env.KAKAO_REDIRECT_URL;
 
 async function kakao_callback(req, res, next) {
   try {
     // 프론에게 인가코드 받기
-    let code = req.body.code;
+    const {
+      code,
+      nickName,
+      address,
+      myPlace,
+      likeGame,
+      introduce,
+      userAvater,
+      point,
+    } = req.body;
 
     // 회원가입에 필요한 내용 싹다 넣기 -> kakao에 있는 schema를 users로 변경
-    // let nickName = req.body.nickName;
-    // let address = req.body.address;
     // console.log(nickName)
     // console.log(address)
-    // console.log('인가 코드' + code);
+    console.log('인가 코드' + code);
     try {
-      const {data} = await axios.post(
-          `https://kauth.kakao.com/oauth/token?grant_type=${KAKAO_GRANT_TYPE}&client_id=${REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&code=${code}`,
-          {
-            headers: {
-              'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-            },
-          }
-        )
-        // console.log(data)
-        token = data.access_token
-        // console.log(token)
+      const { data } = await axios.post(
+        `https://kauth.kakao.com/oauth/token?grant_type=${KAKAO_GRANT_TYPE}&client_id=${REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&code=${code}`,
+        {
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          },
+        }
+      );
+      // console.log(data)
+      acess_token = data.access_token;
+      // console.log(token)
 
-        // token을 카카오 쪽에 보내서 정보 요청 및 받기
-        const kakaoUser = await axios('https://kapi.kakao.com/v2/user/me', {
+      // token을 카카오 쪽에 보내서 정보 요청 및 받기
+      const kakaoUser = await axios("https://kapi.kakao.com/v2/user/me", {
         headers: {
-        Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${acess_token}`,
         },
+      });
+      // console.log(kakaoUser)
+      const findKakaoUser = await Users.findOne({ id: kakaoUser.data.id });
+      // console.log(findKakaoUser)
+      if (!findKakaoUser) {
+        // 받은 데이터를 가지고 유저 정보를 DB에 저장
+        await Users.create({
+          userId: kakaoUser.data.id,
+          nickName: nickName,
+          address: address,
+          myPlace: myPlace,
+          age: kakaoUser.data.kakao_account.age_range,
+          gender: kakaoUser.data.kakao_account.gender,
+          likeGame: likeGame,
+          introduce: introduce,
+          userAvater: userAvater,
+          point: point,
         });
-        // console.log(kakaoUser)
-        const findKakaoUser = await Kakao.findOne({id : kakaoUser.data.id})
-        // console.log(findKakaoUser)
-        if(!findKakaoUser) {
-          // 받은 데이터를 가지고 유저 정보를 DB에 저장
-          await Kakao.create({id : kakaoUser.data.id, nickname : kakaoUser.data.kakao_account.profile.nickname, age_range : kakaoUser.data.kakao_account.age_range, gender : kakaoUser.data.kakao_account.gender})
-        } 
-        
-        // 프론트에게 전달
-        const accessToken = jwt.sign({ id: kakaoUser.data.id }, process.env.DB_SECRET_KEY, {
+      }
+
+      // 프론트에게 전달
+      const accessToken = jwt.sign(
+        { id: kakaoUser.data.id },
+        process.env.DB_SECRET_KEY,
+        {
           expiresIn: "15m",
-        });
-        res.status(200).json({accessToken :`Bearer ${accessToken}`})
+        }
+      );
+      res.status(200).json({ accessToken: `Bearer ${accessToken}` });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -68,11 +91,11 @@ async function kakao_callback(req, res, next) {
     res.status(400).send({
       success: false,
       errorMessage: error.message,
-      message: '에러가 발생했습니다.',
+      message: "에러가 발생했습니다.",
     });
     // console.log('error =' + err);
     console.log(message.err);
   }
 }
 
-module.exports = {kakao_callback};
+module.exports = { kakao_callback };
