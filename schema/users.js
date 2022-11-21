@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); 
 
 const UsersSchema = new mongoose.Schema({
   userId: {
@@ -18,7 +18,7 @@ const UsersSchema = new mongoose.Schema({
   myPlace: {
     type: Array,
   },
-  birth: {
+  age: {
     type: String,
   },
   gender: {

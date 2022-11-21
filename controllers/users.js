@@ -15,7 +15,7 @@ class UsersController {
         confirm,
         address,
         myPlace,
-        birth,
+        age,
         gender,
         likeGame,
         introduce,
@@ -29,7 +29,7 @@ class UsersController {
         confirm,
         address,
         myPlace,
-        birth,
+        age,
         gender,
         likeGame,
         introduce,
@@ -102,7 +102,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const { userId, nickName } = res.locals.user;
-      const { password, confirm, address, myPlace, birth, gender, likeGame, introduce, userAvater, point } =
+      const { password, confirm, address, myPlace, age, gender, likeGame, introduce, userAvater, point } =
         req.body;
       await this.usersService.updateUserData(
         userId,
@@ -111,7 +111,7 @@ class UsersController {
         confirm,
         address,
         myPlace,
-        birth,
+        age,
         gender,
         likeGame,
         introduce,
