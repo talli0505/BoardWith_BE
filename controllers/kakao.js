@@ -21,6 +21,12 @@ async function kakao_callback(req, res, next) {
   try {
     // 프론에게 인가코드 받기
     let code = req.body.code;
+
+    // 회원가입에 필요한 내용 싹다 넣기 -> kakao에 있는 schema를 users로 변경
+    // let nickName = req.body.nickName;
+    // let address = req.body.address;
+    // console.log(nickName)
+    // console.log(address)
     // console.log('인가 코드' + code);
     try {
       const {data} = await axios.post(
@@ -41,8 +47,9 @@ async function kakao_callback(req, res, next) {
         Authorization: `Bearer ${token}`,
         },
         });
-        
+        // console.log(kakaoUser)
         const findKakaoUser = await Kakao.findOne({id : kakaoUser.data.id})
+        // console.log(findKakaoUser)
         if(!findKakaoUser) {
           // 받은 데이터를 가지고 유저 정보를 DB에 저장
           await Kakao.create({id : kakaoUser.data.id, nickname : kakaoUser.data.kakao_account.profile.nickname, age_range : kakaoUser.data.kakao_account.age_range, gender : kakaoUser.data.kakao_account.gender})
