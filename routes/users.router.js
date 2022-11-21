@@ -33,6 +33,6 @@ router.get("/partyGo", middleware, usersController.partyGoData);
 router.get("/:nickName", usersController.lookOtherUser);
 
 // 비밀번호 변경하기
-router.get("/change/password", usersController.changePW);
+router.post("/change/password", usersController.changePW);
 
 module.exports = router;
