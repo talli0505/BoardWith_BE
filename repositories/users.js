@@ -53,10 +53,10 @@ class UsersRepository {
   };
 
   // 유저 정보 조회 by 아이디와 닉네임을 위한 함수
-  findUserAccount = async (userId, nickName) => {
+  findUserAccount = async (userId) => {
     // findOne로 id, nickName 이루어진 정보가 있는지 확인
     const findUserAccountData = await Users.findOne({
-      userId : userId, nickName : nickName,
+      userId : userId
     });
     return findUserAccountData;
   };
