@@ -82,7 +82,7 @@ class UsersController {
 
       res.status(201).json({
         accessToken: `Bearer ${accessToken}`,
-        refresh_token: `Bearer ${refresh_token}`,
+        nickName : getNickname.nickName
       });
     } catch (err) {
       res.status(err.status || 400).json({

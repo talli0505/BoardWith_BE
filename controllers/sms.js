@@ -29,7 +29,7 @@ const signature = hash.toString(CryptoJS.enc.Base64);
 
 // 회원가입시 사용하는 인증 번호
 async function send(req, res, next) {
-  const {phoneNumber} = req.body;
+  const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
 
@@ -75,7 +75,8 @@ async function send(req, res, next) {
 
 // 회원가입 시 인증 번호 확인
 async function verify(req, res, next) {
-  const {phoneNumber, verifyCode} = req.body;
+  const phoneNumber = req.body.phoneNumber;
+  const verifyCode = req.body.verifyCode;
 
   const CacheData = Cache.get(phoneNumber);
 
@@ -91,7 +92,7 @@ async function verify(req, res, next) {
 
 // 아이디 찾기 할때 사용하는 인증번호 보내기
 async function sendID(req, res, next) {
-    const {phoneNumber} = req.body;
+    const phoneNumber = req.body.phoneNumber;
     try {
       const findPhoneNum = await Users.findOne({phoneNumber : phoneNumber})
       if(!findPhoneNum) {
@@ -146,7 +147,8 @@ async function sendID(req, res, next) {
 
 // 아이디 찾을 때 인증번호 받은거 확인
 async function verifyID(req, res, next) {
-    const {phoneNumber, verifyCode} = req.body;
+  const phoneNumber = req.body.phoneNumber;
+  const verifyCode = req.body.verifyCode;
 
     const CacheData = Cache.get(phoneNumber);
 
@@ -163,7 +165,8 @@ async function verifyID(req, res, next) {
 
 // 비밀번호 찾기 할때 사용하는 인증번호 보내기
 async function sendPW(req, res, next) {
-  const {userId, phoneNumber} = req.body;
+  const userId = req.body.userId;
+  const phoneNumber = req.body.phoneNumber;
   try {
     const findPhoneNum = await Users.findOne({phoneNumber : phoneNumber, userId : userId})
     if(!findPhoneNum) {
@@ -205,10 +208,7 @@ async function sendPW(req, res, next) {
       res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
     })
     .catch((err) => {
-      if(err.res == undefined){
-        res.json({isSuccess: true, code: 200, message: "본인인증 문자 발송 성공", result: res.data });
-      }
-      else res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
+      res.json({isSuccess: false, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
     });
   } catch(e) {
     res.status(400).json({message : e.message})
