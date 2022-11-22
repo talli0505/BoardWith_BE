@@ -23,7 +23,6 @@ class UserService {
     age,
     gender,
     likeGame,
-    introduce,
     admin
   ) => {
     // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
@@ -84,7 +83,6 @@ class UserService {
       age,
       gender,
       likeGame,
-      introduce,
       admin
     );
 
@@ -152,7 +150,6 @@ class UserService {
     age,
     gender,
     likeGame,
-    introduce,
     userAvater,
     point,
     visible
@@ -180,10 +177,6 @@ class UserService {
       likeGame = findUserAccountId.likeGame
     }
 
-    if(introduce == "" ) {
-      introduce = findUserAccountId.introduce
-    }
-
     if(userAvater == "" ) {
       userAvater = findUserAccountId.userAvater
     }
@@ -204,7 +197,6 @@ class UserService {
       age,
       gender,
       likeGame,
-      introduce,
       userAvater,
       point,
       visible

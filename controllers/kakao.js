@@ -26,10 +26,9 @@ async function kakao_callback(req, res, next) {
       nickName,
       address,
       myPlace,
-      likeGame,
-      introduce,
-      userAvater,
-      point,
+      age,
+      gender,
+      likeGame
     } = req.body;
 
     // 회원가입에 필요한 내용 싹다 넣기 -> kakao에 있는 schema를 users로 변경
@@ -55,28 +54,25 @@ async function kakao_callback(req, res, next) {
           Authorization: `Bearer ${acess_token}`,
         },
       });
-      // console.log(kakaoUser)
-      const findKakaoUser = await Users.findOne({ id: kakaoUser.data.id });
-      // console.log(findKakaoUser)
+
+      const findKakaoUser = await Users.findOne({ userId: kakaoUser.data.id });
       if (!findKakaoUser) {
         // 받은 데이터를 가지고 유저 정보를 DB에 저장
-        await Users.create({
+        const aaaaa = await Users.create({
           userId: kakaoUser.data.id,
           nickName: nickName,
           address: address,
           myPlace: myPlace,
-          age: kakaoUser.data.kakao_account.age_range,
-          gender: kakaoUser.data.kakao_account.gender,
-          likeGame: likeGame,
-          introduce: introduce,
-          userAvater: userAvater,
-          point: point,
+          age: age,
+          gender: gender,
+          likeGame: likeGame
         });
+        console.log(aaaaa)
       }
 
       // 프론트에게 전달
       const accessToken = jwt.sign(
-        { id: kakaoUser.data.id },
+        { userId: kakaoUser.data.id },
         process.env.DB_SECRET_KEY,
         {
           expiresIn: "15m",

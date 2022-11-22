@@ -19,7 +19,6 @@ class UsersController {
         age,
         gender,
         likeGame,
-        introduce,
         admin
       } = req.body;
 
@@ -34,7 +33,6 @@ class UsersController {
         age,
         gender,
         likeGame,
-        introduce,
         admin
       );
 
@@ -121,7 +119,6 @@ class UsersController {
         age,
         gender,
         likeGame,
-        introduce,
         userAvater,
         point,
         visible,

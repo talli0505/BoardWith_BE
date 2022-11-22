@@ -63,11 +63,11 @@ async function send(req, res, next) {
     })
   .then(function (res) {
     console.log('response',res.data, res['data']);
-    res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
+    res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
   })
   .catch((err) => {
     if(err.res == undefined){
-      res.json({isSuccess: true, code: 200, message: "본인인증 문자 발송 성공", result: res.data });
+      res.json({isSuccess: true, code: 200, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
     }
     else res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
   });
