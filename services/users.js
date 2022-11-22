@@ -147,8 +147,6 @@ class UserService {
   updateUserData = async (
     userId,
     nickName,
-    password,
-    confirm,
     address,
     myPlace,
     age,
@@ -156,23 +154,9 @@ class UserService {
     likeGame,
     introduce,
     userAvater,
-    point
+    point,
+    visible
   ) => {
-    // 비밀번호 안 적을 경우
-    if (!password) {
-      const err = new Error(`UserService Error`);
-      err.status = 403;
-      err.message = "비밀번호를 입력해주세요";
-      throw err;
-    }
-
-    // 비밀번호와 비밀번호 확인이 안맞을 경우
-    if (password !== confirm) {
-      const err = new Error(`UserService Error`);
-      err.status = 403;
-      err.message = "비밀번호와 확인 비밀번호가 일치하지 않습니다.";
-      throw err;
-    }
 
     const findUserAccountId = await this.usersRepository.findUserAccountId(userId)
 
@@ -208,23 +192,13 @@ class UserService {
       point = findUserAccountId.point
     }
 
-  
-    // 암호화 풀기 위해서 가져옴
-    const loginData = await this.usersRepository.login(userId);
-
-    const check = await bcrypt.compare(password, loginData.password)
-
-    if(!check) {
-      const err = new Error(`UserService Error`);
-      err.status = 403;
-      err.message = "패스워드를 확인해주세요.";
-      throw err;
+    if(visible == "" ) {
+      visible = findUserAccountId.visible
     }
 
     const updateUserData = await this.usersRepository.updateUserData(
       userId,
       nickName,
-      password,
       address,
       myPlace,
       age,
@@ -232,7 +206,8 @@ class UserService {
       likeGame,
       introduce,
       userAvater,
-      point
+      point,
+      visible
     );
 
     return updateUserData;
@@ -243,13 +218,6 @@ class UserService {
     const deleteUserData = await this.usersRepository.deleteUserData(nickname);
     return deleteUserData;
   };
-
-  // 회원 성별 공개 여부
-  visibleGender = async (userId) => {
-    await this.usersRepository.visibleGender(userId);
-    const findUserData = await this.usersRepository.findUserData(userId);
-    return findUserData;
-  }
 
   // 참여 예약한 모임
   partyReservedData = async(nickName) => {
