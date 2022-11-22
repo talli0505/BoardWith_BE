@@ -99,7 +99,6 @@ class UsersRepository {
   updateUserData = async (
     userId,
     nickName,
-    password,
     address,
     myPlace,
     age,
@@ -107,7 +106,8 @@ class UsersRepository {
     likeGame,
     introduce,
     userAvater,
-    point
+    point,
+    visible
   ) => {
     const updateUserData = await Users.updateOne(
       { userId : userId, nickName : nickName },
@@ -119,7 +119,8 @@ class UsersRepository {
         likeGame: likeGame,
         introduce : introduce,
         userAvater : userAvater,
-        point: point}
+        point: point,
+        visible : visible}
       }
     );
     return updateUserData;
@@ -132,26 +133,6 @@ class UsersRepository {
     const deleteUserData = await Users.deleteOne({ nickName : nickName });
     return deleteUserData;
   };
-
-  // 회원 성별 공개 여부
-  visibleGender = async (userId) => {
-    const visibleGender = await Users.findOne({userId : userId})
-    if(visibleGender.visible) {
-      await Users.updateOne(
-        {userId : userId},
-        {$set:
-          {visible:false}
-        }
-      )
-      } else {
-        await Users.updateOne(
-          {userId : userId},
-          {$set:
-            {visible:true}
-          }
-        )
-      }
-    }
 
   // 다른 유저 정보를 보기
   lookOtherUser = async (nickName) => {

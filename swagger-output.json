@@ -170,12 +170,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "password": {
-                  "example": "비밀번호"
-                },
-                "confirm": {
-                  "example": "확인비번"
-                },
                 "address": {
                   "example": "주소"
                 },
@@ -199,6 +193,9 @@
                 },
                 "point" : {
                   "example" : "포인트"
+                },
+                "visible" : {
+                  "example" : "성별 공개 여부"
                 }
               }
             }

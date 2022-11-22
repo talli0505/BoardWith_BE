@@ -111,13 +111,11 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const { userId, nickName } = res.locals.user;
-      const { password, confirm, address, myPlace, age, gender, likeGame, introduce, userAvater, point } =
+      const { address, myPlace, age, gender, likeGame, introduce, userAvater, point, visible } =
         req.body;
       await this.usersService.updateUserData(
         userId,
         nickName,
-        password,
-        confirm,
         address,
         myPlace,
         age,
@@ -126,8 +124,9 @@ class UsersController {
         introduce,
         userAvater,
         point,
+        visible,
       );
-      res.status(200).json({ ok: 1, statusCode: 200, message: "수정 완료" });
+      res.status(200).json({ ok: 1, statusCode: 200, message: "수정 완료", visible : visible });
     } catch (err) {
       res.status(err.status || 400).json({
         ok: 0,
@@ -157,13 +156,6 @@ class UsersController {
     const { room } = req.params
     const updateSocket = await this.usersService.updateSocket(room);
     res.status(200).json({ updateSocket : updateSocket });
-  }
-
-  // 회원 성별 공개 여부
-  visibleGender = async (req, res, next) => {
-    const { userId } = req.params
-    const visibleGender = await this.usersService.visibleGender(userId);
-    res.status(200).json({ messgae : visibleGender });
   }
 
   // 다른 유저 정보를 보기
