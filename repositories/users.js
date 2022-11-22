@@ -15,7 +15,6 @@ class UsersRepository {
     age,
     gender,
     likeGame,
-    introduce,
     admin
   ) => {
     // create로 회원가입
@@ -29,7 +28,6 @@ class UsersRepository {
       age,
       gender,
       likeGame,
-      introduce,
       admin
     });
     await bookmark.create({nickName})
@@ -88,7 +86,6 @@ class UsersRepository {
       age : findUserData.age,
       gender : findUserData.gender,
       myPlace : findUserData.myPlace,
-      introduce : findUserData.introduce,
       userAvater : findUserData.userAvater,
       point : findUserData.point,
       visible : findUserData.visible
@@ -104,7 +101,6 @@ class UsersRepository {
     age,
     gender,
     likeGame,
-    introduce,
     userAvater,
     point,
     visible
@@ -117,7 +113,6 @@ class UsersRepository {
         age: age,
         gender: gender,
         likeGame: likeGame,
-        introduce : introduce,
         userAvater : userAvater,
         point: point,
         visible : visible}
@@ -143,7 +138,6 @@ class UsersRepository {
       age : lookOtherUser.age,
       gender : lookOtherUser.gender,
       myPlace : lookOtherUser.myPlace,
-      introduce : lookOtherUser.introduce,
       userAvater : lookOtherUser.userAvater,
       visible : lookOtherUser.visible,
       point : lookOtherUser.point
