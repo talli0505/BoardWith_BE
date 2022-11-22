@@ -50,6 +50,12 @@ class CommentsRepository {
         const deleteCommentData = await Comments.deleteOne({_id: commentId});
         return deleteCommentData;
     };
+
+    //참여 예약한 모임 조회
+    partyReservedData = async(nickName) => {
+        const partyReservedData = await Comments.find({nickName}).sort('date');
+        return partyReservedData;
+    }
 }
 
 module.exports = CommentsRepository;
