@@ -1,5 +1,6 @@
 const UsersRepository = require("../repositories/users"); 
 const PostsRepository = require("../repositories/posts");
+const CommentsRepository = require("../repositories/comments");
 const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
 const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
@@ -8,6 +9,7 @@ class UserService {
   // 새 인스턴스 생성
   usersRepository = new UsersRepository();
   postsRepository = new PostsRepository();
+  commentsRepository = new CommentsRepository();
 
   // 회원가입 찾기위한 함수
   signUp = async (
@@ -136,8 +138,8 @@ class UserService {
   };
 
   // 회원 정보 불러오기
-  findUserData = async (userId) => {
-    const findUserData = await this.usersRepository.findUserData(userId);
+  findUserData = async (userId, nickName) => {
+    const findUserData = await this.usersRepository.findUserData(userId, nickName);
     return findUserData;
   };
 
@@ -251,7 +253,7 @@ class UserService {
 
   // 참여 예약한 모임
   partyReservedData = async(nickName) => {
-    const partyReservedData = await this.postsRepository.partyReservedData(nickName);
+    const partyReservedData = await this.commentsRepository.partyReservedData(nickName);
     return partyReservedData;
   }
 

@@ -1,4 +1,4 @@
-const UsersService = require("../services/users");     
+const UsersService = require("../services/users");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -95,9 +95,16 @@ class UsersController {
 
   // 회원 정보 찾기
   findUser = async (req, res, next) => {
-    const { userId } = res.locals.user;
-    const findUser = await this.usersService.findUserData(userId);
-    res.status(200).json({ findUser });
+    const { userId, nickName } = res.locals.user;
+    const findUser = await this.usersService.findUserData(userId, nickName);
+
+    //참여 예약한 모임
+    const partyReserved = await this.usersService.partyReservedData(nickName);
+
+    //참여 확정된 모임
+    const partyGo = await this.usersService.partyGoData(nickName);
+
+    res.status(200).json({ findUser, partyReserved, partyGo });
   };
 
   // 회원 정보 변경
@@ -157,20 +164,6 @@ class UsersController {
     const { userId } = req.params
     const visibleGender = await this.usersService.visibleGender(userId);
     res.status(200).json({ messgae : visibleGender });
-  }
-
-  // 참여 예약한 모임
-  partyReservedData = async(req, res, next) => {
-    const { nickName } = res.locals.user;
-    const partyReservedData = await this.usersService.partyReservedData(nickName);
-    res.status(200).json({ partyReservedData})
-  };
-
-  // 참여 확정된 모임
-  partyGoData = async(req, res, next) => {
-    const {nickName} = res.locals.user;
-    const partyGoData = await this.usersService.partyGoData(nickName);
-    res.status(200).json({partyGoData})
   }
 
   // 다른 유저 정보를 보기

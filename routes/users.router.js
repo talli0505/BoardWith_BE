@@ -23,12 +23,6 @@ router.delete("/", middleware, usersController.deleteUserData);
 // 회원 성별 공개 여부
 router.get('/visible/:userId', middleware, usersController.visibleGender);
 
-// 참여 예약한 모임
-router.get("/partyReserved", middleware, usersController.partyReservedData);
-
-// 참여 확정된 모임
-router.get("/partyGo", middleware, usersController.partyGoData);
-
 // 다른 유저 정보보기
 router.get("/:nickName", usersController.lookOtherUser);
 
