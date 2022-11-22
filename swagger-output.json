@@ -263,56 +263,6 @@
         }
       }
     },
-    "/users/partyReserved": {
-      "get": {
-        "tags": [
-          "회원정보 관련API"
-        ],
-        "description": "참여 예약한 모임",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "참여 예약한 모임 조회 완료!!!"
-          },
-          "404": {
-            "description": "잘못된 경로 요청,,,😅"
-          }
-        }
-      }
-    },
-    "/users/partyGo": {
-      "get": {
-        "tags": [
-          "회원정보 관련API"
-        ],
-        "description": "참여 확정된 모임",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "참여 확정된 모임 조회 완료~!~~!!~"
-          },
-          "404": {
-            "description": "잘못된 경로 요청,,,🥲"
-          }
-        }
-      }
-    },
     "/users/{nickName}": {
       "get": {
         "tags": ["회원정보 관련API"],
