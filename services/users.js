@@ -152,6 +152,7 @@ class UserService {
     likeGame,
     userAvater,
     point,
+    totalPoint,
     visible
   ) => {
 
@@ -185,6 +186,10 @@ class UserService {
       point = findUserAccountId.point
     }
 
+    if(totalPoint == "" ) {
+      totalPoint = findUserAccountId.totalPoint
+    }
+
     if(visible == "" ) {
       visible = findUserAccountId.visible
     }
@@ -199,6 +204,7 @@ class UserService {
       likeGame,
       userAvater,
       point,
+      totalPoint,
       visible
     );
 
