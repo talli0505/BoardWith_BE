@@ -45,6 +45,10 @@ const UsersSchema = new mongoose.Schema({
     type : Number,
     default : 0
   },
+  totalPoint : {
+    type : Number,
+    default : 0
+  },
   refresh_token : {
     type : String,
   },

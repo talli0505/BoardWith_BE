@@ -88,6 +88,7 @@ class UsersRepository {
       myPlace : findUserData.myPlace,
       userAvater : findUserData.userAvater,
       point : findUserData.point,
+      totalPoint : findUserData.totalPoint,
       visible : findUserData.visible
     };
   };
@@ -103,6 +104,7 @@ class UsersRepository {
     likeGame,
     userAvater,
     point,
+    totalPoint,
     visible
   ) => {
     const updateUserData = await Users.updateOne(
@@ -115,6 +117,7 @@ class UsersRepository {
         likeGame: likeGame,
         userAvater : userAvater,
         point: point,
+        totalPoint : totalPoint,
         visible : visible}
       }
     );
@@ -140,7 +143,8 @@ class UsersRepository {
       myPlace : lookOtherUser.myPlace,
       userAvater : lookOtherUser.userAvater,
       visible : lookOtherUser.visible,
-      point : lookOtherUser.point
+      point : lookOtherUser.point,
+      totalPoint : lookOtherUser.totalPoint
     };
   }  
 

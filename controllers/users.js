@@ -109,7 +109,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const { userId, nickName } = res.locals.user;
-      const { address, myPlace, age, gender, likeGame, introduce, userAvater, point, visible } =
+      const { address, myPlace, age, gender, likeGame, userAvater, point, totalPoint, visible } =
         req.body;
       await this.usersService.updateUserData(
         userId,
@@ -121,6 +121,7 @@ class UsersController {
         likeGame,
         userAvater,
         point,
+        totalPoint,
         visible,
       );
       res.status(200).json({ ok: 1, statusCode: 200, message: "수정 완료", visible : visible });
