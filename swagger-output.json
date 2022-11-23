@@ -57,9 +57,6 @@
                 "userId": {
                   "example": "아이디"
                 },
-                "img": {
-                  "example": "이미지"
-                },
                 "nickName": {
                   "example": "닉네임"
                 },
@@ -75,17 +72,14 @@
                 "myPlace": {
                   "example": "선호하는지역"
                 },
-                "birth": {
-                  "example": "생년월일"
+                "age": {
+                  "example": "나이"
                 },
                 "gender": {
                   "example": "성별"
                 },
                 "likeGame": {
                   "example": "선호하는게임"
-                },
-                "introduce": {
-                  "example" : "자기소개"
                 }
               }
             }
@@ -176,8 +170,8 @@
                 "myPlace": {
                   "example": "선호하는지역"
                 },
-                "birth": {
-                  "example": "생년월일"
+                "age": {
+                  "example": "나이"
                 },
                 "gender": {
                   "example": "성별"
@@ -185,14 +179,14 @@
                 "likeGame": {
                   "example": "선호하는게임"
                 },
-                "introduce": {
-                  "example": "자기소개"
-                },
                 "userAvater": {
                   "example" : "아바타"
                 },
                 "point" : {
                   "example" : "포인트"
+                },
+                "totalPoint" : {
+                  "example" : "랭킹을위한포인트"
                 },
                 "visible" : {
                   "example" : "성별 공개 여부"
