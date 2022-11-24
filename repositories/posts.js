@@ -72,12 +72,13 @@ class PostsRepository {
 
     banMember = async(postId, nickName) => {
         await Posts.updateOne({_id:postId},{$push:{banUser: nickName}})
-        await Posts.updateOne({_id:postId},{$pull:{participant: nickName}})
+        await Posts.updateOne({_id:postId},{$pull:{confirmMember: nickName}})
         return
     }
 
     cancelBanMember = async(postId, nickName) => {
         await Posts.updateOne({_id:postId},{$pull:{banUser:nickName}})
+        await Posts.updateOne({_id:postId},{$push:{participant: nickName}})
         return
     }
 
