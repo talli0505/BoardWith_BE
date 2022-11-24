@@ -1,6 +1,6 @@
-const Users  = require("../schema/users");   
-const Posts = require("../schema/posts"); 
-const Comments = require("../schema/comments"); 
+const Users = require("../schema/users");
+const Posts = require("../schema/posts");
+const Comments = require("../schema/comments");
 const bookmark = require("../schema/bookmark");
 
 class UsersRepository {
@@ -28,16 +28,16 @@ class UsersRepository {
       age,
       gender,
       likeGame,
-      admin
+      admin,
     });
-    await bookmark.create({nickName})
+    await bookmark.create({ nickName });
     return createAccountData;
   };
 
   // 유저 id 찾기
   findUserAccountId = async (userId) => {
     const findUserAccountData = await Users.findOne({
-      userId : userId,
+      userId: userId,
     });
     return findUserAccountData;
   };
@@ -45,7 +45,7 @@ class UsersRepository {
   // 유저 nickname 찾기
   findUserAccountNick = async (nickName) => {
     const findUserAccountData = await Users.findOne({
-      nickName : nickName,
+      nickName: nickName,
     });
     return findUserAccountData;
   };
@@ -54,7 +54,7 @@ class UsersRepository {
   findUserAccount = async (userId) => {
     // findOne로 id, nickName 이루어진 정보가 있는지 확인
     const findUserAccountData = await Users.findOne({
-      userId : userId
+      userId: userId,
     });
     return findUserAccountData;
   };
@@ -62,7 +62,7 @@ class UsersRepository {
   // 로그인을 위한 함수
   login = async (userId) => {
     // findOne으로 email이 있는지 확인
-    const loginData = await Users.findOne({ userId : userId });
+    const loginData = await Users.findOne({ userId: userId });
     return loginData;
   };
 
@@ -70,27 +70,27 @@ class UsersRepository {
   updateToken = async (userId, refresh_token) => {
     const updateTokenData = await Users.updateOne(
       { userId: userId },
-      {$set: { refresh_token: refresh_token }}
+      { $set: { refresh_token: refresh_token } }
     );
     return updateTokenData;
   };
 
   // 회원 정보 확인하기
   findUserData = async (userId, nickName) => {
-    const findUserData = await Users.findOne({userId:userId, nickName});
-    return {
-      userId : findUserData.userId,
-      nickName : findUserData.nickName,
-      likeGame : findUserData.likeGame,
-      address : findUserData.address,
-      age : findUserData.age,
-      gender : findUserData.gender,
-      myPlace : findUserData.myPlace,
-      userAvater : findUserData.userAvater,
-      point : findUserData.point,
-      totalPoint : findUserData.totalPoint,
-      visible : findUserData.visible
-    };
+    const findUserData = await Users.findOne({
+      userId: userId,
+      nickName,
+    }).select([
+      "-_id",
+      "-password",
+      "-address",
+      "-createdAt",
+      "-updatedAt",
+      "-refresh_token",
+      "-phoneNumber",
+      "-__v",
+    ]);
+    return findUserData;
   };
 
   // 회원 정보 변경하기
@@ -108,17 +108,19 @@ class UsersRepository {
     visible
   ) => {
     const updateUserData = await Users.updateOne(
-      { userId : userId, nickName : nickName },
-      {$set:
-        {address: address,
-        myPlace: myPlace,
-        age: age,
-        gender: gender,
-        likeGame: likeGame,
-        userAvater : userAvater,
-        point: point,
-        totalPoint : totalPoint,
-        visible : visible}
+      { userId: userId, nickName: nickName },
+      {
+        $set: {
+          address: address,
+          myPlace: myPlace,
+          age: age,
+          gender: gender,
+          likeGame: likeGame,
+          userAvater: userAvater,
+          point: point,
+          totalPoint: totalPoint,
+          visible: visible,
+        },
       }
     );
     return updateUserData;
@@ -126,38 +128,36 @@ class UsersRepository {
 
   // 회원 탈퇴
   deleteUserData = async (nickName) => {
-    await Comments.deleteMany({ nickName : nickName });
-    await Posts.deleteMany({ nickName : nickName });
-    const deleteUserData = await Users.deleteOne({ nickName : nickName });
+    await Comments.deleteMany({ nickName: nickName });
+    await Posts.deleteMany({ nickName: nickName });
+    const deleteUserData = await Users.deleteOne({ nickName: nickName });
     return deleteUserData;
   };
 
   // 다른 유저 정보를 보기
   lookOtherUser = async (nickName) => {
-    const lookOtherUser = await Users.findOne({nickName : nickName})
-    return {
-      nickName : lookOtherUser.nickName,
-      likeGame : lookOtherUser.likeGame,
-      age : lookOtherUser.age,
-      gender : lookOtherUser.gender,
-      myPlace : lookOtherUser.myPlace,
-      userAvater : lookOtherUser.userAvater,
-      visible : lookOtherUser.visible,
-      point : lookOtherUser.point,
-      totalPoint : lookOtherUser.totalPoint
-    };
-  }  
+    const lookOtherUser = await Users.findOne({ nickName: nickName }).select([
+      "-_id",
+      "-userId",
+      "-password",
+      "-address",
+      "-createdAt",
+      "-updatedAt",
+      "-refresh_token",
+      "-phoneNumber",
+      "-__v",
+    ]);
+    return lookOtherUser;
+  };
 
   // 비밀번호 변경
   changePW = async (userId, password) => {
     const changePW = await Users.updateOne(
-      { userId : userId},
-      {$set:
-        {password : password}
-      }
-    )
+      { userId: userId },
+      { $set: { password: password } }
+    );
     return changePW;
-  }
-};
+  };
+}
 
-module.exports = UsersRepository; 
+module.exports = UsersRepository;
