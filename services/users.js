@@ -2,8 +2,8 @@ const UsersRepository = require("../repositories/users");
 const PostsRepository = require("../repositories/posts");
 const CommentsRepository = require("../repositories/comments");
 const bcrypt = require("bcryptjs");
-const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/;
-const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/;
+const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/; // 8~15 으로 변경
+const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/; // 4 ~ 15으로 변경
 
 class UserService {
   // 새 인스턴스 생성
@@ -219,7 +219,7 @@ class UserService {
 
   // 참여 예약한 모임
   partyReservedData = async(nickName) => {
-    const partyReservedData = await this.commentsRepository.partyReservedData(nickName);
+    const partyReservedData = await this.postsRepository.partyReservedData(nickName);
     return partyReservedData;
   }
 

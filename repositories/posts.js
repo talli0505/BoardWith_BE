@@ -104,8 +104,14 @@ class PostsRepository {
 
     // 참여 확정된 모임 조회
     partyGoData = async(nickName) => {
-        const partyGoData = await Posts.find({participant: nickName}).sort('date');
+        const partyGoData = await Posts.find({confirmMember: nickName}).sort('date');
         return partyGoData;
+    }
+
+    //참여 예약한 모임 조회
+    partyReservedData = async(nickName) => {
+        const partyReservedData = await Posts.find({participant : nickName}).sort('date');
+        return partyReservedData;
     }
 
     findPostsByUser = async(nickName) => {

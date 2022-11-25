@@ -53,7 +53,7 @@ async function send(req, res, next) {
       contentType: 'COMM',
       countryCode: '82',
       from: process.env.SENS_MY_NUM,
-      content: `[본인 확인] 인증번호 [${verifyCode}]를 입력해주세요.`,
+      content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
       messages: [
         {
           to: `${phoneNumber}`,
@@ -121,7 +121,7 @@ async function sendID(req, res, next) {
           contentType: 'COMM',
           countryCode: '82',
           from: process.env.SENS_MY_NUM,
-          content: `[본인 확인] 인증번호 [${verifyCode}]를 입력해주세요.`,
+          content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
           messages: [
             {
               to: `${phoneNumber}`,
@@ -195,7 +195,7 @@ async function sendPW(req, res, next) {
         contentType: 'COMM',
         countryCode: '82',
         from: process.env.SENS_MY_NUM,
-        content: `[본인 확인] 인증번호 [${verifyCode}]를 입력해주세요.`,
+        content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
         messages: [
           {
             to: `${phoneNumber}`,
