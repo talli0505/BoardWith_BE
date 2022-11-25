@@ -194,12 +194,17 @@ class PostsController {
 
 //게시글 필터링
     filterPosts = async (req, res, next) => {
-        const { map, time, partyMember } = req.body;
+        const {map, time, partyMember} = req.body;
 
-        try{
+        try {
             const filter = await Posts.find(
-                { $and: [ { map : {$regex: new RegExp(`${map}`, "i")}},  {time: { $gte : time[0], $lte : time[1] }}, {partyMember : { $gte : partyMember[0], $lte : partyMember[1]}}
-                    ]});
+                {
+                    $and: [
+                        {map: {$regex: new RegExp(`${map}`, "i")}},
+                        {time: {$gte: time[0], $lte: time[1]}},
+                        {partyMember: {$gte: partyMember[0], $lte: partyMember[1]}}
+                    ]
+                });
 
             let posts = [...filter]
             posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)

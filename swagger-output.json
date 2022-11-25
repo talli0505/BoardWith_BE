@@ -5,7 +5,7 @@
     "description": "프론트 분들을 위한 스웨거 입니다.",
     "version": "1.0.0"
   },
-  "host": "www.iceflower.shop",
+  "host":  "www.iceflower.shop",
   "basePath": "/",
   "tags": [
     {
@@ -504,7 +504,8 @@
           }
         }
       }
-    },"/posts/searchNickname/{keyword}": {
+    },
+    "/posts/searchNickname/{keyword}": {
       "get": {
         "tags": ["게시물API"],
         "description": "게시글 검색 by 닉네임",
@@ -696,7 +697,8 @@
           }
         }
       }
-    }, "/posts/reopenParty/{postId}": {
+    },
+    "/posts/reopenParty/{postId}": {
       "put": {
         "tags": ["게시물API"],
         "description": "파티원 모집 리오픈",
@@ -756,6 +758,42 @@
           },
           "404": {
             "description": "잘못된 경로 요청."
+          }
+        }
+      }
+    },
+    "/posts/filterPosts": {
+      "post": {
+        "tags": ["게시물API"],
+        "description": "게시글 필터링",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "map": {
+                  "example": "강남구"
+                },
+                "time": {
+                  "example": [
+                    "2022-12-25T09", "2022-12-25T19"]
+                },
+                "partyMember": {
+                  "example": [
+                    "2", "6"]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "필터링 완료쓰"
+          },
+          "400": {
+            "description": "오류🥹💦"
           }
         }
       }
