@@ -11,6 +11,7 @@ router.get("/searchTitle/:keyword", postsController.searchTitle);  //게시글 �
 router.get("/searchNickName/:keyword", postsController.searchNickName);  //게시글 검색 by 닉네임
 router.get("/", postsController.findAllPosts);
 router.get("/randomPost", postsController.randomPost);  //게시글 랜덤 추출
+router.get("/filterPosts", postsController.filterPosts); //게시글 필터링
 router.get("/:postId", postsController.findOnePost);
 router.put("/:postId",authMiddleware, postsController.updatePost);
 router.delete("/:postId", authMiddleware, postsController.deletePost)

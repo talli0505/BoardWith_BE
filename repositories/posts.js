@@ -12,7 +12,7 @@ class PostsRepository {
 
    //게시글 검색 by 제목
     searchTitle = async(keyword) => {
-        const searchTitle = await Posts.find( { title: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
+        const searchTitle = await Posts.find({ title: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
             /*{$or: [
                     { title: { $regex: keyword, $options: "xi"}},  //“x” is to ignore the white space,
                     { nickName: {$regex: keyword, $options: "xi"}}  //“i” is to make it not case-sensitive

@@ -1,4 +1,7 @@
 const PostsService = require("../services/posts")
+const PostsRepository = require("../repositories/posts")
+const Posts = require("../schema/posts");
+const _ = require('lodash');
 
 // const paging = (page, totalPost, maxPost) => {
 //     const maxPost = maxPost
@@ -11,6 +14,7 @@ const PostsService = require("../services/posts")
 
 class PostsController {
     postsService = new PostsService();
+    postsRepository = new PostsRepository();
 
     createPosts = async (req, res, next) => {
         try {
@@ -185,6 +189,23 @@ class PostsController {
             res.status(200).json({data: getBookmark, message: "조회 완료"});
         } catch (err) {
             res.status(err.status || 400).json({statusCode: err.status, message: err.message})
+        }
+    }
+
+//게시글 필터링
+    filterPosts = async (req, res, next) => {
+        const { map, time, partyMember } = req.body;
+
+        try{
+            const filter = await Posts.find(
+                { $and: [ { map : {$regex: new RegExp(`${map}`, "i")}},  {time: { $gte : time[0], $lte : time[1] }}, {partyMember : { $gte : partyMember[0], $lte : partyMember[1]}}
+                    ]});
+
+            let posts = [...filter]
+            posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)
+            res.status(200).json(posts)
+        } catch (error) {
+            console.error(error)
         }
     }
 }

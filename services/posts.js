@@ -1,5 +1,6 @@
 const PostsRepository = require("../repositories/posts");
 const Posts = require("../schema/posts")
+const shuffle_array = require("shuffle-array")
 
 class PostsService {
     postsRepository = new PostsRepository();
