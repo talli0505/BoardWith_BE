@@ -1,12 +1,25 @@
 const CommentsRepository = require('../repositories/comments');
-const Comments = require("../schema/comments");
 
 class CommentsService {
     commentsRepository = new CommentsRepository();
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
         const findAllCommentResult = await this.commentsRepository.findAllComments(postId);
-        return findAllCommentResult;
+        const mapComments = findAllCommentResult.map((item) => {
+            return {
+                _id: item._id,
+                postId: item.postId,
+                userId: item.userId,
+                nickName: item.nickName,
+                gender: item.gender,
+                myPlace: item.myPlace,
+                comment : item.comment,
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+                banOrNot: item.postId.banUser.includes(item.nickName)
+            }
+        })
+        return mapComments;
     };
 
     //게시글 존재 여부 확인
