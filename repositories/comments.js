@@ -4,7 +4,10 @@ const Posts = require('../schema/posts');
 class CommentsRepository {
     //댓글 전체 목록 보기
     findAllComments = async (postId) => {
-        const allCommentsData = await Comments.find({postId}).sort({updatedAt: -1});
+        const allCommentsData = await Comments
+            .find({postId})
+            .populate('postId', 'banUser')
+            .sort({updatedAt: -1});
         return allCommentsData;
     };
 
