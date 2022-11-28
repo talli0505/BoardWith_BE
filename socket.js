@@ -59,7 +59,7 @@ module.exports = (server) => {
       io.to(room).emit("notice", `${nickName}님 이 퇴장 하셨습니다.`);
     });
 
-    // 벤
+    // 벤 -> 다른사람이 강퇴 못하도록 로직을 막기 (transection을 어떻게 챙길수있는지)
     socket.on("ban", async (data) => {
       let { nickName, room } = data;
   
