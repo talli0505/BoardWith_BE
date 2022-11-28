@@ -169,6 +169,12 @@ class UsersController {
     const changePW = await this.usersService.changePW(userId, password);
     res.status(200).json({message : "축하합니다 변경이 완료되었습니다."});
   }
-}
 
+
+  loginCheck = async(req, res, next) => {
+    const { userId } = res.locals.user;
+    await this.usersService.loginCheck(userId);
+    res.status(200).json({message:"출석체크가 완료되었습니다"});
+  } 
+}
 module.exports = UsersController; 

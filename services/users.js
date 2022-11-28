@@ -243,6 +243,11 @@ class UserService {
     const changePW = await this.usersRepository.changePW(userId, password);
     return changePW;
   }
+
+  loginCheck = async(userId) => {
+    await this.usersRepository.loginCheck(userId);
+    return
+  }
 }
 
 module.exports = UserService; 
