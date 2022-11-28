@@ -67,7 +67,7 @@ class UsersController {
 
       // accesstoken 생성
       const accessToken = jwt.sign({ userId: userId }, process.env.DB_SECRET_KEY, {
-        expiresIn: "365d",
+        expiresIn: "15m",
       });
 
       // refreshtoken 생성
@@ -80,6 +80,7 @@ class UsersController {
 
       res.status(201).json({
         accessToken: `Bearer ${accessToken}`,
+        refresh_token : `Bearer ${refresh_token}`,
         nickName : getNickname.nickName
       });
     } catch (err) {

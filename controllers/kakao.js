@@ -18,17 +18,11 @@ const KAKAO_GRANT_TYPE = "authorization_code";
 const REST_API_KEY = process.env.client_id;
 const KAKAO_REDIRECT_URL = process.env.KAKAO_REDIRECT_URL;
 
-async function kakao_callback(req, res, next) {
+async function isKakao(req, res, next) {
   try {
     // 프론에게 인가코드 받기
     const {
-      code,
-      nickName,
-      address,
-      myPlace,
-      age,
-      gender,
-      likeGame
+      code
     } = req.body;
 
     // 회원가입에 필요한 내용 싹다 넣기 -> kakao에 있는 schema를 users로 변경
@@ -57,28 +51,32 @@ async function kakao_callback(req, res, next) {
 
       const findKakaoUser = await Users.findOne({ userId: kakaoUser.data.id });
       if (!findKakaoUser) {
-        // 받은 데이터를 가지고 유저 정보를 DB에 저장
-        const aaaaa = await Users.create({
-          userId: kakaoUser.data.id,
-          nickName: nickName,
-          address: address,
-          myPlace: myPlace,
-          age: age,
-          gender: gender,
-          likeGame: likeGame
+        res.status(200).json({ userId: kakaoUser.data.id });
+      } else {
+        const accessToken = jwt.sign(
+          { userId: kakaoUser.data.id },
+          process.env.DB_SECRET_KEY,
+          {
+            expiresIn: "15m",
+          }
+        );
+  
+        // refreshtoken 생성
+        const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
+          expiresIn: "1d",
         });
-        console.log(aaaaa)
+  
+        // refreshtoken DB에 업데이트
+      await Users.updateOne(
+          { userId: kakaoUser.data.id },
+          { $set: { refresh_token: refresh_token } }
+        );
+  
+        res.status(201).json({
+          accessToken: `Bearer ${accessToken}`,
+          refresh_token : `Bearer ${refresh_token}`,
+        });
       }
-
-      // 프론트에게 전달
-      const accessToken = jwt.sign(
-        { userId: kakaoUser.data.id },
-        process.env.DB_SECRET_KEY,
-        {
-          expiresIn: "15m",
-        }
-      );
-      res.status(200).json({ accessToken: `Bearer ${accessToken}` });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -94,4 +92,70 @@ async function kakao_callback(req, res, next) {
   }
 }
 
-module.exports = { kakao_callback };
+async function kakao_callback(req, res, next) {
+  try {
+    // 프론에게 인가코드 받기
+    const {
+      userId,
+      nickName,
+      address,
+      myPlace,
+      age,
+      gender,
+      likeGame
+    } = req.body;
+
+    // 회원가입에 필요한 내용 싹다 넣기 -> kakao에 있는 schema를 users로 변경
+    // console.log(nickName)
+    // console.log(address)
+    try {
+        const aaaaa = await Users.create({
+          userId: userId,
+          nickName: nickName,
+          address: address,
+          myPlace: myPlace,
+          age: age,
+          gender: gender,
+          likeGame: likeGame
+        });
+        console.log(aaaaa)
+
+      // 프론트에게 전달
+      const accessToken = jwt.sign(
+        { userId: userId },
+        process.env.DB_SECRET_KEY,
+        {
+          expiresIn: "15m",
+        }
+      );
+
+      // refreshtoken 생성
+      const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
+        expiresIn: "1d",
+      });
+
+      await Users.updateOne(
+        { userId: userId },
+        { $set: { refresh_token: refresh_token } }
+      );
+
+      res.status(201).json({
+        accessToken: `Bearer ${accessToken}`,
+        refresh_token : `Bearer ${refresh_token}`,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  } catch (err) {
+    res.status(400).send({
+      success: false,
+      errorMessage: error.message,
+      message: "에러가 발생했습니다.",
+    });
+    // console.log('error =' + err);
+    console.log(message.err);
+  }
+}
+
+module.exports = { isKakao, kakao_callback };

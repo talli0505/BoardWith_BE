@@ -1,3 +1,5 @@
+// 메모리 캐시를 사용하는 부분 -> 서버가 다른경우도 체크해봐야함
+
 require("dotenv").config();
 const axios = require('axios');
 const Cache = require('memory-cache');
@@ -28,7 +30,7 @@ const hash = hmac.finalize();
 const signature = hash.toString(CryptoJS.enc.Base64);
 
 // 회원가입시 사용하는 인증 번호
-async function send(req, res, next) {
+function send(req, res, next) {
   const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
