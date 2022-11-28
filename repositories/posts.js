@@ -1,12 +1,14 @@
 const Posts = require("../schema/posts");
 const bans = require("../schema/ban")
 const Bookmarks = require("../schema/bookmark");
+const Users = require("../schema/users")
 
 class PostsRepository {
 
     createPosts = async (userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
         await Posts.create({userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, confirmMember:nickName, expireAt: nowToClose
         });
+        await Users.updateOne({userId:userId},{$inc:{point:300, totalPoint:300}})
         return;
     };
 

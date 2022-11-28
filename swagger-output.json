@@ -304,6 +304,27 @@
         }
       }
     },
+    "/users/check": {
+      "post": {
+        "tags": ["회원 가입 및 로그인API"],
+        "description": "출석체크",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "출석체크가 완료되었습니다."
+          },
+          "406": {
+            "description": "아직 하실수 없습니다."
+          }
+        }
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],

@@ -158,6 +158,11 @@ class UsersRepository {
     );
     return changePW;
   };
+
+  loginCheck = async(userId) => {
+    await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}}) 
+    return
+  }
 }
 
 module.exports = UsersRepository;

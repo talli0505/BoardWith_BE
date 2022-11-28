@@ -26,4 +26,7 @@ router.delete("/", middleware, usersController.deleteUserData);
 // 비밀번호 변경하기
 router.post("/change/password", usersController.changePW);
 
+// 출석체크 버튼식
+router.put("/check", middleware, usersController.loginCheck);
+
 module.exports = router;
