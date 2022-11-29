@@ -176,7 +176,7 @@ class PostsController {
     }
     //북마크
     pushBookmark = async (req, res, next) => {
-        const {postId} = req.params;
+        const {postId} = req.body;
         const nickName = res.locals.user.nickName;
         await this.postsService.pushBookmark(postId, nickName)
         res.status(200).json({message: "추가되었습니다."})
