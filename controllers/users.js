@@ -67,12 +67,12 @@ class UsersController {
 
       // accesstoken 생성
       const accessToken = jwt.sign({ userId: userId }, process.env.DB_SECRET_KEY, {
-        expiresIn: "10s",
+        expiresIn: "5m",
       });
 
       // refreshtoken 생성
       const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
-        expiresIn: "20s",
+        expiresIn: "2h",
       });
 
       // refreshtoken DB에 업데이트
@@ -181,9 +181,11 @@ class UsersController {
   refreshT = async(req, res, next) => {
     const {refresh_token} = req.body;
     const [tokenType, tokenValue] = refresh_token.split(" ");
+    console.log("tokenvalue      " + tokenValue)
     const refreshT = await this.usersService.refreshT(tokenValue);
+    console.log("refreshT         " + refreshT)
 
-    const myRefreshToken = verifyToken(refreshT.refresh_token, process.env.DB_SECRET_KEY);
+    const myRefreshToken = verifyToken(refreshT.refresh_token);
 
     if (myRefreshToken == "jwt expired") {
       res.status(420).json({ message: "로그인이 필요합니다.", code : 420 });
@@ -192,7 +194,7 @@ class UsersController {
         { userId: refreshT.userId },
         process.env.DB_SECRET_KEY,
         {
-          expiresIn: "10s",
+          expiresIn: "5m",
         }
       );
       res.send({ accessToken : accessToken})
