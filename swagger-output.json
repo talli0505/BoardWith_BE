@@ -305,7 +305,7 @@
       }
     },
     "/users/check": {
-      "post": {
+      "put": {
         "tags": ["회원 가입 및 로그인API"],
         "description": "출석체크",
         "parameters": [
