@@ -181,9 +181,7 @@ class UsersController {
   refreshT = async(req, res, next) => {
     const {refresh_token} = req.body;
     const [tokenType, tokenValue] = refresh_token.split(" ");
-    console.log("tokenvalue      " + tokenValue)
     const refreshT = await this.usersService.refreshT(tokenValue);
-    console.log("refreshT         " + refreshT)
 
     const myRefreshToken = verifyToken(refreshT.refresh_token);
 
