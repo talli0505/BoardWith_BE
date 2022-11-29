@@ -163,6 +163,11 @@ class UsersRepository {
     await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}}) 
     return
   }
+
+  refreshT = async(refresh_token) => {
+    const refreshT = await Users.findOne({refresh_token : refresh_token})
+    return refreshT
+  }
 }
 
 module.exports = UsersRepository;
