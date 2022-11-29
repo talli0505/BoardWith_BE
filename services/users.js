@@ -248,6 +248,11 @@ class UserService {
     await this.usersRepository.loginCheck(userId);
     return
   }
+
+  refreshT = async(refresh_token) => {
+    const refreshT = await this.usersRepository.refreshT(refresh_token);
+    return refreshT
+  }
 }
 
 module.exports = UserService; 

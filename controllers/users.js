@@ -67,12 +67,12 @@ class UsersController {
 
       // accesstoken 생성
       const accessToken = jwt.sign({ userId: userId }, process.env.DB_SECRET_KEY, {
-        expiresIn: "15m",
+        expiresIn: "10s",
       });
 
       // refreshtoken 생성
       const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
-        expiresIn: "1d",
+        expiresIn: "20s",
       });
 
       // refreshtoken DB에 업데이트
@@ -176,6 +176,35 @@ class UsersController {
     const { userId } = res.locals.user;
     await this.usersService.loginCheck(userId);
     res.status(200).json({message:"출석체크가 완료되었습니다"});
-  } 
+  }
+  
+  refreshT = async(req, res, next) => {
+    const {refresh_token} = req.body;
+    const [tokenType, tokenValue] = refresh_token.split(" ");
+    const refreshT = await this.usersService.refreshT(tokenValue);
+
+    const myRefreshToken = verifyToken(refreshT.refresh_token, process.env.DB_SECRET_KEY);
+
+    if (myRefreshToken == "jwt expired") {
+      res.status(420).json({ message: "로그인이 필요합니다.", code : 420 });
+    } else {
+      const accessToken = jwt.sign(
+        { userId: refreshT.userId },
+        process.env.DB_SECRET_KEY,
+        {
+          expiresIn: "10s",
+        }
+      );
+      res.send({ accessToken : accessToken})
+      }
+  }
 }
 module.exports = UsersController; 
+
+function verifyToken(token) {
+  try {
+    return jwt.verify(token, process.env.DB_SECRET_KEY);
+  } catch (error) {
+    return error.message;
+  }
+}
