@@ -118,7 +118,6 @@ async function kakao_callback(req, res, next) {
           gender: gender,
           likeGame: likeGame
         });
-        console.log(aaaaa)
 
       // 프론트에게 전달
       const accessToken = jwt.sign(

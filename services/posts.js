@@ -12,9 +12,9 @@ class PostsService {
             err.message = "빈칸을 입력해주세요."
             throw err;
         } else {
-            await this.postsRepository.createPosts(userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
+            const createPosts = await this.postsRepository.createPosts(userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose)
+            return createPosts
         }
-        return
     }
 
     //게시글 검색 by 제목

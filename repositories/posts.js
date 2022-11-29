@@ -6,10 +6,10 @@ const Users = require("../schema/users")
 class PostsRepository {
 
     createPosts = async (userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose) => {
-        await Posts.create({userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, confirmMember:nickName, expireAt: nowToClose
+        const createPosts = await Posts.create({userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, confirmMember:nickName, expireAt: nowToClose
         });
         await Users.updateOne({userId:userId},{$inc:{point:300, totalPoint:300}})
-        return;
+        return createPosts;
     };
 
    //게시글 검색 by 제목
