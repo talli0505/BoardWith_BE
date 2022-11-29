@@ -29,8 +29,8 @@ class PostsController {
             //console.log(closingTime)  //마감시간
             //console.log(nowToClose) //마감시간 date화
 
-            await this.postsService.createPosts(userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
-            res.status(200).json({message: "게시물 생성 완료"})
+            const createPost = await this.postsService.createPosts(userId, img, nickName, title, content, location, cafe, date, time, map, partyMember, participant, nowToClose);
+            res.status(200).json({message: "게시물 생성 완료", createPost : createPost})
         } catch (e) {
             res.status(400).json({message: e.message})
         }
