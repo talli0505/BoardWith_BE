@@ -18,6 +18,8 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "google-auth-library": "^8.7.0",
+    "googleapis": "^109.0.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "memory-cache": "^0.2.0",
