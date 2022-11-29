@@ -9,7 +9,12 @@ class CommentsRepository {
             .find({postId})
             .populate('postId', 'banUser')
             .sort({updatedAt: -1});
-        return allCommentsData;
+
+        for (let i = 0; i < allCommentsData.length; i++) {
+            const userData = await Users.findOne({userId: allCommentsData[i].userId});
+            allCommentsData[i].userAvater = userData.userAvater
+        }
+        return allCommentsData
     };
 
     //댓글 한개 보기
@@ -26,9 +31,9 @@ class CommentsRepository {
 
     //신규 댓글
     createComment = async (postId, userId, nickName, birth, gender, myPlace, comment) => {
-        const createCommentData = await Comments.create({ postId, userId, nickName, birth, gender, myPlace, comment });
-        await Posts.updateOne( { _id: postId},{ $push:{participant: nickName}});
-        await Users.updateOne({userId:userId},{$inc:{point:100, totalPoint:100}})
+        const createCommentData = await Comments.create({postId, userId, nickName, birth, gender, myPlace, comment});
+        await Posts.updateOne({_id: postId}, {$push: {participant: nickName}});
+        await Users.updateOne({userId: userId}, {$inc: {point: 100, totalPoint: 100}})
         return createCommentData;
     };
 
@@ -40,13 +45,13 @@ class CommentsRepository {
 
     //댓글 수정
     updateComment = async (userId, commentId, comment) => {
-        const updatedCommentData = await Comments.updateOne({userId,  _id: commentId}, {$set: {comment}});
+        const updatedCommentData = await Comments.updateOne({userId, _id: commentId}, {$set: {comment}});
         return updatedCommentData;
     };
 
     //댓글 존재 여부 확인하기 for delete
     findOneCommentforDelete = async (commentId) => {
-        const findOneComment = await Comments.findOne({ _id: commentId.commentId });
+        const findOneComment = await Comments.findOne({_id: commentId.commentId});
         return findOneComment;
     }
 

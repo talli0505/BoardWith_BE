@@ -72,7 +72,7 @@ class UsersController {
 
       // refreshtoken 생성
       const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
-        expiresIn: "2h",
+        expiresIn: "2h"
       });
 
       // refreshtoken DB에 업데이트
@@ -192,7 +192,8 @@ class UsersController {
         { userId: refreshT.userId },
         process.env.DB_SECRET_KEY,
         {
-          expiresIn: "5m",
+          //expiresIn: "5m",
+          expiresIn: "365d",
         }
       );
       res.send({ accessToken : accessToken})

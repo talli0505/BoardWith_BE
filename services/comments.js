@@ -16,11 +16,12 @@ class CommentsService {
                 comment : item.comment,
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
-                banOrNot: item.postId.banUser.includes(item.nickName)
+                userAvater: item.userAvater,
+                banOrNot: item.postId.banUser.includes(item.nickName),
             }
         })
         return mapComments;
-    };
+    }
 
     //게시글 존재 여부 확인
     findOnePost = async (postId) => {
