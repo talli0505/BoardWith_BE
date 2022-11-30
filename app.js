@@ -1,4 +1,5 @@
 require("dotenv").config();
+const helmet = require('helmet')
 const express = require("express");
 const http = require("http");
 const app = express();
@@ -13,6 +14,7 @@ const cors = require("cors");
 const connect = require("./schema");
 connect();
 
+app.use(helmet());
 app.use(express.json());
 app.use(cors({
 origin: '*', // 모든 출처 허용 옵션. true 를 써도 된다.

@@ -192,8 +192,8 @@ class UsersController {
         { userId: refreshT.userId },
         process.env.DB_SECRET_KEY,
         {
-          //expiresIn: "5m",
-          expiresIn: "365d",
+          expiresIn: "5m",
+          // expiresIn: "365d",
         }
       );
       res.send({ accessToken : accessToken})
