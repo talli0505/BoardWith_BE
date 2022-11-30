@@ -151,6 +151,7 @@ class PostsService {
         return findPostsByUser
     }
 
+    //북마크
     pushBookmark = async(postId, nickName) => {
         const findBookmark = await this.postsRepository.findBookmark(postId, nickName)
         if(!findBookmark.postId.includes(postId)){
@@ -175,7 +176,6 @@ class PostsService {
             } else if(AllgetBookmark.length !== 0){
                 result.push(AllgetBookmark)
             }
-
         }
         return result
     }
