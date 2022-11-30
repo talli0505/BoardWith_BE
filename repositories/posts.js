@@ -29,13 +29,18 @@ class PostsRepository {
     }
 
     findAllPosts = async(skip, keyword) => {
-        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt');
+        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('-createdAt');
         return findAllPosts;
     }
 
     findOnePost = async(postId) => {
         const findOnePosts = await Posts.findOne({_id:postId})
         return findOnePosts;
+    }
+
+    findPostsByPostIdForBookmark = async(postId) => {
+        const findPostsByPostIdForBookmark = await Posts.find({_id:postId})
+        return  findPostsByPostIdForBookmark
     }
 
     updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
@@ -121,6 +126,7 @@ class PostsRepository {
         return findPostsByUser
     }
 
+    //북마크
     findBookmark = async(postId, nickName) => {
         const findBookmark = await Bookmarks.findOne({nickName:nickName})
         return findBookmark

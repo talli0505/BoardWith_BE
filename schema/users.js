@@ -55,6 +55,12 @@ const UsersSchema = new mongoose.Schema({
   admin : {
     type : String,
   },
+  bookmark: {
+    type: Array,
+  },
+  bookmarkData: {
+    type: Array,
+  },
   createdAt: { 
     type: Date, 
     default: Date.now 
