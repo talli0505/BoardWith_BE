@@ -55,12 +55,16 @@ const UsersSchema = new mongoose.Schema({
   admin : {
     type : String,
   },
+  loginCheck : {
+    type : Boolean,
+    default: true
+  },
   createdAt: { 
-    type: Date, 
+    type: String, 
     default: Date.now 
   },
   updatedAt: { 
-    type: Date, 
+    type: String, 
     default: Date.now 
   },
 });
