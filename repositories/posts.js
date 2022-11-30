@@ -1,7 +1,7 @@
 const Posts = require("../schema/posts");
 const bans = require("../schema/ban")
 const Bookmarks = require("../schema/bookmark");
-const Users = require("../schema/users")
+const Users = require("../schema/users");
 
 class PostsRepository {
 
@@ -24,17 +24,23 @@ class PostsRepository {
 
     //키워드(닉네임)로 게시글 검색
     searchNickName = async(keyword) => {
-        const searchNickName = await Posts.find( { nickName: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
+        const searchNickName = await Posts.find({ nickName: { $regex: keyword, $options: "xi" }}).sort({ createdAt: "desc"});
         return searchNickName
     }
 
     findAllPosts = async(skip, keyword) => {
-        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('-createdAt');
-        return findAllPosts;
+        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('-createdAt')
+        for (let i = 0; i < findAllPosts.length; i++){
+            const userAvatar = await Users.findOne({userId:findAllPosts[i].userId})
+            findAllPosts[i].userAvater = userAvatar.userAvater              
+        }
+            return findAllPosts;        
     }
 
     findOnePost = async(postId) => {
         const findOnePosts = await Posts.findOne({_id:postId})
+        const userAvatar = await Users.findOne({userId:findOnePosts.userId})
+        findOnePosts.userAvater = userAvatar.userAvater
         return findOnePosts;
     }
 

@@ -183,9 +183,7 @@ class UsersController {
   refreshT = async (req, res, next) => {
     const {refresh_token} = req.body;
     const [tokenType, tokenValue] = refresh_token.split(" ");
-    console.log("tokenvalue      " + tokenValue)
     const refreshT = await this.usersService.refreshT(tokenValue);
-    console.log("refreshT         " + refreshT)
 
     const myRefreshToken = verifyToken(refreshT.refresh_token);
 
@@ -193,12 +191,12 @@ class UsersController {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
       const accessToken = jwt.sign(
-          {userId: refreshT.userId},
-          process.env.DB_SECRET_KEY,
-          {
-            //expiresIn: "5m",
-            expiresIn: "365d",
-          }
+        { userId: refreshT.userId },
+        process.env.DB_SECRET_KEY,
+        {
+          expiresIn: "5m",
+          // expiresIn: "365d",
+        }
       );
       res.send({accessToken: accessToken})
     }

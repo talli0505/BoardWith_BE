@@ -60,13 +60,16 @@ const UsersSchema = new mongoose.Schema({
   },
   bookmarkData: {
     type: Array,
+  loginCheck : {
+    type : Boolean,
+    default: true
   },
   createdAt: { 
-    type: Date, 
+    type: String, 
     default: Date.now 
   },
   updatedAt: { 
-    type: Date, 
+    type: String, 
     default: Date.now 
   },
 });

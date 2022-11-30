@@ -37,6 +37,7 @@ class PostsService {
     findOnePost = async(postId) => {
         try{
             const findOnePosts = await this.postsRepository.findOnePost(postId);
+            console.log(findOnePosts)
             return findOnePosts;
         }catch(err){
             err.status = 404
