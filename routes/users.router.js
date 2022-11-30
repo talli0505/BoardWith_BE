@@ -3,6 +3,7 @@ const router = express.Router();
 
 const UsersController = require("../controllers/users");
 const middleware = require("../middleware/auth-middleware");
+const authMiddleware = require("../middleware/auth-middleware");
 const usersController = new UsersController();
 
 // 회원가입
@@ -31,5 +32,11 @@ router.put("/check", middleware, usersController.loginCheck);
 
 // refresh_token 체크 후 access 전달
 router.post("/refresh", usersController.refreshT);
+
+// 북마크 등록
+router.put("/bookmark/bookmark", authMiddleware, usersController.pushBookmark);
+
+//북마크 가져오기
+router.get("/bookmark/:nickName", authMiddleware, usersController.getBookmark);
 
 module.exports = router;
