@@ -25,6 +25,7 @@
     "lodash": "^4.17.21",
     "memory-cache": "^0.2.0",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.39",
     "mongoose": "^6.7.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.25.3",
