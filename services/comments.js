@@ -12,6 +12,7 @@ class CommentsService {
                 userId: item.userId,
                 nickName: item.nickName,
                 gender: item.gender,
+                age: item.age,
                 myPlace: item.myPlace,
                 comment : item.comment,
                 createdAt: item.createdAt,
