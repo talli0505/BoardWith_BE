@@ -140,6 +140,7 @@ class UserService {
         const findUserData = await this.usersRepository.findUserData(userId, nickName)
 
         const findBookmarkData = await this.postsRepository.findPostsByPostIdForBookmark(findUserData.bookmark)
+
         const BookmarkMapData = findBookmarkData.map((postInfo) => {
            return {
                postId: postInfo._id,
