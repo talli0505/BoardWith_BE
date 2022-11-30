@@ -144,7 +144,7 @@ class UsersRepository {
 
   loginCheck = async(userId) => {
     await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}})
-    await Users.updateOne({userId,userId}, {$set:{loginCheck:false}})
+    await Users.updateOne({userId:userId}, {$set:{loginCheck:false}})
 
     return
   }
