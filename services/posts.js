@@ -37,7 +37,6 @@ class PostsService {
     findOnePost = async(postId) => {
         try{
             const findOnePosts = await this.postsRepository.findOnePost(postId);
-            console.log(findOnePosts)
             return findOnePosts;
         }catch(err){
             err.status = 404
@@ -176,7 +175,7 @@ class PostsService {
             } else if(AllgetBookmark.length !== 0){
                 result.push(AllgetBookmark)
             }
-            console.log(AllgetBookmark.length)
+
         }
         return result
     }
