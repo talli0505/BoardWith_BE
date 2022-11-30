@@ -2,33 +2,17 @@ const Users = require("../schema/users");
 const Posts = require("../schema/posts");
 const Comments = require("../schema/comments");
 const bookmark = require("../schema/bookmark");
+const moment = require('moment')
+
+const date = moment().format('YYYY-MM-DD HH:mm:ss')
 
 class UsersRepository {
   // 회원가입을 위한 함수
+  
   signUp = async (
-    userId,
-    nickName,
-    password,
-    phoneNumber,
-    address,
-    myPlace,
-    age,
-    gender,
-    likeGame,
-    admin
-  ) => {
+    userId, nickName, password, phoneNumber, address, myPlace, age, gender, likeGame, admin) => {
     // create로 회원가입
-    const createAccountData = await Users.create({
-      userId,
-      nickName,
-      password,
-      phoneNumber,
-      address,
-      myPlace,
-      age,
-      gender,
-      likeGame,
-      admin,
+    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,address,myPlace,age,gender,likeGame,admin,createdAt: date,updatedAt: date
     });
     await bookmark.create({ nickName });
     return createAccountData;
@@ -160,7 +144,9 @@ class UsersRepository {
   };
 
   loginCheck = async(userId) => {
-    await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}}) 
+    await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}})
+    await Users.updateOne({userId,userId}, {$set:{loginCheck:false}})
+
     return
   }
 
