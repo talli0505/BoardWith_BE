@@ -149,6 +149,11 @@ class UsersRepository {
 
     return
   }
+
+  refreshT = async(refresh_token) => {
+    const refreshT = await Users.findOne({refresh_token : refresh_token})
+    return refreshT
+  }
 }
 
 module.exports = UsersRepository;

@@ -29,4 +29,7 @@ router.post("/change/password", usersController.changePW);
 // 출석체크 버튼식
 router.put("/check", middleware, usersController.loginCheck);
 
+// refresh_token 체크 후 access 전달
+router.post("/refresh", usersController.refreshT);
+
 module.exports = router;

@@ -819,7 +819,7 @@
         }
       }
     },
-    "/posts/bookmark/{postId}": {
+    "/posts/bookmark/bookmark": {
       "put": {
         "tags": [
           "게시물API"
@@ -832,10 +832,16 @@
             "type": "string"
           },
           {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "postId": {
+                  "example": "게시글번호"
+                }
+              }
+            }
           }
         ],
         "responses": {

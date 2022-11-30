@@ -9,9 +9,13 @@ const CommentsSchema = new mongoose.Schema({
   },
   userId: {
     type: String,
+    required: true,
   },
   nickName: {
     type: String,
+  },
+  userAvater : {
+    type : Object,
   },
   birth: {
     type: String,
