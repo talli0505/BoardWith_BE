@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const sms = require('../controllers/sms');
+const SMS = require('../controllers/sms');
+const sms = new SMS();
 
 // 회원가입 시 사용
 router.post('/send', sms.send);

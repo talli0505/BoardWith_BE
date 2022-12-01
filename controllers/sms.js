@@ -29,8 +29,9 @@ hmac.update(accessKey);
 const hash = hmac.finalize();
 const signature = hash.toString(CryptoJS.enc.Base64);
 
-// 회원가입시 사용하는 인증 번호
-function send(req, res, next) {
+class SMS {
+  // 회원가입시 사용하는 인증 번호
+send = async(req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
@@ -76,7 +77,7 @@ function send(req, res, next) {
 };
 
 // 회원가입 시 인증 번호 확인
-async function verify(req, res, next) {
+verify = async(req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
   const verifyCode = req.body.verifyCode;
 
@@ -93,7 +94,7 @@ async function verify(req, res, next) {
 };
 
 // 아이디 찾기 할때 사용하는 인증번호 보내기
-async function sendID(req, res, next) {
+sendID = async(req, res, next) => {
     const phoneNumber = req.body.phoneNumber;
     try {
       const findPhoneNum = await Users.findOne({phoneNumber : phoneNumber})
@@ -148,7 +149,7 @@ async function sendID(req, res, next) {
 };
 
 // 아이디 찾을 때 인증번호 받은거 확인
-async function verifyID(req, res, next) {
+verifyID = async(req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
   const verifyCode = req.body.verifyCode;
 
@@ -166,7 +167,7 @@ async function verifyID(req, res, next) {
 };
 
 // 비밀번호 찾기 할때 사용하는 인증번호 보내기
-async function sendPW(req, res, next) {
+sendPW = async(req, res, next) => {
   const userId = req.body.userId;
   const phoneNumber = req.body.phoneNumber;
   try {
@@ -217,5 +218,6 @@ async function sendPW(req, res, next) {
   }
 
 };
+}
 
-module.exports = {send, verify, sendID, verifyID, sendPW}
+module.exports = SMS;
