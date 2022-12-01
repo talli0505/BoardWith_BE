@@ -127,7 +127,9 @@ class UsersController {
           totalPoint,
           visible,
       );
-      res.status(200).json({ok: 1, statusCode: 200, message: "수정 완료", visible: visible});
+
+      const findUserData = await this.usersService.findUserData(userId, nickName)
+      res.status(200).json({ok: 1, statusCode: 200, message: "수정 완료", findUserData : findUserData});
     } catch (err) {
       res.status(err.status || 400).json({
         ok: 0,
