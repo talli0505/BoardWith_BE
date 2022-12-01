@@ -15,9 +15,6 @@ const UsersSchema = new mongoose.Schema({
   phoneNumber : {
     type : String,
   },
-  address: {
-    type: String,
-  },
   myPlace: {
     type: Array,
   },

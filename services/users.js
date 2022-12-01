@@ -18,7 +18,6 @@ class UserService {
         password,
         confirm,
         phoneNumber,
-        address,
         myPlace,
         age,
         gender,
@@ -78,7 +77,6 @@ class UserService {
             nickName,
             password,
             phoneNumber,
-            address,
             myPlace,
             age,
             gender,
@@ -156,7 +154,6 @@ class UserService {
     updateUserData = async (
         userId,
         nickName,
-        address,
         myPlace,
         age,
         gender,
@@ -169,10 +166,6 @@ class UserService {
     ) => {
 
         const findUserAccountId = await this.usersRepository.findUserAccountId(userId)
-
-        if (address == "") {
-            address = findUserAccountId.address
-        }
 
         if (myPlace == "") {
             myPlace = findUserAccountId.myPlace
@@ -213,7 +206,6 @@ class UserService {
         const updateUserData = await this.usersRepository.updateUserData(
             userId,
             nickName,
-            address,
             myPlace,
             age,
             gender,
