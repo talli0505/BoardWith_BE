@@ -3,7 +3,6 @@ const Posts = require("../schema/posts");
 const Comments = require("../schema/comments");
 const bookmark = require("../schema/bookmark");
 const moment = require('moment')
-
 const date = moment().format('YYYY-MM-DD HH:mm:ss')
 
 class UsersRepository {
@@ -145,7 +144,7 @@ class UsersRepository {
 
   loginCheck = async(userId) => {
     await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}})
-    await Users.updateOne({userId,userId}, {$set:{loginCheck:false}})
+    await Users.updateOne({userId:userId}, {$set:{loginCheck:false}})
 
     return
   }
@@ -153,6 +152,34 @@ class UsersRepository {
   refreshT = async(refresh_token) => {
     const refreshT = await Users.findOne({refresh_token : refresh_token})
     return refreshT
+  }
+
+  //북마크
+  findBookmark = async(nickName) => {
+    const findBookmark = await Users.findOne({nickName:nickName})
+    return findBookmark
+  }
+
+  pushBookmark = async(postId, nickName) => {
+    const pushBookmark = await Users.updateOne({nickName:nickName},{$push:{bookmark: postId}})
+    return pushBookmark
+  }
+
+  pullBookmark = async(postId, nickName) => {
+    const pullBookmark = await Users.updateOne({nickName:nickName}, {$pull:{bookmark:postId}})
+    return pullBookmark
+  }
+
+  getBookmark = async(nickName) => {
+    const getBookmark = await Users.find({nickName:nickName})
+    return getBookmark
+  }
+
+  AllgetBookmark = async(postId) => {
+    //console.log("postId", postId)
+    const AllgetBookmark = await Posts.find({_id:postId});
+    //console.log("repo-AllgetBookmark", AllgetBookmark)
+    return AllgetBookmark
   }
 }
 

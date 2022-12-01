@@ -165,6 +165,7 @@ class PostsService {
     getBookmark = async(nickName) => {
         let result = []
         const getBookmark = await this.postsRepository.getBookmark(nickName);
+        
         const GetBookmark = getBookmark.map((p) => p.postId)
         for (let i = 0; i < GetBookmark.length; i++){
             const AllgetBookmark = await this.postsRepository.AllgetBookmark(GetBookmark[i])
@@ -176,7 +177,6 @@ class PostsService {
             } else if(AllgetBookmark.length !== 0){
                 result.push(AllgetBookmark)
             }
-            console.log(AllgetBookmark.length)
         }
         return result
     }
