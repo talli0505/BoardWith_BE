@@ -11,7 +11,7 @@ class UsersRepository {
   signUp = async (
     userId, nickName, password, phoneNumber, address, myPlace, age, gender, likeGame, admin) => {
     // create로 회원가입
-    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,address,myPlace,age,gender,likeGame,admin,createdAt: date,updatedAt: date
+    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,address,myPlace,age,gender,likeGame,admin,createdAt: date,updatedAt: date, expireAt: date
     });
     await bookmark.create({ nickName });
     return createAccountData;
@@ -145,7 +145,6 @@ class UsersRepository {
   loginCheck = async(userId) => {
     await Users.updateOne({userId:userId}, {$inc:{point:100, totalPoint:100}})
     await Users.updateOne({userId:userId}, {$set:{loginCheck:false}})
-
     return
   }
 
