@@ -112,7 +112,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const {userId, nickName} = res.locals.user;
-      const {address, myPlace, age, gender, likeGame, userAvater, point, totalPoint, visible} =
+      const {address, myPlace, age, gender, likeGame, userAvater, point, totalPoint, visible, tutorial} =
           req.body;
       await this.usersService.updateUserData(
           userId,
@@ -126,6 +126,7 @@ class UsersController {
           point,
           totalPoint,
           visible,
+          tutorial
       );
 
       const findUserData = await this.usersService.findUserData(userId, nickName)
