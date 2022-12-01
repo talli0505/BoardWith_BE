@@ -9,9 +9,9 @@ class UsersRepository {
   // 회원가입을 위한 함수
   
   signUp = async (
-    userId, nickName, password, phoneNumber, address, myPlace, age, gender, likeGame, admin) => {
+    userId, nickName, password, phoneNumber, myPlace, age, gender, likeGame, admin) => {
     // create로 회원가입
-    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,address,myPlace,age,gender,likeGame,admin,createdAt: date,updatedAt: date
+    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,myPlace,age,gender,likeGame,admin,createdAt: date,updatedAt: date
     });
     await bookmark.create({ nickName });
     return createAccountData;
@@ -66,7 +66,6 @@ class UsersRepository {
     }).select([
       "-_id",
       "-password",
-      "-address",
       "-createdAt",
       "-updatedAt",
       "-refresh_token",
@@ -80,7 +79,6 @@ class UsersRepository {
   updateUserData = async (
     userId,
     nickName,
-    address,
     myPlace,
     age,
     gender,
@@ -95,7 +93,6 @@ class UsersRepository {
       { userId: userId, nickName: nickName },
       {
         $set: {
-          address: address,
           myPlace: myPlace,
           age: age,
           gender: gender,
@@ -125,7 +122,6 @@ class UsersRepository {
       "-_id",
       "-userId",
       "-password",
-      "-address",
       "-createdAt",
       "-updatedAt",
       "-refresh_token",
