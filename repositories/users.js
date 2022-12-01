@@ -88,7 +88,8 @@ class UsersRepository {
     userAvater,
     point,
     totalPoint,
-    visible
+    visible,
+    tutorial
   ) => {
     const updateUserData = await Users.updateOne(
       { userId: userId, nickName: nickName },
@@ -103,6 +104,7 @@ class UsersRepository {
           point: point,
           totalPoint: totalPoint,
           visible: visible,
+          tutorial: tutorial
         },
       }
     );

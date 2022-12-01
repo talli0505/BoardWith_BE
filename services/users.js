@@ -164,7 +164,8 @@ class UserService {
         userAvater,
         point,
         totalPoint,
-        visible
+        visible,
+        tutorial
     ) => {
 
         const findUserAccountId = await this.usersRepository.findUserAccountId(userId)
@@ -205,6 +206,10 @@ class UserService {
             visible = findUserAccountId.visible
         }
 
+        if (tutorial == "") {
+            tutorial = findUserAccountId.tutorial
+        }
+
         const updateUserData = await this.usersRepository.updateUserData(
             userId,
             nickName,
@@ -216,7 +221,8 @@ class UserService {
             userAvater,
             point,
             totalPoint,
-            visible
+            visible,
+            tutorial
         );
 
         return updateUserData;
