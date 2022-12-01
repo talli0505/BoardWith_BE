@@ -57,13 +57,13 @@ async function isKakao(req, res, next) {
           { userId: kakaoUser.data.id },
           process.env.DB_SECRET_KEY,
           {
-            expiresIn: "15m",
+            expiresIn: "5m",
           }
         );
   
         // refreshtoken 생성
         const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
-          expiresIn: "1d",
+          expiresIn: "2h",
         });
   
         // refreshtoken DB에 업데이트

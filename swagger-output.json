@@ -329,6 +329,41 @@
         }
       }
     },
+    "/users/bookmark/bookmark": {
+      "put": {
+        "tags": [
+          "회원정보 관련API"
+        ],
+        "description": "북마크 추가or제거",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "postId": {
+                  "example": "게시글번호"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "추가되었습니다."
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],

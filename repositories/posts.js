@@ -29,7 +29,7 @@ class PostsRepository {
     }
 
     findAllPosts = async(skip, keyword) => {
-        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('createdAt')
+        const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('-createdAt')
         for (let i = 0; i < findAllPosts.length; i++){
             const userAvatar = await Users.findOne({userId:findAllPosts[i].userId})
             findAllPosts[i].userAvater = userAvatar.userAvater              
@@ -42,6 +42,11 @@ class PostsRepository {
         const userAvatar = await Users.findOne({userId:findOnePosts.userId})
         findOnePosts.userAvater = userAvatar.userAvater
         return findOnePosts;
+    }
+
+    findPostsByPostIdForBookmark = async(postId) => {
+        const findPostsByPostIdForBookmark = await Posts.find({_id:postId})
+        return  findPostsByPostIdForBookmark
     }
 
     updatePost = async(postId, userId, title, content, location, cafe, date, time, map, partyMember) => {
@@ -127,6 +132,7 @@ class PostsRepository {
         return findPostsByUser
     }
 
+    //북마크
     findBookmark = async(postId, nickName) => {
         const findBookmark = await Bookmarks.findOne({nickName:nickName})
         return findBookmark
