@@ -66,7 +66,7 @@ const UsersSchema = new mongoose.Schema({
   updatedAt: { 
     type: String, 
     default: Date.now 
-  },
+  }
 });
 
 module.exports = mongoose.model("Users", UsersSchema);
