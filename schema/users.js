@@ -55,18 +55,28 @@ const UsersSchema = new mongoose.Schema({
   admin : {
     type : String,
   },
-  loginCheck : {
-    type : Boolean,
+  bookmark: {
+    type: Array,
+  },
+  bookmarkData: {
+    type: Array,
+  },
+  loginCheck: {
+    type: Boolean,
     default: true
   },
-  createdAt: { 
-    type: String, 
-    default: Date.now 
+  tutorial : {
+    type : Boolean,
+    default : false,
   },
-  updatedAt: { 
-    type: String, 
-    default: Date.now 
-  }
-});
+  createdAt: {
+    type: String,
+    default: Date.now
+  },
+  updatedAt: {
+    type: String,
+    default: Date.now
+  },
+  });
 
 module.exports = mongoose.model("Users", UsersSchema);

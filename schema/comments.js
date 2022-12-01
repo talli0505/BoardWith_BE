@@ -17,7 +17,7 @@ const CommentsSchema = new mongoose.Schema({
   userAvater : {
     type : Object,
   },
-  birth: {
+  age: {
     type: String,
   },
   gender: {
