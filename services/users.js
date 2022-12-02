@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users");
+const UsersRepository = require("../repositories/users"); 
 const PostsRepository = require("../repositories/posts");
 const CommentsRepository = require("../repositories/comments");
 const jwt = require("jsonwebtoken");
@@ -90,6 +90,37 @@ class UserService {
 
         return createAccountData;
     };
+
+    // 유저 id 중복 찾기
+    findDupId = async(userId) => {
+        const findDupId = await this.usersRepository.findUserAccountId(userId)
+
+        // 유저 id 중복 검사
+        if (findDupId) {
+            const err = new Error(`UserService Error`);
+            err.status = 409;
+            err.message = "이미 가입된 아이디가 존재합니다.";
+            throw err;
+        } else {
+            return "사용 가능한 아이디입니다."
+        }
+
+    }
+
+    // 유저 nickname 중복 찾기
+    findDupNick = async(nickName) => {
+        const findDupNick = await this.usersRepository.findUserAccountNick(nickName)
+
+        // 유저 nickname 중복 검사
+        if (findDupNick) {
+            const err = new Error(`UserService Error`);
+            err.status = 409;
+            err.message = "이미 가입된 닉네임이 존재합니다.";
+            throw err;
+        } else {
+            return "사용 가능한 닉네임입니다."
+        }
+    }
 
     // 로그인 찾기위한 함수
     login = async (userId, password) => {

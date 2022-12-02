@@ -1,4 +1,4 @@
-const UsersService = require("../services/users"); 
+const UsersService = require("../services/users");  
 
 class UsersController {
   usersService = new UsersService();
@@ -81,6 +81,27 @@ class UsersController {
       });
     }
   };
+
+  findDupId = async (req, res, next) => {
+    const { userId } = req.body;
+    try {
+      const findDupId = await this.usersService.findDupId(userId)
+      res.status(201).json({findDupId : findDupId})
+    } catch(err) {
+      res.status(400).json({message : err.message, statusCode : err.status})
+    }
+    
+  }
+
+  findDupNick = async (req, res, next) => {
+    const { nickName } = req.body;
+    try {
+      const findDupNick = await this.usersService.findDupId(nickName)
+      res.status(201).json({findDupNick : findDupNick})
+    } catch(err) {
+      res.status(400).json({message : err.message, statusCode : err.status})
+    }
+  }
 
   // 회원 정보 찾기
   findUser = async (req, res, next) => {
