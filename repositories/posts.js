@@ -1,5 +1,4 @@
 const Posts = require("../schema/posts");
-const bans = require("../schema/ban")
 const Bookmarks = require("../schema/bookmark");
 const Users = require("../schema/users");
 
