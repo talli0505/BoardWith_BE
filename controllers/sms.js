@@ -31,7 +31,7 @@ const signature = hash.toString(CryptoJS.enc.Base64);
 
 class SMS {
   // 회원가입시 사용하는 인증 번호
-send = async(req, res, next) => {
+send = (req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
@@ -41,7 +41,7 @@ send = async(req, res, next) => {
 
   Cache.put(phoneNumber, verifyCode.toString());
 
-  await axios({
+  axios({
     method: method,
     json: true,
     url: url,
@@ -64,17 +64,12 @@ send = async(req, res, next) => {
       ],
     }
     })
-  .then(function (res) {
-    console.log('response',res.data, res['data']);
-    res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
-  })
-  .catch((err) => {
-    res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
-  });
+  console.log("인증번호 발송")
+  res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
 };
 
 // 회원가입 시 인증 번호 확인
-verify = async(req, res, next) => {
+verify = (req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
   const verifyCode = req.body.verifyCode;
 
@@ -106,7 +101,7 @@ sendID = async(req, res, next) => {
     
       Cache.put(phoneNumber, verifyCode.toString());
     
-      await axios({
+      axios({
         method: method,
         json: true,
         url: url,
@@ -129,16 +124,8 @@ sendID = async(req, res, next) => {
           ],
         }
         })
-      .then(function (res) {
-        console.log('response',res.data, res['data']);
-        res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
-      })
-      .catch((err) => {
-        if(err.res == undefined){
-          res.json({isSuccess: true, code: 200, message: "본인인증 문자 발송 성공", result: res.data });
-        }
-        else res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
-      });
+        console.log("인증번호 발송")
+        res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode }); 
     } catch(e) {
       res.status(400).json({message : e.message})
     }
@@ -180,7 +167,7 @@ sendPW = async(req, res, next) => {
   
     Cache.put(phoneNumber, verifyCode.toString());
   
-    await axios({
+    axios({
       method: method,
       json: true,
       url: url,
@@ -203,13 +190,8 @@ sendPW = async(req, res, next) => {
         ],
       }
       })
-    .then(function (res) {
-      console.log('response',res.data, res['data']);
-      res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
-    })
-    .catch((err) => {
-      res.json({isSuccess: false, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
-    });
+      console.log("인증번호 발송")
+      res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
   } catch(e) {
     res.status(400).json({message : e.message})
   }

@@ -69,7 +69,7 @@ class SoicalController {
         });
       } catch (error) {
         console.log(error);
-        res.send(error);
+        res.status(409).json({message : error.message, statusCode : error.status});
       }
     } catch (err) {
       res.status(400).send({
@@ -148,7 +148,7 @@ class SoicalController {
         });
       } catch (error) {
         console.log(error);
-        res.send(error);
+        res.status(409).json({message : error.message, statusCode : error.status});
       }
     } catch (err) {
       res.status(400).send({
