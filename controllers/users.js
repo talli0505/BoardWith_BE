@@ -1,6 +1,4 @@
-const UsersService = require("../services/users");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const UsersService = require("../services/users"); 
 
 class UsersController {
   usersService = new UsersService();
@@ -63,17 +61,9 @@ class UsersController {
 
       const getNickname = await this.usersService.getNickname(userId, password);
 
-      // accesstoken 생성
-      const accessToken = jwt.sign({userId: userId}, process.env.DB_SECRET_KEY, {
-        //expiresIn: "5m",
-        expiresIn: "365d",
-      });
+      const accessToken = await this.usersService.accessToken(userId);
 
-      // refreshtoken 생성
-      const refresh_token = jwt.sign({}, process.env.DB_SECRET_KEY, {
-        //expiresIn: "2h"
-        expiresIn: "3554d"
-      });
+      const refresh_token = await this.usersService.refreshToken();
 
       // refreshtoken DB에 업데이트
       await this.usersService.updateToken(userId, refresh_token);
@@ -190,14 +180,8 @@ class UsersController {
     if (myRefreshToken == "jwt expired") {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
-      const accessToken = jwt.sign(
-        { userId: refreshT.userId },
-        process.env.DB_SECRET_KEY,
-        {
-          expiresIn: "5m",
-          // expiresIn: "365d",
-        }
-      );
+      const accessToken = await this.usersService.accessToken(refreshT.userId)
+      
       res.send({accessToken: accessToken})
     }
   }
