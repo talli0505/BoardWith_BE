@@ -205,9 +205,8 @@ class UsersController {
     const refreshT = await this.usersService.refreshT(tokenValue);
 
     const myRefreshToken = verifyToken(refreshT.refresh_token);
-    // || myRefreshToken == undefined
 
-    if (myRefreshToken == "jwt expired") {
+    if (myRefreshToken == "jwt expired" || myRefreshToken == undefined) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
       const accessToken = await this.usersService.accessToken(refreshT.userId)
