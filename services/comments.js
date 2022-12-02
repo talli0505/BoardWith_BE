@@ -21,7 +21,7 @@ class CommentsService {
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
                 userAvatar: item.userAvatar,
-                participateOrNot: item.postId.participant.includes(item.nickName),
+                confirmOrNot: item.postId.confirmMember.includes(item.nickName),
                 banOrNot: item.postId.banUser.includes(item.nickName),
 
             }
