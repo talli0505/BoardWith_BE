@@ -3,7 +3,6 @@ const SocketIO = require("socket.io");
 const connect = require("./schema");
 connect();
 const Room = require("./schema/room");
-const Ban = require("./schema/ban");
 const Posts = require("./schema/posts");
 
 module.exports = (server) => {
