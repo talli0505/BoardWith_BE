@@ -100,7 +100,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const {userId, nickName} = res.locals.user;
-      const {myPlace, age, gender, likeGame, userAvater, point, totalPoint, visible, tutorial} =
+      const {myPlace, age, gender, likeGame, userAvatar, point, totalPoint, visible, tutorial} =
           req.body;
       await this.usersService.updateUserData(
           userId,
@@ -109,7 +109,7 @@ class UsersController {
           age,
           gender,
           likeGame,
-          userAvater,
+          userAvatar,
           point,
           totalPoint,
           visible,
@@ -181,7 +181,7 @@ class UsersController {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
       const accessToken = await this.usersService.accessToken(refreshT.userId)
-      
+
       res.send({accessToken: accessToken})
     }
   }

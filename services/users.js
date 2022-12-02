@@ -188,7 +188,7 @@ class UserService {
         age,
         gender,
         likeGame,
-        userAvater,
+        userAvatar,
         point,
         totalPoint,
         visible,
@@ -214,8 +214,8 @@ class UserService {
             likeGame = findUserAccountId.likeGame;
         }
 
-        if (userAvater == "") {
-            userAvater = findUserAccountId.userAvater;
+        if (userAvatar == "") {
+            userAvatar = findUserAccountId.userAvatar;
         }
 
         if (point == "") {
@@ -241,7 +241,7 @@ class UserService {
             age,
             gender,
             likeGame,
-            userAvater,
+            userAvatar,
             point,
             totalPoint,
             visible,
