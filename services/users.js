@@ -1,6 +1,8 @@
 const UsersRepository = require("../repositories/users");
 const PostsRepository = require("../repositories/posts");
 const CommentsRepository = require("../repositories/comments");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const CHECK_PASSWORD = /^[a-zA-Z0-9]{4,30}$/; // 8~15 으로 변경
 const CHECK_ID = /^[a-zA-Z0-9]{4,20}$/; // 4 ~ 15으로 변경
@@ -26,7 +28,9 @@ class UserService {
     ) => {
         // usersService 안에 있는 findUserAccount 함수를 이용해서 선언
         const isSameId = await this.usersRepository.findUserAccountId(userId);
-        const isSameNickname = await this.usersRepository.findUserAccountNick(nickName);
+        const isSameNickname = await this.usersRepository.findUserAccountNick(
+            nickName
+        );
 
         // 유저 id 중복 검사
         if (isSameId) {
@@ -67,9 +71,9 @@ class UserService {
             err.message = "비밀번호와 확인 비밀번호가 일치하지 않습니다.";
             throw err;
         }
-        const salt = await bcrypt.genSalt(11)
+        const salt = await bcrypt.genSalt(11);
         // 반복 횟수 한번 늘려보자
-        password = await bcrypt.hash(password, salt)
+        password = await bcrypt.hash(password, salt);
 
         // userRepository안에 있는 createAccount 함수를 이용하여 선언 (salt도 넣어야함)
         const createAccountData = await this.usersRepository.signUp(
@@ -99,7 +103,7 @@ class UserService {
             throw err;
         }
 
-        const check = await bcrypt.compare(password, loginData.password)
+        const check = await bcrypt.compare(password, loginData.password);
 
         if (!check) {
             const err = new Error(`UserService Error`);
@@ -108,10 +112,30 @@ class UserService {
             throw err;
         }
 
-        return {loginData};
+        return { loginData };
     };
 
-    // refreshToken 업데이트 하는 함수
+    // accessToken 생성
+    accessToken = async (userId) => {
+        const accessToken = jwt.sign(
+            { userId: userId },
+            process.env.DB_SECRET_KEY,
+            {
+                expiresIn: "5m",
+            }
+        );
+        return accessToken;
+    };
+
+    // refreshToken 생성
+    refreshToken = async () => {
+        const refreshToken = jwt.sign({}, process.env.DB_SECRET_KEY, {
+            expiresIn: "2h",
+        });
+        return refreshToken;
+    };
+
+    // refreshToken DB에 업뎃 업데이트 하는 함수
     updateToken = async (userId, refresh_token) => {
         // console.log(refresh_Token)
         await this.usersRepository.updateToken(userId, refresh_token);
@@ -135,17 +159,23 @@ class UserService {
 
     // 회원 정보 불러오기
     findUserData = async (userId, nickName) => {
-        const findUserData = await this.usersRepository.findUserData(userId, nickName)
+        const findUserData = await this.usersRepository.findUserData(
+            userId,
+            nickName
+        );
 
-        const findBookmarkData = await this.postsRepository.findPostsByPostIdForBookmark(findUserData.bookmark)
+        const findBookmarkData =
+            await this.postsRepository.findPostsByPostIdForBookmark(
+                findUserData.bookmark
+            );
 
         const BookmarkMapData = findBookmarkData.map((postInfo) => {
-           return {
-               postId: postInfo._id,
-               title: postInfo.title,
-               closed: postInfo.closed
-           }
-        })
+            return {
+                postId: postInfo._id,
+                title: postInfo.title,
+                closed: postInfo.closed,
+            };
+        });
         findUserData["bookmarkData"] = BookmarkMapData;
         return findUserData;
     };
@@ -164,43 +194,44 @@ class UserService {
         visible,
         tutorial
     ) => {
-
-        const findUserAccountId = await this.usersRepository.findUserAccountId(userId)
+        const findUserAccountId = await this.usersRepository.findUserAccountId(
+            userId
+        );
 
         if (myPlace == "") {
-            myPlace = findUserAccountId.myPlace
+            myPlace = findUserAccountId.myPlace;
         }
 
         if (age == "") {
-            age = findUserAccountId.age
+            age = findUserAccountId.age;
         }
 
         if (gender == "") {
-            gender = findUserAccountId.gender
+            gender = findUserAccountId.gender;
         }
 
         if (likeGame == "") {
-            likeGame = findUserAccountId.likeGame
+            likeGame = findUserAccountId.likeGame;
         }
 
         if (userAvater == "") {
-            userAvater = findUserAccountId.userAvater
+            userAvater = findUserAccountId.userAvater;
         }
 
         if (point == "") {
-            point = findUserAccountId.point
+            point = findUserAccountId.point;
         }
 
         if (totalPoint == "") {
-            totalPoint = findUserAccountId.totalPoint
+            totalPoint = findUserAccountId.totalPoint;
         }
 
         if (visible == "") {
-            visible = findUserAccountId.visible
+            visible = findUserAccountId.visible;
         }
 
         if (tutorial == "") {
-            tutorial = findUserAccountId.tutorial
+            tutorial = findUserAccountId.tutorial;
         }
 
         const updateUserData = await this.usersRepository.updateUserData(
@@ -228,83 +259,86 @@ class UserService {
 
     // 참여 예약한 모임
     partyReservedData = async (nickName) => {
-        const partyReservedData = await this.postsRepository.partyReservedData(nickName);
+        const partyReservedData = await this.postsRepository.partyReservedData(
+            nickName
+        );
         return partyReservedData;
-    }
+    };
 
     // 참여 확정된 모임
     partyGoData = async (nickName) => {
         const partyGoData = await this.postsRepository.partyGoData(nickName);
         return partyGoData;
-    }
+    };
 
     // 다른 유저 정보를 보기
     lookOtherUser = async (nickName) => {
         const lookOtherUser = await this.usersRepository.lookOtherUser(nickName);
         return lookOtherUser;
-    }
+    };
 
     // 비밀번호 변경
     changePW = async (userId, password) => {
-        const salt = await bcrypt.genSalt(11)
-        password = await bcrypt.hash(password, salt)
+        const salt = await bcrypt.genSalt(11);
+        password = await bcrypt.hash(password, salt);
 
         const changePW = await this.usersRepository.changePW(userId, password);
         return changePW;
-    }
+    };
 
     loginCheck = async (userId) => {
         await this.usersRepository.loginCheck(userId);
-        return
-    }
+        return;
+    };
 
     refreshT = async (refresh_token) => {
         const refreshT = await this.usersRepository.refreshT(refresh_token);
-        return refreshT
-    }
+        return refreshT;
+    };
 
     //북마크
     pushBookmark = async (postId, nickName) => {
-        const findBookmark = await this.usersRepository.findBookmark(nickName)
+        const findBookmark = await this.usersRepository.findBookmark(nickName);
         if (findBookmark.bookmark.includes(postId) === false) {
-            await this.usersRepository.pushBookmark(postId, nickName)
+            await this.usersRepository.pushBookmark(postId, nickName);
         } else if (findBookmark.bookmark.includes(postId)) {
-            await this.usersRepository.pullBookmark(postId, nickName)
+            await this.usersRepository.pullBookmark(postId, nickName);
         }
-        return findBookmark
-    }
+        return findBookmark;
+    };
 
     getBookmark = async (nickName) => {
-        let result = []
+        let result = [];
         const getBookmark = await this.usersRepository.getBookmark(nickName);
         //console.log("getBookmark", getBookmark)
-        const GetBookmark = getBookmark.map((userInfo) => userInfo.bookmark)
+        const GetBookmark = getBookmark.map((userInfo) => userInfo.bookmark);
         //console.log("GetBookmark", GetBookmark)
 
-        for (let i = 0; i < GetBookmark.length; i++) {  //사실상 GetBookmark.length = 1 이라 for문 불필요해보임
-            const AllgetBookmark = await this.usersRepository.AllgetBookmark(GetBookmark[i])
+        for (let i = 0; i < GetBookmark.length; i++) {
+            //사실상 GetBookmark.length = 1 이라 for문 불필요해보임
+            const AllgetBookmark = await this.usersRepository.AllgetBookmark(
+                GetBookmark[i]
+            );
             //console.log("AllgetBookmark", AllgetBookmark)
 
             if (AllgetBookmark.length === 0) {
-                const err = new Error('postsService Error');
-                err.status = 200
-                err.message = "등록된 게시물이 없습니다."
-                throw err
-
+                const err = new Error("postsService Error");
+                err.status = 200;
+                err.message = "등록된 게시물이 없습니다.";
+                throw err;
             } else if (AllgetBookmark.length !== 0) {
-                result.push(AllgetBookmark)
+                result.push(AllgetBookmark);
             }
         }
         const mapResult = result[0].map((postInfo) => {
             return {
                 postId: postInfo._id,
                 title: postInfo.title,
-                closed: postInfo.closed
-            }
-        })
-        return mapResult
-    }
+                closed: postInfo.closed,
+            };
+        });
+        return mapResult;
+    };
 }
-
 
 module.exports = UserService;
