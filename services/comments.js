@@ -8,7 +8,10 @@ class CommentsService {
         const mapComments = findAllCommentResult.map((item) => {
             return {
                 _id: item._id,
-                postId: item.postId,
+                postId: item.postId._id,
+                banuUser: item.postId.banUser,
+                participant: item.postId.participant,
+                confirmMember: item.postId.confirmMember,
                 userId: item.userId,
                 nickName: item.nickName,
                 gender: item.gender,
@@ -18,7 +21,9 @@ class CommentsService {
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
                 userAvatar: item.userAvatar,
+                confirmOrNot: item.postId.confirmMember.includes(item.nickName),
                 banOrNot: item.postId.banUser.includes(item.nickName),
+
             }
         })
         return mapComments;
