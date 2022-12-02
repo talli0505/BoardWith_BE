@@ -1,4 +1,5 @@
-const UsersService = require("../services/users");  
+const UsersService = require("../services/users");
+const jwt = require("jsonwebtoken");
 
 class UsersController {
   usersService = new UsersService();
@@ -174,7 +175,14 @@ class UsersController {
   lookOtherUser = async (req, res, next) => {
     const {nickName} = req.params;
     const lookOtherUser = await this.usersService.lookOtherUser(nickName);
-    res.status(200).json({lookOtherUser: lookOtherUser})
+
+    //참여 예약한 모임
+    const partyReserved = await this.usersService.partyReservedData(nickName);
+
+    //참여 확정된 모임
+    const partyGo = await this.usersService.partyGoData(nickName);
+
+    res.status(200).json({lookOtherUser: lookOtherUser, partyReserved, partyGo})
   }
 
   // 비밀번호 변경 하기 위한 것
@@ -197,6 +205,7 @@ class UsersController {
     const refreshT = await this.usersService.refreshT(tokenValue);
 
     const myRefreshToken = verifyToken(refreshT.refresh_token);
+    // || myRefreshToken == undefined
 
     if (myRefreshToken == "jwt expired") {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
