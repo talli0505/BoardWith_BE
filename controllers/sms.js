@@ -29,24 +29,24 @@ hmac.update(accessKey);
 const hash = hmac.finalize();
 const signature = hash.toString(CryptoJS.enc.Base64);
 
+//인증번호 생성
+const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+
 class SMS {
   // 회원가입시 사용하는 인증 번호
-send = (req, res, next) => {
+send = async(req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
 
-  //인증번호 생성
-  const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-
   Cache.put(phoneNumber, verifyCode.toString());
 
-  axios({
+  const smsRes = await axios({
     method: method,
     json: true,
     url: url,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
       'x-ncp-iam-access-key': accessKey,
       'x-ncp-apigw-timestamp': date,
       'x-ncp-apigw-signature-v2': signature,
@@ -63,9 +63,9 @@ send = (req, res, next) => {
         },
       ],
     }
-    })
-  console.log("인증번호 발송")
-  res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+    });
+    console.log("response", smsRes.data);
+  return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
 };
 
 // 회원가입 시 인증 번호 확인
@@ -96,17 +96,14 @@ sendID = async(req, res, next) => {
     
       Cache.del(phoneNumber);
     
-      //인증번호 생성
-      const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-    
       Cache.put(phoneNumber, verifyCode.toString());
     
-      axios({
+      const smsRes = await axios({
         method: method,
         json: true,
         url: url,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
           'x-ncp-iam-access-key': accessKey,
           'x-ncp-apigw-timestamp': date,
           'x-ncp-apigw-signature-v2': signature,
@@ -123,9 +120,9 @@ sendID = async(req, res, next) => {
             },
           ],
         }
-        })
-        console.log("인증번호 발송")
-        res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode }); 
+        });
+        console.log("response", smsRes.data);
+      return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
     } catch(e) {
       res.status(400).json({message : e.message})
     }
@@ -162,17 +159,14 @@ sendPW = async(req, res, next) => {
   
     Cache.del(phoneNumber);
   
-    //인증번호 생성
-    const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-  
     Cache.put(phoneNumber, verifyCode.toString());
   
-    axios({
+    const smsRes = await axios({
       method: method,
       json: true,
       url: url,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         'x-ncp-iam-access-key': accessKey,
         'x-ncp-apigw-timestamp': date,
         'x-ncp-apigw-signature-v2': signature,
@@ -189,9 +183,9 @@ sendPW = async(req, res, next) => {
           },
         ],
       }
-      })
-      console.log("인증번호 발송")
-      res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+      });
+      console.log("response", smsRes.data);
+    return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
   } catch(e) {
     res.status(400).json({message : e.message})
   }
@@ -200,3 +194,4 @@ sendPW = async(req, res, next) => {
 }
 
 module.exports = SMS;
+

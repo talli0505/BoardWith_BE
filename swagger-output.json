@@ -364,6 +364,62 @@
         }
       }
     },
+    "/users/Dup/Id": {
+      "post": {
+        "tags": ["회원 가입 및 로그인API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "아이디"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "사용 가능한 아이디 입니다."
+          },
+          "403": {
+            "description": "이미 사용중인 아이디 입니다."
+          }
+        }
+      }
+    },
+    "/users/Dup/Nick": {
+      "post": {
+        "tags": ["회원 가입 및 로그인API"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "example": "닉네임"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "사용가능한 닉네임입니다."
+          },
+          "403": {
+            "description": "이미 사용중인 닉네임입니다."
+          }
+        }
+      }
+    },
     "/posts/": {
       "post": {
         "tags": ["게시물API"],

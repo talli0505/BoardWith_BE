@@ -107,20 +107,20 @@ class UserService {
 
     }
 
-    // 유저 nickname 중복 찾기
-    findDupNick = async(nickName) => {
-        const findDupNick = await this.usersRepository.findUserAccountNick(nickName)
-
-        // 유저 nickname 중복 검사
-        if (findDupNick) {
-            const err = new Error(`UserService Error`);
-            err.status = 409;
-            err.message = "이미 가입된 닉네임이 존재합니다.";
-            throw err;
-        } else {
-            return "사용 가능한 닉네임입니다."
+        // 유저 nickname 중복 찾기
+        findDupNick = async(nickName) => {
+            const findDupNick = await this.usersRepository.findUserAccountNick(nickName)
+    
+            // 유저 nickname 중복 검사
+            if (findDupNick) {
+                const err = new Error(`UserService Error`);
+                err.status = 409;
+                err.message = "이미 가입된 닉네임이 존재합니다.";
+                throw err;
+            } else {
+                return "사용 가능한 닉네임입니다."
+            }
         }
-    }
 
     // 로그인 찾기위한 함수
     login = async (userId, password) => {
