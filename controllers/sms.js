@@ -53,7 +53,7 @@ send = async(req, res, next) => {
     },
     data: {
       type: 'SMS',
-      contentType: 'COMM',
+      // contentType: 'COMM',
       countryCode: '82',
       from: process.env.SENS_MY_NUM,
       content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
@@ -66,10 +66,10 @@ send = async(req, res, next) => {
     })
   .then(function (res) {
     console.log('response',res.data, res['data']);
-    res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+    res.send({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
   })
   .catch((err) => {
-    res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
+    res.send({isSuccess: false, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
   });
 };
 
@@ -118,7 +118,7 @@ sendID = async(req, res, next) => {
         },
         data: {
           type: 'SMS',
-          contentType: 'COMM',
+          // contentType: 'COMM',
           countryCode: '82',
           from: process.env.SENS_MY_NUM,
           content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
@@ -137,7 +137,7 @@ sendID = async(req, res, next) => {
         if(err.res == undefined){
           res.json({isSuccess: true, code: 200, message: "본인인증 문자 발송 성공", result: res.data });
         }
-        else res.json({isSuccess: true, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
+        else res.json({isSuccess: false, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
       });
     } catch(e) {
       res.status(400).json({message : e.message})
@@ -192,7 +192,7 @@ sendPW = async(req, res, next) => {
       },
       data: {
         type: 'SMS',
-        contentType: 'COMM',
+        // contentType: 'COMM',
         countryCode: '82',
         from: process.env.SENS_MY_NUM,
         content: `[Board With] 인증번호 [${verifyCode}]를 입력해주세요.`,
@@ -205,7 +205,7 @@ sendPW = async(req, res, next) => {
       })
     .then(function (res) {
       console.log('response',res.data, res['data']);
-      res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
+      res.send({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", result: res.data });
     })
     .catch((err) => {
       res.json({isSuccess: false, code: 204, message: "본인인증 문자 발송에 문제가 있습니다.", result: err.res });
