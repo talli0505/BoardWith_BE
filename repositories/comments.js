@@ -12,7 +12,7 @@ class CommentsRepository {
 
         for (let i = 0; i < allCommentsData.length; i++) {
             const userData = await Users.findOne({userId: allCommentsData[i].userId});
-            allCommentsData[i].userAvater = userData.userAvater
+            allCommentsData[i].userAvatar = userData.userAvatar
             allCommentsData[i].age = userData.age
         }
         return allCommentsData

@@ -32,7 +32,7 @@ class PostsRepository {
         const findAllPosts = await Posts.find({}, undefined, {skip, limit:5}).sort('-createdAt')
         for (let i = 0; i < findAllPosts.length; i++){
             const userAvatar = await Users.findOne({userId:findAllPosts[i].userId})
-            findAllPosts[i].userAvater = userAvatar.userAvater              
+            findAllPosts[i].userAvatar = userAvatar.userAvatar              
         }
             return findAllPosts;        
     }
@@ -40,7 +40,7 @@ class PostsRepository {
     findOnePost = async(postId) => {
         const findOnePosts = await Posts.findOne({_id:postId})
         const userAvatar = await Users.findOne({userId:findOnePosts.userId})
-        findOnePosts.userAvater = userAvatar.userAvater
+        findOnePosts.userAvatar = userAvatar.userAvatar
         return findOnePosts;
     }
 

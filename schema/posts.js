@@ -47,7 +47,7 @@ const PostsSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  userAvater : {
+  userAvatar : {
     type : Object    
   },  
   createdAt: {

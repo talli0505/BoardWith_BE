@@ -14,7 +14,7 @@ const CommentsSchema = new mongoose.Schema({
   nickName: {
     type: String,
   },
-  userAvater : {
+  userAvatar : {
     type : Object,
   },
   age: {

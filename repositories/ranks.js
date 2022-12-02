@@ -6,7 +6,7 @@ class RanksRepository {
         const getRanks = await Users.find({}).sort("-totalPoint")
         getRanks.map((p) => result.push({
             nickName: p.nickName,
-            userAvater : p.userAvater,
+            userAvatar : p.userAvatar,
             totalPoint: p.totalPoint
     })
     )
