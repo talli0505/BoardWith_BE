@@ -13,4 +13,8 @@ router.post('/kakao/isKaKao', soicalController.isKakao);
 
 router.post('/kakao/callback', soicalController.kakao_callback);
 
+router.post('/naver/isNaver', soicalController.isNaver);
+
+router.post('/naver/callback', soicalController.naver_callback);
+
 module.exports = router;

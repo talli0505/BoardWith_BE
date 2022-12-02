@@ -7,7 +7,7 @@ class CommentsRepository {
     findAllComments = async (postId) => {
         const allCommentsData = await Comments
             .find({postId})
-            .populate('postId', 'banUser')
+            .populate('postId')
             .sort({updatedAt: -1});
 
         for (let i = 0; i < allCommentsData.length; i++) {
