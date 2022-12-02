@@ -35,6 +35,9 @@ class CommentsRepository {
         const createCommentData = await Comments.create({postId, userId, nickName, birth, gender, myPlace, comment});
         await Posts.updateOne({_id: postId}, {$push: {participant: nickName}});
         await Users.updateOne({userId: userId}, {$inc: {point: 100, totalPoint: 100}})
+        const userInfo = await Users.findOne({userId: userId})
+        const userAvatarData = userInfo.userAvatar;
+        createCommentData["userAvatar"] = userAvatarData;
         return createCommentData;
     };
 
