@@ -108,11 +108,11 @@ class UserService {
     }
 
         // 유저 nickname 중복 찾기
-        findDupId = async(nickName) => {
+        findDupNick = async(nickName) => {
             const findDupNick = await this.usersRepository.findUserAccountNick(nickName)
     
             // 유저 nickname 중복 검사
-            if (findDupNick.nickName) {
+            if (findDupNick) {
                 const err = new Error(`UserService Error`);
                 err.status = 409;
                 err.message = "이미 가입된 닉네임이 존재합니다.";

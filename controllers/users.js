@@ -1,5 +1,6 @@
 const UsersService = require("../services/users");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 class UsersController {
   usersService = new UsersService();
@@ -97,7 +98,7 @@ class UsersController {
   findDupNick = async (req, res, next) => {
     const { nickName } = req.body;
     try {
-      const findDupNick = await this.usersService.findDupId(nickName)
+      const findDupNick = await this.usersService.findDupNick(nickName)
       res.status(201).json({findDupNick : findDupNick})
     } catch(err) {
       res.status(400).json({message : err.message, statusCode : err.status})
@@ -204,9 +205,9 @@ class UsersController {
     const [tokenType, tokenValue] = refresh_token.split(" ");
     const refreshT = await this.usersService.refreshT(tokenValue);
 
-    const myRefreshToken = verifyToken(refreshT.refresh_token);
+    const myRefreshToken = jwt.verify(refreshT.refresh_token, process.env.DB_SECRET_KEY);
 
-    if (myRefreshToken == "jwt expired" || myRefreshToken == undefined) {
+    if (myRefreshToken == "jwt expired" || myRefreshToken == null) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
       const accessToken = await this.usersService.accessToken(refreshT.userId)
@@ -236,10 +237,10 @@ class UsersController {
 
 module.exports = UsersController; 
 
-function verifyToken(token) {
-  try {
-    return jwt.verify(token, process.env.DB_SECRET_KEY);
-  } catch (error) {
-    return error.message;
-  }
-}
+// function verifyToken(token) {
+//   try {
+//     return jwt.verify(token, process.env.DB_SECRET_KEY);
+//   } catch (error) {
+//     return error.message;
+//   }
+// }
