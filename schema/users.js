@@ -31,10 +31,7 @@ const UsersSchema = new mongoose.Schema({
   likeGame: {
     type: Array,
   },
-  introduce : {
-    type : String,
-  },
-  userAvater : {
+  userAvatar : {
     type : Object,
     default : { Eye : 1, Hair : 1, Mouth : 1, Back : 1 }
   },
