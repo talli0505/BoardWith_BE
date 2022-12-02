@@ -23,7 +23,6 @@ class CommentsService {
                 userAvatar: item.userAvatar,
                 confirmOrNot: item.postId.confirmMember.includes(item.nickName),
                 banOrNot: item.postId.banUser.includes(item.nickName),
-
             }
         })
         return mapComments;
