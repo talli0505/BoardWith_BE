@@ -17,7 +17,7 @@ class CommentsService {
                 comment : item.comment,
                 createdAt: item.createdAt,
                 updatedAt: item.updatedAt,
-                userAvater: item.userAvater,
+                userAvatar: item.userAvatar,
                 banOrNot: item.postId.banUser.includes(item.nickName),
             }
         })
