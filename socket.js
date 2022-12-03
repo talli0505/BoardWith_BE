@@ -29,7 +29,7 @@ module.exports = (server) => {
           await Room.updateOne({ room : room }, {$push: {member : nickName}})
         } 
         const RoomM = await Room.findOne({room : room})
-        io.to(room).emit("roomUsers", [RoomM.member])
+        io.to(room).emit("roomUsers", RoomM.member)
       }
       socket.broadcast.to(room).emit('notice', `${nickName}님이 채팅방에 입장하셨습니다.`)
     })
@@ -78,12 +78,12 @@ module.exports = (server) => {
           { $pull: { member: nickName } }
         );
   
-        io.emit("banUsers", 1234);
+        io.emit("banUsers", nickName);
       }
       await Posts.updateOne({_id:room},{$push:{banUser: nickName}})
       await Posts.updateOne({_id:room},{$pull:{confirmMember: nickName}})
       const RoomM = await Room.findOne({room : room})
-      io.to(room).emit("roomUsers", ({nickName : RoomM.member, room : RoomM.room}))
+      io.to(room).emit("roomUsers", RoomM.member)
     });
       
   })

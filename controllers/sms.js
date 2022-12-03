@@ -69,7 +69,7 @@ send = async(req, res, next) => {
     })
     .catch((err) => {
       if(err.res == undefined){
-        res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+        res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
       }
     })
 };

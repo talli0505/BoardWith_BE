@@ -201,21 +201,20 @@ class UsersController {
   }
 
   refreshT = async (req, res, next) => {
-    const {refresh_token} = req.body;
+    const {refresh_token, nickName} = req.body;
     console.log("날아오는 토큰 ", refresh_token)
     const [tokenType, tokenValue] = await refresh_token.split(" ");
-    // const { token } = tokenValue
     console.log("토큰 분리 ", tokenValue)
-    const refreshT = await this.usersService.refreshT(tokenValue);
-    console.log(refreshT)
-    // console.log("찾아오는 토큰 ", refreshT.refresh_token)
+
+    const user = await this.usersService.findUserNick(nickName)
+    console.log(user)
 
     const myRefreshToken = await verifyToken(tokenValue);
 
     if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
-      const accessToken = await this.usersService.accessToken(refreshT.userId)
+      const accessToken = await this.usersService.accessToken(user.userId)
 
       res.status(201).json({accessToken: accessToken})
     }
