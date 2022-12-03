@@ -37,7 +37,9 @@ class CommentsRepository {
         await Users.updateOne({userId: userId}, {$inc: {point: 100, totalPoint: 100}})
         const userInfo = await Users.findOne({userId: userId})
         const userAvatarData = userInfo.userAvatar;
+        const age = userInfo.age;
         createCommentData["userAvatar"] = userAvatarData;
+        createCommentData["age"] = age;
         return createCommentData;
     };
 
