@@ -161,7 +161,7 @@ class UserService {
     // refreshToken 생성
     refreshToken = async () => {
         const refreshToken = jwt.sign({}, process.env.DB_SECRET_KEY, {
-            expiresIn: "2h",
+            expiresIn: "30m",
         });
         return refreshToken;
     };

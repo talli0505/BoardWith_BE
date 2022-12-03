@@ -202,17 +202,22 @@ class UsersController {
 
   refreshT = async (req, res, next) => {
     const {refresh_token} = req.body;
-    const [tokenType, tokenValue] = refresh_token.split(" ");
+    console.log("날아오는 토큰 ", refresh_token)
+    const [tokenType, tokenValue] = await refresh_token.split(" ");
+    // const { token } = tokenValue
+    console.log("토큰 분리 ", tokenValue)
     const refreshT = await this.usersService.refreshT(tokenValue);
+    console.log(refreshT)
+    // console.log("찾아오는 토큰 ", refreshT.refresh_token)
 
-    const myRefreshToken = jwt.verify(refreshT.refresh_token, process.env.DB_SECRET_KEY);
+    const myRefreshToken = await verifyToken(tokenValue);
 
-    if (myRefreshToken == "jwt expired" || myRefreshToken == null) {
+    if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
       const accessToken = await this.usersService.accessToken(refreshT.userId)
 
-      res.send({accessToken: accessToken})
+      res.status(201).json({accessToken: accessToken})
     }
   }
 
@@ -237,10 +242,10 @@ class UsersController {
 
 module.exports = UsersController; 
 
-// function verifyToken(token) {
-//   try {
-//     return jwt.verify(token, process.env.DB_SECRET_KEY);
-//   } catch (error) {
-//     return error.message;
-//   }
-// }
+function verifyToken(token) {
+  try {
+    return jwt.verify(token, process.env.DB_SECRET_KEY);
+  } catch (error) {
+    return error.message;
+  }
+}

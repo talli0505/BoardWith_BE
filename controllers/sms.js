@@ -63,9 +63,15 @@ send = async(req, res, next) => {
         },
       ],
     }
-    });
-    console.log("response", smsRes.data);
-  return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+    }).then(function (res) {
+      console.log('response',res.data, res['data']);
+      res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+    })
+    .catch((err) => {
+      if(err.res == undefined){
+        res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+      }
+    })
 };
 
 // 회원가입 시 인증 번호 확인
@@ -120,9 +126,15 @@ sendID = async(req, res, next) => {
             },
           ],
         }
-        });
-        console.log("response", smsRes.data);
-      return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+        }).then(function (res) {
+          console.log('response',res.data, res['data']);
+          res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+        })
+        .catch((err) => {
+          if(err.res == undefined){
+            res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+          }
+        })
     } catch(e) {
       res.status(400).json({message : e.message})
     }
@@ -183,9 +195,15 @@ sendPW = async(req, res, next) => {
           },
         ],
       }
-      });
-      console.log("response", smsRes.data);
-    return res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+      }).then(function (res) {
+        console.log('response',res.data, res['data']);
+        res.status(201).json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+      })
+      .catch((err) => {
+        if(err.res == undefined){
+          res.json({isSuccess: true, code: 202, message: "본인인증 문자 발송 성공", verifyCode : verifyCode });
+        }
+      })
   } catch(e) {
     res.status(400).json({message : e.message})
   }
