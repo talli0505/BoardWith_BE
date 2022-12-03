@@ -131,6 +131,12 @@ class UsersRepository {
     return lookOtherUser;
   };
 
+  // 정보 찾기 nick으로
+  findUserNick = async (nickName) => {
+    const findUserNick = await Users.findOne({nickName : nickName})
+    return findUserNick;
+  }
+
   // 비밀번호 변경
   changePW = async (userId, password) => {
     const changePW = await Users.updateOne(

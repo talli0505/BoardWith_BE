@@ -161,7 +161,7 @@ class UserService {
     // refreshToken 생성
     refreshToken = async () => {
         const refreshToken = jwt.sign({}, process.env.DB_SECRET_KEY, {
-            expiresIn: "2h",
+            expiresIn: "1d",
         });
         return refreshToken;
     };
@@ -307,6 +307,12 @@ class UserService {
         const lookOtherUser = await this.usersRepository.lookOtherUser(nickName);
         return lookOtherUser;
     };
+
+    // 정보 찾기 nick으로
+    findUserNick = async (nickName) => {
+        const findUserNick = await this.usersRepository.findUserNick(nickName);
+        return findUserNick;
+    }
 
     // 비밀번호 변경
     changePW = async (userId, password) => {
