@@ -66,6 +66,9 @@ const UsersSchema = new mongoose.Schema({
   rank : {
     type : Number,
   },
+  verifyCode : {
+    type : String,
+  },
   createdAt: {
     type: String,
     default: Date.now
