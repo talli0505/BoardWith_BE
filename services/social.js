@@ -15,7 +15,7 @@ const KAKAO_REDIRECT_URL = process.env.KAKAO_REDIRECT_URL;
 const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID;
 const NAVER_REDIRECT_URI = process.env.NAVER_REDIRECT_URI;
 const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
-//const NAVER_STATE = process.env.NAVER_STATE;
+// const NAVER_STATE = process.env.NAVER_STATE;
 
 class SocialService {
     socialRepository = new SocialRepository();
@@ -68,7 +68,7 @@ class SocialService {
 
     isNaver = async (code) => {
         const {data} = await axios.post(
-            `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&state=${NAVER_STATE}&redirect_uri=${NAVER_REDIRECT_URI }`,
+            `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${NAVER_CLIENT_ID}&client_secret=${NAVER_CLIENT_SECRET}&code=${code}&redirect_uri=${NAVER_REDIRECT_URI }`,
             {
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded;charset=utf-8",

@@ -202,12 +202,11 @@ class UsersController {
 
   refreshT = async (req, res, next) => {
     const {refresh_token, nickName} = req.body;
-    console.log("날아오는 토큰 ", refresh_token)
+    // console.log("날아오는 토큰 ", refresh_token)
     const [tokenType, tokenValue] = await refresh_token.split(" ");
-    console.log("토큰 분리 ", tokenValue)
+    // console.log("토큰 분리 ", tokenValue)
 
     const user = await this.usersService.findUserNick(nickName)
-    console.log(user)
 
     const myRefreshToken = await verifyToken(tokenValue);
 
