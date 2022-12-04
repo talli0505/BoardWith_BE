@@ -164,7 +164,7 @@ class SoicalController {
       // 프론에게 인가코드 받기
       const { code } = req.body;
 
-      // console.log('인가 코드' + code);
+      console.log('인가 코드' + code);
       try {
         const isNaver = await this.socialService.isNaver(code)
 

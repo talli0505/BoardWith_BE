@@ -29,19 +29,19 @@ hmac.update(accessKey);
 const hash = hmac.finalize();
 const signature = hash.toString(CryptoJS.enc.Base64);
 
-//인증번호 생성
-const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-
 class SMS {
   // 회원가입시 사용하는 인증 번호
-send = async(req, res, next) => {
+send = (req, res, next) => {
   const phoneNumber = req.body.phoneNumber;
 
   Cache.del(phoneNumber);
 
+  // 인증번호 생성
+  const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+
   Cache.put(phoneNumber, verifyCode.toString());
 
-  const smsRes = await axios({
+  axios({
     method: method,
     json: true,
     url: url,
@@ -101,10 +101,13 @@ sendID = async(req, res, next) => {
       } 
     
       Cache.del(phoneNumber);
+
+      // 인증번호 생성
+      const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
     
       Cache.put(phoneNumber, verifyCode.toString());
     
-      const smsRes = await axios({
+      axios({
         method: method,
         json: true,
         url: url,
@@ -170,6 +173,9 @@ sendPW = async(req, res, next) => {
     } 
   
     Cache.del(phoneNumber);
+
+    // 인증번호 생성
+    const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
   
     Cache.put(phoneNumber, verifyCode.toString());
   
