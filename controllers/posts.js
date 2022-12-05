@@ -232,7 +232,6 @@ class PostsController {
                     
                 })
             }
-            console.log("total 부분 ", total)
             let posts = [...total]
             // posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)
             res.status(200).json(posts)

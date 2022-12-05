@@ -16,27 +16,29 @@ module.exports = (server) => {
 
   io.on("connection", socket => {
     socket.on("joinRoom", async data => {
-      let {nickName, room} = data
+      let {nickName, room, userAvatar} = data
       socket.join(room)
       const findRoom = await Room.findOne({ room: room });
       if(!findRoom) {
         console.log("신규")
-        await Room.create({owner : nickName, room : room, member: nickName })
-        io.to(room).emit("roomUsers", [nickName])
+        await Room.create({owner : nickName, room : room, member: {nickName : nickName, userAvatar :userAvatar}})
+        // const user = await Users.findOne({nickName : nickName}) 
+        io.to(room).emit("roomUsers", [{nickName : nickName, userAvatar : userAvatar}])
       } else {
         console.log("추가")
-        if(!findRoom.member.includes(nickName)) {
-          await Room.updateOne({ room : room }, {$push: {member : nickName}})
+        if(!findRoom.member.nickName === nickName) {
+          await Room.updateOne({ room : room }, {$push: {member : {nickName : nickName, userAvatar :userAvatar}}})
         } 
         const RoomM = await Room.findOne({room : room})
+        // const user = await Users.findOne({nickName : nickName}) 
         io.to(room).emit("roomUsers", RoomM.member)
       }
       socket.broadcast.to(room).emit('notice', `${nickName}님이 채팅방에 입장하셨습니다.`)
     })
 
     socket.on("chatMessage", async data => {
-      let {room, nickName, message} = data
-      const user = await Users.findOne({nickName : nickName}) 
+      let {room, nickName, message, userAvatar} = data
+      // const user = await Users.findOne({nickName : nickName}) 
       await Room.updateOne(
               { room: room },
               {
@@ -44,12 +46,13 @@ module.exports = (server) => {
                   chat: {
                     nickName: nickName,
                     message: message,
+                    userAvatar : userAvatar,
                     time: Date.now(),
                   },
                 },
               }
             );
-      io.to(room).emit('message', {...data, userAvatar : user.userAvatar})
+      io.to(room).emit('message', {...data})
     })
 
     // 퇴장
