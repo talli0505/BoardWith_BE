@@ -14,7 +14,7 @@ send = async(req, res, next) => {
 
     res.status(201).json({code: 201, message: "본인인증 문자 발송 성공", verifyCode: send})
   } catch(err) {
-    res.status(401).json({statusCode : err.status, message: err.message})
+    res.status(401||err.status).json({statusCode : err.status, message: err.message})
   }
 };
 

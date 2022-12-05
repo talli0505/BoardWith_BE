@@ -1,6 +1,7 @@
 require("dotenv").config();
 const axios = require('axios');
 const CryptoJS = require('crypto-js');
+const Cache = require('memory-cache');
 const SmsRepository = require("../repositories/sms");
 
 class SmsService {
@@ -32,10 +33,14 @@ class SmsService {
 
     const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
 
+    Cache.del(phoneNumber);
+
+    Cache.put(phoneNumber, verifyCode.toString());
+
     const findPhone = await this.smsRepository.findPhone(phoneNumber)
     if (findPhone) {
       const err = new Error(`SmsService Error`);
-      err.status = 401;
+      err.status = 999;
       err.message = "아이디는 핸드폰 번호당 1개만 사용가능합니다.";
       throw err;
     }
@@ -77,18 +82,14 @@ class SmsService {
   }
 
   verify = async (phoneNumber, verifyCode) => {
-    const findValue = await this.smsRepository.findValue(phoneNumber, verifyCode);
-    if (!findValue) {
-      const err = new Error(`SmsService Error`);
-      err.status = 401;
-      err.message = "인증번호가 틀렸습니다.";
-      throw err;
-    } else if (findValue.verifyCode !== verifyCode) {
+    const CacheData = Cache.get(phoneNumber);
+    if (CacheData !== verifyCode) {
       const err = new Error(`SmsService Error`);
       err.status = 401;
       err.message = "인증번호가 틀렸습니다.";
       throw err;
     } else {
+      Cache.del(phoneNumber);
       return 'success';
     }
   }
