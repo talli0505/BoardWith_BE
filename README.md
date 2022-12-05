@@ -26,6 +26,20 @@
 
 **재미의 상한선**을 깨 보는거죠! 이러한 기대를 안고 보드게임 파티원 매칭을 도와줄 프로젝트를 지금, 시작합니다!
 
+<br>
+
+# 페이지 소개
+
+|**로그인 페이지**|**메인 페이지**|**상세 페이지**|**신청 페이지**|
+|:-----:|:-----:|:-----:|:-----:|
+|<img src="https://user-images.githubusercontent.com/87609692/205592411-ab58f347-5361-4a52-978a-3733f3aba89d.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592447-d2e7e148-1b39-4d3c-9468-340d83c99d71.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592589-2a4d4717-ddec-48c1-9dad-112b5070109f.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592650-b20a727c-7311-45ac-80ec-775c44ad128f.png" width="250"/>|
+
+|**채팅 페이지**|**아바타 페이지**|**랭킹 페이지**|**마이 페이지**|
+|:-----:|:-----:|:-----:|:-----:|
+|<img src="https://user-images.githubusercontent.com/87609692/205592735-fb4ffa00-9447-4852-b919-86125710d458.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592816-4b1685cf-19ad-4d87-aa4e-44f05361c965.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592821-075c8b3f-9492-4dd3-b1bc-fd0c33efc632.png" width="250"/>|<img src="https://user-images.githubusercontent.com/87609692/205592824-6d36022f-d8ad-436d-ac51-f1b755708ea5.png" width="250"/>|
+
+<br>
+
 ### 💻 Front-End
 
 [GitHub](https://github.com/kkkimjiyong/BBoDeeok)
@@ -50,4 +64,4 @@
 
 # Swagger
 
-![image](https://user-images.githubusercontent.com/87609692/205547690-1504585f-4f2d-4829-b9a3-9dc9fd11f337.png)
+![image](https://user-images.githubusercontent.com/87609692/205597720-e52a5fcb-51f1-4235-be2f-f27884619695.png)
