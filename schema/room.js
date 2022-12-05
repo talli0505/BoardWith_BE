@@ -8,7 +8,7 @@ const RoomsSchema = new mongoose.Schema({
     type : String,
   },
   member : {
-    type : Array
+    type : Array,
   },
   createdAt: { 
     type: Date,
