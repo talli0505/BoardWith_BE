@@ -25,7 +25,7 @@ const UsersSchema = new mongoose.Schema({
     type: String,
   },
   visible : {
-    type : Boolean
+    type : String,
   },
   likeGame: {
     type: Array,

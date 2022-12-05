@@ -32,6 +32,14 @@ class SmsService {
 
     const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
 
+    const findPhone = await this.smsRepository.findPhone(phoneNumber)
+    if (findPhone) {
+      const err = new Error(`SmsService Error`);
+      err.status = 401;
+      err.message = "아이디는 핸드폰 번호당 1개만 사용가능합니다.";
+      throw err;
+    }
+
     await this.smsRepository.UpdateCode(phoneNumber, verifyCode);
 
     axios({

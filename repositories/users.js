@@ -11,7 +11,7 @@ class UsersRepository {
   signUp = async (
     userId, nickName, password, phoneNumber, myPlace, age, gender, likeGame, admin) => {
     // create로 회원가입
-    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,myPlace,age,gender,likeGame,admin, visible:true, tutorial:false, createdAt: date,updatedAt: date
+    const createAccountData = await Users.create({userId,nickName,password,phoneNumber,myPlace,age,gender,likeGame,admin, visible:"V", tutorial:false, createdAt: date,updatedAt: date
     });
     await bookmark.create({ nickName });
     return createAccountData;
