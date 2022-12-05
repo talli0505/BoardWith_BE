@@ -18,7 +18,7 @@ class UsersController {
         age,
         gender,
         likeGame,
-        admin
+        admin,
       } = req.body;
 
       await this.usersService.signUp(
