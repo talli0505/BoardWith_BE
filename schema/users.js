@@ -25,8 +25,7 @@ const UsersSchema = new mongoose.Schema({
     type: String,
   },
   visible : {
-    type : Boolean,
-    default : true
+    type : Boolean
   },
   likeGame: {
     type: Array,
@@ -61,7 +60,6 @@ const UsersSchema = new mongoose.Schema({
   },
   tutorial : {
     type : Boolean,
-    default : false,
   },
   rank : {
     type : Number,
