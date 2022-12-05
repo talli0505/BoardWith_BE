@@ -1,6 +1,7 @@
 const PostsService = require("../services/posts")
 const PostsRepository = require("../repositories/posts")
 const Posts = require("../schema/posts");
+const Users = require("../schema/users");
 const _ = require('lodash');
 
 // const paging = (page, totalPost, maxPost) => {
@@ -205,9 +206,35 @@ class PostsController {
                         {partyMember: {$gte: partyMember[0], $lte: partyMember[1]}}
                     ]
                 });
-
-            let posts = [...filter]
-            posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)
+            const total = []
+            for(let i = 0; i< filter.length; i++) {
+                const findAvatar = await Users.findOne({userId : filter[i].userId})
+                total.push({
+                    postId : filter[i]._id,
+                    userId: filter[i].userId,
+                    nickName: filter[i].nickName,
+                    userAvatar : findAvatar.userAvatar,
+                    title: filter[i].title,
+                    content: filter[i].content,
+                    location: filter[i].location,
+                    cafe: filter[i].cafe,
+                    date: filter[i].date,
+                    time: filter[i].time,
+                    map: filter[i].map,
+                    partyMember: filter[i].partyMember,
+                    participant: filter[i].participant,
+                    confirmMember: filter[i].confirmMember,
+                    banUser: filter[i].banUser,
+                    closed: filter[i].closed,
+                    expireAt: filter[i].expireAt,
+                    createdAt: filter[i].createdAt,
+                    updatedAt:filter[i].updatedAt
+                    
+                })
+            }
+            console.log("total 부분 ", total)
+            let posts = [...total]
+            // posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)
             res.status(200).json(posts)
         } catch (error) {
             console.error(error)
