@@ -36,7 +36,7 @@
 
 # 서비스 아키택쳐
 
-<img width="80%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPpYyP%2FbtrR84qFSup%2FZnRPcc1NqoPK4ggXKkPb5k%2Fimg.png" >
+<img width="80%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmtnJS%2FbtrSJEY5DRU%2FtX9Vk787Ps8b8OLhvy1pF1%2Fimg.png" >
 
 # Back-End Tool
 
