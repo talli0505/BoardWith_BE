@@ -44,8 +44,10 @@
 <br>
 <img alt="Socket.io" src ="https://img.shields.io/badge/Socket.io-010101.svg?&style=for-the-badge&logo=Socket.io&logoColor=white"/> <img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white"/> <img alt="Amazon EC2" src ="https://img.shields.io/badge/Amazon EC2-FF9900.svg?&style=for-the-badge&logo=Amazon EC2&logoColor=white"/> <img alt="social login KakaoTalk" src ="https://img.shields.io/badge/social login KakaoTalk-FFCD00.svg?&style=for-the-badge&logo=KakaoTalk&logoColor=black"/>
 
-<br>
-
 # ERD
 
 ![image](https://user-images.githubusercontent.com/87609692/205525590-c0404b20-0476-44af-a413-626bee28ac20.png)
+
+# Swagger
+
+![image](https://user-images.githubusercontent.com/87609692/205547690-1504585f-4f2d-4829-b9a3-9dc9fd11f337.png)
