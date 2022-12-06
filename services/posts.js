@@ -1,6 +1,7 @@
 const PostsRepository = require("../repositories/posts");
 const Posts = require("../schema/posts")
 const shuffle_array = require("shuffle-array")
+const Users = require("../schema/users");
 
 class PostsService {
     postsRepository = new PostsRepository();
@@ -179,6 +180,12 @@ class PostsService {
             }
         }
         return result
+    }
+
+    //게시글 필터링
+    filterPosts = async(map, time, partyMember) => {
+        const filteredPostsData = await this.postsRepository.filterPosts(map, time, partyMember);
+        return filteredPostsData;
     }
 }
 
