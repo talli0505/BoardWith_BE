@@ -203,6 +203,7 @@ class PostsRepository {
             const findAvatar = await Users.findOne({userId: filter[i].userId})
             filter[i]['userAvatar'] = findAvatar.userAvatar;
         }
+    return filter;
     }
 }
 
