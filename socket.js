@@ -21,17 +21,20 @@ module.exports = (server) => {
       const findRoom = await Room.findOne({ room: room });
       if(!findRoom) {
         console.log("신규")
-        await Room.create({owner : nickName, room : room, member: {nickName : nickName, userAvatar :userAvatar}})
+        await Room.create({owner : nickName, room : room, member: nickName})
+        await Room.updateOne({ room : room }, {$push: {avatar : {nickName : nickName, userAvatar :userAvatar}}})
         // const user = await Users.findOne({nickName : nickName}) 
         io.to(room).emit("roomUsers", [{nickName : nickName, userAvatar : userAvatar}])
       } else {
         console.log("추가")
-        if(!findRoom.member.nickName === nickName) {
-          await Room.updateOne({ room : room }, {$push: {member : {nickName : nickName, userAvatar :userAvatar}}})
+        console.log(findRoom.member)
+        if(!findRoom.member.includes(nickName)) {
+          await Room.updateOne({ room : room }, {$push: {member : nickName}})
+          await Room.updateOne({ room : room }, {$push: {avatar : {nickName : nickName, userAvatar :userAvatar}}})
         } 
         const RoomM = await Room.findOne({room : room})
         // const user = await Users.findOne({nickName : nickName}) 
-        io.to(room).emit("roomUsers", RoomM.member)
+        io.to(room).emit("roomUsers", RoomM.avatar)
       }
       socket.broadcast.to(room).emit('notice', `${nickName}님이 채팅방에 입장하셨습니다.`)
     })
@@ -61,16 +64,16 @@ module.exports = (server) => {
       let { nickName, room } = data;
       await Room.updateOne(
                 { room: room },
-                { $pull: { member: nickName } }
+                { $pull: { member: {nickName : nickName}} }
               );        
       socket.broadcast.to(room).emit("notice", `${nickName}님 이 퇴장 하셨습니다.`);
       const RoomM = await Room.findOne({room : room})
-      io.to(room).emit("roomUsers", ({nickName : RoomM.member, room : RoomM.room}))
+      io.to(room).emit("roomUsers", nickName)
     });
 
     // 벤 -> 다른사람이 강퇴 못하도록 로직을 막기 (transection을 어떻게 챙길수있는지)
     socket.on("ban", async (data) => {
-      let { nickName, room } = data;
+      let { nickName, room, userAvatar } = data;
   
       if (nickName) {
         // 나갔을 때 퇴장 했다는 메세지 프론트에게 보내줌
@@ -78,7 +81,12 @@ module.exports = (server) => {
   
         await Room.updateOne(
           { room: room },
-          { $pull: { member: nickName } }
+          { $pull: {member : nickName} }
+        );
+
+        await Room.updateOne(
+          { room: room },
+          { $pull: { avatar : {nickName : nickName, userAvatar :userAvatar} } }
         );
   
         io.emit("banUsers", nickName);
@@ -86,7 +94,7 @@ module.exports = (server) => {
       await Posts.updateOne({_id:room},{$push:{banUser: nickName}})
       await Posts.updateOne({_id:room},{$pull:{confirmMember: nickName}})
       const RoomM = await Room.findOne({room : room})
-      io.to(room).emit("roomUsers", RoomM.member)
+      io.to(room).emit("roomUsers", RoomM.avatar)
     });
       
   })

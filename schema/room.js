@@ -10,6 +10,9 @@ const RoomsSchema = new mongoose.Schema({
   member : {
     type : Array,
   },
+  avatar : {
+    type : Array,
+  },
   createdAt: { 
     type: Date,
     default : Date.now
