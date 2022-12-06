@@ -1,4 +1,4 @@
-const Users = require("../schema/users");
+const Users = require("../schema/users"); 
 const bookmark = require("../schema/bookmark");
 const moment = require('moment')
 const date = moment().format('YYYY-MM-DD HH:mm:ss')
@@ -6,7 +6,7 @@ const date = moment().format('YYYY-MM-DD HH:mm:ss')
 class SocialRepository {
   // DB 상에 그 userId가 없을 경우 생성
   createUser = async(userId, nickName, myPlace, age, gender, likeGame, admin) => {
-    const createUser = await Users.create({userId, nickName, myPlace, age, gender, likeGame, admin, createdAt: date, updatedAt: date, expireAt: date
+    const createUser = await Users.create({userId, nickName, myPlace, age, gender, likeGame, admin, visible:"V", createdAt: date, updatedAt: date, expireAt: date
     });
     await bookmark.create({ nickName });
     return createUser;

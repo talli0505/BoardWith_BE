@@ -206,13 +206,12 @@ class UsersController {
     const [tokenType, tokenValue] = await refresh_token.split(" ");
     // console.log("토큰 분리 ", tokenValue)
 
-    const user = await this.usersService.findUserNick(nickName)
-
     const myRefreshToken = await verifyToken(tokenValue);
 
     if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
+      const user = await this.usersService.findUserNick(nickName)
       const accessToken = await this.usersService.accessToken(user.userId)
 
       res.status(201).json({accessToken: accessToken})

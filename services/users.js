@@ -52,7 +52,7 @@ class UserService {
         if (!CHECK_ID.test(userId)) {
             const err = new Error(`UserService Error`);
             err.status = 403;
-            err.message = "아이디는 최소 9자리 이상으로 해주세요.";
+            err.message = "아이디는 최소 4자리 이상으로 해주세요.";
             throw err;
         }
 
