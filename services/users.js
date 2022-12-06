@@ -1,4 +1,4 @@
-const UsersRepository = require("../repositories/users"); 
+const UsersRepository = require("../repositories/users");  
 const PostsRepository = require("../repositories/posts");
 const CommentsRepository = require("../repositories/comments");
 const jwt = require("jsonwebtoken");
@@ -219,9 +219,6 @@ class UserService {
         age,
         gender,
         likeGame,
-        userAvatar,
-        point,
-        totalPoint,
         visible,
         tutorial
     ) => {
@@ -245,18 +242,6 @@ class UserService {
             likeGame = findUserAccountId.likeGame;
         }
 
-        if (userAvatar == "") {
-            userAvatar = findUserAccountId.userAvatar;
-        }
-
-        if (point == "") {
-            point = findUserAccountId.point;
-        }
-
-        if (totalPoint == "") {
-            totalPoint = findUserAccountId.totalPoint;
-        }
-
         if (visible == "") {
             visible = findUserAccountId.visible;
         }
@@ -272,9 +257,6 @@ class UserService {
             age,
             gender,
             likeGame,
-            userAvatar,
-            point,
-            totalPoint,
             visible,
             tutorial
         );
@@ -376,6 +358,12 @@ class UserService {
         });
         return mapResult;
     };
+
+    // 아바타 변경 및 포인트 차감
+    subPoint = async(userId, userAvatar) => {
+        const subPoint = await this.usersRepository.subPoint(userId, userAvatar);
+        return subPoint;
+    }
 }
 
 module.exports = UserService;

@@ -1,4 +1,4 @@
-const Users = require("../schema/users");
+const Users = require("../schema/users"); 
 const Posts = require("../schema/posts");
 const Comments = require("../schema/comments");
 const bookmark = require("../schema/bookmark");
@@ -83,9 +83,6 @@ class UsersRepository {
     age,
     gender,
     likeGame,
-    userAvatar,
-    point,
-    totalPoint,
     visible,
     tutorial
   ) => {
@@ -97,9 +94,6 @@ class UsersRepository {
           age: age,
           gender: gender,
           likeGame: likeGame,
-          userAvatar: userAvatar,
-          point: point,
-          totalPoint: totalPoint,
           visible: visible,
           tutorial: tutorial
         },
@@ -184,6 +178,36 @@ class UsersRepository {
     const AllgetBookmark = await Posts.find({_id:postId});
     //console.log("repo-AllgetBookmark", AllgetBookmark)
     return AllgetBookmark
+  }
+
+  // 아바타 포인트 차감
+  subPoint = async(userId, userAvatar) => {
+    const subPoint = await Users.findOne({userId : userId})
+    if(subPoint.point < 0) {
+      const err = new Error(`UserRepository Error`);
+      err.status = 403;
+      err.message = "포인트가 부족합니다.";
+      throw err;
+    }
+
+    let totalCost = "";
+    if(subPoint.userAvatar.Eye !== userAvatar.Eye) {
+      totalCost += 300;
+    }
+    if(subPoint.userAvatar.Hair !== userAvatar.Hair) {
+      totalCost += 300;
+    }
+    if(subPoint.userAvatar.Mouth !== userAvatar.Mouth ) {
+      totalCost += 300;
+    }
+    if(subPoint.userAvatar.Back !== userAvatar.Back) {
+      totalCost += 300;
+    }
+
+    await Users.updateOne({userId:userId}, {$inc:{point: -Number(totalCost)}})
+    await Users.updateOne({userId : userId}, {$set:{userAvatar : userAvatar}})
+    const afterPoint = await Users.findOne({userId : userId})
+    return afterPoint.point;
   }
 }
 

@@ -1,4 +1,4 @@
-const UsersService = require("../services/users");
+const UsersService = require("../services/users"); 
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -123,7 +123,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const {userId, nickName} = res.locals.user;
-      const {myPlace, age, gender, likeGame, userAvatar, point, totalPoint, visible, tutorial} =
+      const {myPlace, age, gender, likeGame, visible, tutorial} =
           req.body;
       await this.usersService.updateUserData(
           userId,
@@ -132,9 +132,6 @@ class UsersController {
           age,
           gender,
           likeGame,
-          userAvatar,
-          point,
-          totalPoint,
           visible,
           tutorial
       );
@@ -233,6 +230,17 @@ class UsersController {
       res.status(200).json({data: getBookmark, message: "조회 완료"});
     } catch (err) {
       res.status(err.status || 400).json({statusCode: err.status, message: err.message})
+    }
+  }
+
+  subPoint = async (req, res, next) => {
+    const {userId} = res.locals.user;
+    const {userAvatar} = req.body;
+    try {
+      const subPoint = await this.usersService.subPoint(userId, userAvatar);
+      res.status(200).json({message : "변경이 완료되었습니다.", point : subPoint})
+    } catch(err) {
+      res.status(200||err.status).json({message : err.message, statusCode : err.status})
     }
   }
 }
