@@ -1,4 +1,4 @@
-const UsersService = require("../services/users");
+const UsersService = require("../services/users"); 
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -123,7 +123,7 @@ class UsersController {
   updateUserData = async (req, res, next) => {
     try {
       const {userId, nickName} = res.locals.user;
-      const {myPlace, age, gender, likeGame, userAvatar, point, totalPoint, visible, tutorial} =
+      const {myPlace, age, gender, likeGame, visible, tutorial} =
           req.body;
       await this.usersService.updateUserData(
           userId,
@@ -132,9 +132,6 @@ class UsersController {
           age,
           gender,
           likeGame,
-          userAvatar,
-          point,
-          totalPoint,
           visible,
           tutorial
       );
@@ -206,13 +203,12 @@ class UsersController {
     const [tokenType, tokenValue] = await refresh_token.split(" ");
     // console.log("토큰 분리 ", tokenValue)
 
-    const user = await this.usersService.findUserNick(nickName)
-
     const myRefreshToken = await verifyToken(tokenValue);
 
     if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
       res.status(420).json({message: "로그인이 필요합니다.", code: 420});
     } else {
+      const user = await this.usersService.findUserNick(nickName)
       const accessToken = await this.usersService.accessToken(user.userId)
 
       res.status(201).json({accessToken: accessToken})
@@ -234,6 +230,17 @@ class UsersController {
       res.status(200).json({data: getBookmark, message: "조회 완료"});
     } catch (err) {
       res.status(err.status || 400).json({statusCode: err.status, message: err.message})
+    }
+  }
+
+  subPoint = async (req, res, next) => {
+    const {userId} = res.locals.user;
+    const {userAvatar} = req.body;
+    try {
+      const subPoint = await this.usersService.subPoint(userId, userAvatar);
+      res.status(200).json({message : "변경이 완료되었습니다.", point : subPoint})
+    } catch(err) {
+      res.status(200||err.status).json({message : err.message, statusCode : err.status})
     }
   }
 }

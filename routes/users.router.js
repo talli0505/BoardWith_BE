@@ -45,4 +45,7 @@ router.put("/bookmark/bookmark", authMiddleware, usersController.pushBookmark);
 //북마크 가져오기
 router.get("/bookmark/:nickName", authMiddleware, usersController.getBookmark);
 
+// 아바타 변경 및 차감
+router.post("/change/point", authMiddleware, usersController.subPoint);
+
 module.exports = router;
