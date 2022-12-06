@@ -30,11 +30,11 @@ class PostsRepository {
     //게시글 검색 by 제목
     searchTitle = async (keyword) => {
         const searchTitle = await Posts.find({title: {$regex: keyword, $options: "xi"}}).sort({createdAt: "desc"});
-        /*{$or: [
-                { title: { $regex: keyword, $options: "xi"}},  //“x” is to ignore the white space,
-                { nickName: {$regex: keyword, $options: "xi"}}  //“i” is to make it not case-sensitive
-            ]}*/
-        return searchTitle
+        for (let i = 0; i < searchTitle.length; i++) {
+            const findAvatar = await Users.findOne({userId: searchTitle[i].userId})
+            searchTitle[i]['userAvatar'] = findAvatar.userAvatar;
+        }
+        return searchTitle;
     }
 
     //키워드(닉네임)로 게시글 검색
@@ -45,7 +45,11 @@ class PostsRepository {
                 $options: "xi"
             }
         }).sort({createdAt: "desc"});
-        return searchNickName
+        for (let i = 0; i < searchNickName.length; i++) {
+            const findAvatar = await Users.findOne({userId: searchNickName[i].userId})
+            searchNickName[i]['userAvatar'] = findAvatar.userAvatar;
+        }
+        return searchNickName;
     }
 
     findAllPosts = async (skip, keyword) => {
