@@ -62,7 +62,9 @@ class CommentsRepository {
     }
 
     //본인 댓글 여부 확인 후 댓글 삭제
-    deleteComment = async (commentId) => {
+    deleteComment = async (nickName, commentId) => {
+        const findOneComment = await Comments.findOne({_id: commentId});
+        await Posts.updateOne({_id: findOneComment.postId}, {$pull: {participant: nickName}});
         const deleteCommentData = await Comments.deleteOne({_id: commentId});
         return deleteCommentData;
     };

@@ -82,7 +82,7 @@ class CommentsController {
     //댓글 삭제
     deleteComment = async (req, res) => {
         try {
-            const {userId} = res.locals.user;
+            const {userId, nickName} = res.locals.user;
             const {commentId} = req.params;
 
             //댓글 존재 여부 확인하기 for delete
@@ -95,7 +95,7 @@ class CommentsController {
             }
 
             //댓글 삭제
-            const deleteComment = await this.commentsService.deleteComment(commentId);
+            const deleteComment = await this.commentsService.deleteComment(nickName, commentId);
             res.status(200).json({message: "댓글 삭제 완료!!"})
 
         } catch (err) {
