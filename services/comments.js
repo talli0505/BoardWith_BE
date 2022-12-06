@@ -67,8 +67,8 @@ class CommentsService {
     }
 
     //본인 댓글 여부 확인 후 댓글 삭제
-    deleteComment = async (commentId) => {
-        const deletedCommentResult = await this.commentsRepository.deleteComment(commentId);
+    deleteComment = async (nickName, commentId) => {
+        const deletedCommentResult = await this.commentsRepository.deleteComment(nickName, commentId);
         // console.log(deletedCommentResult, "service")
         return deletedCommentResult;
     };
