@@ -195,48 +195,12 @@ class PostsController {
 
 //게시글 필터링
     filterPosts = async (req, res, next) => {
-        const {map, time, partyMember} = req.body;
-
         try {
-            const filter = await Posts.find(
-                {
-                    $and: [
-                        {map: {$regex: new RegExp(`${map}`, "i")}},
-                        {time: {$gte: time[0], $lte: time[1]}},
-                        {partyMember: {$gte: partyMember[0], $lte: partyMember[1]}}
-                    ]
-                });
-            const total = []
-            for(let i = 0; i< filter.length; i++) {
-                const findAvatar = await Users.findOne({userId : filter[i].userId})
-                total.push({
-                    postId : filter[i]._id,
-                    userId: filter[i].userId,
-                    nickName: filter[i].nickName,
-                    userAvatar : findAvatar.userAvatar,
-                    title: filter[i].title,
-                    content: filter[i].content,
-                    location: filter[i].location,
-                    cafe: filter[i].cafe,
-                    date: filter[i].date,
-                    time: filter[i].time,
-                    map: filter[i].map,
-                    partyMember: filter[i].partyMember,
-                    participant: filter[i].participant,
-                    confirmMember: filter[i].confirmMember,
-                    banUser: filter[i].banUser,
-                    closed: filter[i].closed,
-                    expireAt: filter[i].expireAt,
-                    createdAt: filter[i].createdAt,
-                    updatedAt:filter[i].updatedAt
-                    
-                })
-            }
-            let posts = [...total]
-            // posts = _.uniqBy(posts, "_id");  //중복 제거(Library Lodash)
-            res.status(200).json(posts)
-        } catch (error) {
-            console.error(error)
+            const {map, time, partyMember} = req.body;
+            const filterPosts = await this.postsService.filterPosts(map, time, partyMember);
+            res.status(200).json({data: filterPosts, message: "게시글 필터링 완료"});
+        } catch (e) {
+            res.status(e.status || 400).json({statusCode: e.status, message: e.message });
         }
     }
 }
