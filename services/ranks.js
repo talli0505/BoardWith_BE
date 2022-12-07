@@ -7,6 +7,11 @@ class RanksService {
         const getRanks = await this.ranksRepository.getRanks();
         return getRanks
     }
+
+    getMyPoint = async(nickName) => {
+        const getMyPoint = await this.ranksRepository.getMyPoint(nickName);
+        return getMyPoint
+    }
 }
 
 module.exports = RanksService;

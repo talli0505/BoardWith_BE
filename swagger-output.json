@@ -1251,6 +1251,27 @@
           }
         }
       }
+    },
+    "/rank/mypoint": {
+      "get": {
+        "tags": ["랭킹API"],
+        "description": "나의 포인트 조회",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회완료"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   }
 }

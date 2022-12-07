@@ -14,9 +14,18 @@ class RanksRepository {
             totalPoint: p.totalPoint,
             rank: p.rank
     })
-    )
+    );
         return result
-    }
+    };
+
+    getMyPoint = async(nickName) => {
+        const getMyPoint = await Users.findOne({nickName:nickName})
+        const result = {
+            point : getMyPoint.point, 
+            totalPoint : getMyPoint.totalPoint
+        }
+        return result       
+    };
 }
 
 module.exports = RanksRepository;
