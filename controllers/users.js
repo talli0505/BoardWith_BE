@@ -240,7 +240,7 @@ class UsersController {
       const subPoint = await this.usersService.subPoint(userId, userAvatar);
       res.status(200).json({message : "변경이 완료되었습니다.", point : subPoint})
     } catch(err) {
-      res.status(200||err.status).json({message : err.message, statusCode : err.status})
+      res.status(err.status || 400).json({message : err.message, statusCode : err.status})
     }
   }
 }

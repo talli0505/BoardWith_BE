@@ -184,27 +184,26 @@ class UsersRepository {
   subPoint = async(userId, userAvatar) => {
     const subPoint = await Users.findOne({userId : userId})
     if(subPoint.point < 0) {
+      await Users.updateOne({userId:userId}, {$set:{point: 0}})
       const err = new Error(`UserRepository Error`);
       err.status = 403;
       err.message = "포인트가 부족합니다.";
       throw err;
     }
 
-    let totalCost = "";
     if(subPoint.userAvatar.Eye !== userAvatar.Eye) {
-      totalCost += 300;
+      await Users.updateOne({userId:userId}, {$inc:{point: -300}})
     }
     if(subPoint.userAvatar.Hair !== userAvatar.Hair) {
-      totalCost += 300;
+      await Users.updateOne({userId:userId}, {$inc:{point: -300}})
     }
     if(subPoint.userAvatar.Mouth !== userAvatar.Mouth ) {
-      totalCost += 300;
+      await Users.updateOne({userId:userId}, {$inc:{point: -300}})
     }
     if(subPoint.userAvatar.Back !== userAvatar.Back) {
-      totalCost += 300;
+      await Users.updateOne({userId:userId}, {$inc:{point: -300}})
     }
 
-    await Users.updateOne({userId:userId}, {$inc:{point: -Number(totalCost)}})
     await Users.updateOne({userId : userId}, {$set:{userAvatar : userAvatar}})
     const afterPoint = await Users.findOne({userId : userId})
     return afterPoint.point;
