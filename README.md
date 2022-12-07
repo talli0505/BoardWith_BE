@@ -106,3 +106,26 @@
   <summary>Swagger 사진</summary>
   <img src="https://user-images.githubusercontent.com/87609692/205597720-e52a5fcb-51f1-4235-be2f-f27884619695.png"></img>
 </details>
+
+## 👉 트러블 슈팅
+<details>
+  <summary>MySQL -> MongoDB</summary>
+  <br>
+  <p><strong>도입</strong> : 기존에 사용해왔던 부분이라 MySQL default처럼 사용해도 큰 문제가 없을거 같아 이용했습니다. </p>
+  <p><strong>문제상황</strong> : 긴 프로젝트를 진행하면서 스키마를 추가해야하는 상황이 생기고, 그로 인해 테이블도 자주 변경하는 현상이 일어나, 유연하지 않은 관계형 데이터베이스를 사용하는데에 어려움이 생겼습니다. 그리고 매칭시스템을 하기 위해서 실시간 채팅을 도입해야했고, 채팅의 특성상 처리해야 할 데이터의 양이 빠르게 증가하기 때문에 수평 확장을 통해 더 많은 탄력성을 제공하는 noSQL 도입의 필요성을 더 크게 느꼈습니다.</p>
+  <p><strong>의견 결정</strong> : 많은 데이터를 저장해야하고, 스키마에 대한 정의가 없어서 그때 그때 변경할수있고, 최적화된 Key-Value기법으로 저장하기에 응답,처리속도가 좋은 MongoDB로 결정했습니다. </p>
+</details>
+<details>
+  <br>
+  <summary>Access Token, Refresh Token</summary>
+  <p><strong>도입</strong> : access Token만 있을 경우, 계속 사용하기 때문에 시간을 늘려야하는데, 이때, 탈취가되면 그 긴 시간동안 마음대로 사용할 수 있기때문, Refresh Token 도입 </p>
+  <p><strong>문제상황</strong> : Refresh Token을 DB에 저장하고 Access Token이 만료가 됐을 때, DB에 Refresh Token이 살아있는 걸 확인한 후 자동적으로 Access Token생성해주다보니, 여전히 Access Token이 만료되더라도 탈취가 되면 자동적으로 생성해서 주기 때문에 Refresh Token을 도입한 이유가 없습니다.</p>
+  <p><strong>의견 결정</strong> : 로그인 시 Refresh Token을 프론트한테 넘겨줘서 만료 시에 그 Refresh Token과 DB에 있는게 맞는지 체크 후, Refresh Token 만료인지 아닌지 다 체크한 후에 Access Token을 보내주도록 설정했습니다. </p>
+</details>
+<details>
+  <br>
+  <summary>포인트 해킹</summary>
+  <p><strong>도입</strong> : 아바타서비스가 있기때문에 이 서비스를 위해서 포인트 제도를 도입 </p>
+  <p><strong>문제상황</strong> : 프론트 측에서 포인트 차감을 계산을 다 하고나서 유저 변경하는 api에 쏴주는 형식으로 설정을 해두었으나, devTool을 통해 api경로만 알면 Thunder, Postman 등으로 포인트를 임의적으로 수정이 가능해지는 상황이 발생해 버렸습니다.</p>
+  <p><strong>의견 결정</strong> : 프론트 측에서 보내주지말고, 백에서 자체적으로 아바타 번경 시 값이 자동 차감되도록하고, 유저변경 사항에는 포인트 자체를 변경 못하도록 막았습니다.  </p>
+</details>
