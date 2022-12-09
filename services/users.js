@@ -226,6 +226,17 @@ class UserService {
             userId
         );
 
+        if (nickName === findUserAccountId.nickName) {
+            const err = new Error(`UserService Error`);
+            err.status = 403;
+            err.message = "이미 중복된 아이디가 존재합니다.";
+            throw err;
+        }
+
+        if (nickName == "") {
+            nickName = findUserAccountId.nickName;
+        }
+
         if (myPlace == "") {
             myPlace = findUserAccountId.myPlace;
         }

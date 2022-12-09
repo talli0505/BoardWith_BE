@@ -86,10 +86,11 @@ class UsersRepository {
     visible,
     tutorial
   ) => {
-    const updateUserData = await Users.updateOne(
-      { userId: userId, nickName: nickName },
+    await Users.updateOne(
+      { userId: userId },
       {
         $set: {
+          nickName : nickName,
           myPlace: myPlace,
           age: age,
           gender: gender,
@@ -99,7 +100,23 @@ class UsersRepository {
         },
       }
     );
-    return updateUserData;
+    await Posts.updateMany(
+      { userId: userId },
+      {
+        $set: {
+          nickName : nickName
+        },
+      }
+    );
+    await Comments.updateMany(
+      { userId: userId },
+      {
+        $set: {
+          nickName : nickName
+        },
+      }
+    );
+    return;
   };
 
   // 회원 탈퇴
