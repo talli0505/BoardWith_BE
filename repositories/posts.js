@@ -204,8 +204,8 @@ class PostsRepository {
                 ]
             });
         for (let i = 0; i < filter.length; i++) {
-            const findAvatar = await Users.findOne({userId: filter[i].userId})
-            filter[i]['userAvatar'] = findAvatar.userAvatar;
+            const findUser = await Users.findOne({userId: filter[i].userId})
+            filter[i]['userAvatar'] = findUser.userAvatar;
         }
     return filter;
     }

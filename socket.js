@@ -29,8 +29,8 @@ module.exports = (server) => {
         console.log("추가")
         console.log(findRoom.member)
         if(!findRoom.member.includes(nickName)) {
-          await Room.updateOne({ room : room }, {$push: {member : nickName}})
-          await Room.updateOne({ room : room }, {$push: {avatar : {nickName : nickName, userAvatar :userAvatar}}})
+          await Room.updateOne({ room : room }, {$push: {member : nickName}})  //includes 사용할 수 있도록
+          await Room.updateOne({ room : room }, {$push: {avatar : {nickName : nickName, userAvatar :userAvatar}}})  //프에 보냄
         } 
         const RoomM = await Room.findOne({room : room})
         // const user = await Users.findOne({nickName : nickName}) 
