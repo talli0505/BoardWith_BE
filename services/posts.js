@@ -185,7 +185,22 @@ class PostsService {
     //게시글 필터링
     filterPosts = async(map, time, partyMember) => {
         const filteredPostsData = await this.postsRepository.filterPosts(map, time, partyMember);
-        return filteredPostsData;
+
+        for (let i = 0 ; i < filteredPostsData.length; i++) {
+            const membersStatus = (filteredPostsData[i].confirmMember.length / filteredPostsData[i].participant.length);
+            if (membersStatus > 0 && membersStatus <= 0.3) {
+                filteredPostsData[i]["memberStatus"] = 0;
+            }
+            else if (membersStatus > 0.3 && membersStatus <= 0.6) {
+                filteredPostsData[i]["memberStatus"] = 1;
+            }
+           else if (membersStatus > 0.6 && membersStatus <= 0.9) {
+                filteredPostsData[i]["memberStatus"] = 2;
+            } else {
+                filteredPostsData[i]["memberStatus"] = 3;
+            }
+        }
+        return filteredPostsData
     }
 }
 
