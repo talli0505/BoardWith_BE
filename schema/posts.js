@@ -40,6 +40,9 @@ const PostsSchema = new mongoose.Schema({
   confirmMember : {
     type : Array
   },
+  memberStatus : {
+    type: Number
+  },
   banUser : {
     type : Array
   },
