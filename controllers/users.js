@@ -122,8 +122,8 @@ class UsersController {
   // 회원 정보 변경
   updateUserData = async (req, res, next) => {
     try {
-      const {userId, nickName} = res.locals.user;
-      const {myPlace, age, gender, likeGame, visible, tutorial} =
+      const {userId} = res.locals.user;
+      const {nickName, myPlace, age, gender, likeGame, visible, tutorial} =
           req.body;
       await this.usersService.updateUserData(
           userId,
@@ -198,20 +198,28 @@ class UsersController {
   }
 
   refreshT = async (req, res, next) => {
-    const {refresh_token, nickName} = req.body;
+    const {refresh_token} = req.body; //-> 헤더로 받아보기
     // console.log("날아오는 토큰 ", refresh_token)
-    const [tokenType, tokenValue] = await refresh_token.split(" ");
+    const refreshToken = await refresh_token.split(" ")[1];
     // console.log("토큰 분리 ", tokenValue)
+    const refreshT = await this.usersService.refreshT(refreshToken)
+    // console.log(refreshT)
+    const refresh = refreshT.refresh_token;
+    const userId = refreshT.userId;
 
-    const myRefreshToken = await verifyToken(tokenValue);
-
-    if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
-      res.status(420).json({message: "로그인이 필요합니다.", code: 420});
-    } else {
-      const user = await this.usersService.findUserNick(nickName)
-      const accessToken = await this.usersService.accessToken(user.userId)
-
-      res.status(201).json({accessToken: accessToken})
+    if (refreshToken === refresh) {
+      const myRefreshToken = await verifyToken(refresh);
+  
+      if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
+        res.status(420).json({message: "로그인이 필요합니다.", code: 420});
+      } else {
+        // const user = await this.usersService.findUserNick(nickName)
+        // console.log(user)
+        // const userId = user.userId
+        const accessToken = await this.usersService.accessToken(userId)
+  
+        res.status(201).json({accessToken: accessToken})
+      }
     }
   }
 
