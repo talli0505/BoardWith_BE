@@ -124,6 +124,13 @@
 </details>
 <details>
   <br>
+  <summary>Socket.io 연결</summary>
+  <p><strong>도입</strong> : 채팅방 기능을 위해서 websocket을 위한 구현보다 모든 브라우저에 적용이 되면서 기능 자체가 포함되어있는 socket.io를 선택하게 되었습니다. </p>
+  <p><strong>문제상황</strong> : http에서 아무 문제 없던 부분이 nginx를 통해 연결하고나니, websocket connection failed라는 반복적인 오류를 계속해서 등장하였고, 1대1 채팅은 괜찮았지만 여러명이 들어와서 채팅을 경우 순간적으로 백과 프론트 연결이 끊어지면서 더 많은 failed 문자가 나왔습니다.</p>
+  <p><strong>의견 결정</strong> : Nginx 안에서도 websocket을 가능하게 열어주는 시스템이 존재하였습니다. Nginx 기본 설정으로는 1.0으로 되어있는데 커넥션을 유지하기 위해서는 version을 1.1로 바꿔줘야하고, 홉 사이간의 연결, 즉 두 서버 사이에만 영향이 있고, 다른 영향을 안주면서 커넥션을 유지하고, 새 커넥션을 안열기 위해 hop-by-hop 헤더를 넣어서 오류가 안뜨게 해줬습니다. </p>
+</details> 
+<details>
+  <br>
   <summary>포인트 해킹</summary>
   <p><strong>도입</strong> : 아바타서비스가 있기때문에 이 서비스를 위해서 포인트 제도를 도입 </p>
   <p><strong>문제상황</strong> : 프론트 측에서 포인트 차감을 계산을 다 하고나서 유저 변경하는 api에 쏴주는 형식으로 설정을 해두었으나, devTool을 통해 api경로만 알면 Thunder, Postman 등으로 포인트를 임의적으로 수정이 가능해지는 상황이 발생해 버렸습니다.</p>
