@@ -157,7 +157,8 @@ class PostsController {
     //게시글 랜덤 추출
     randomPost = async (req, res, next) => {
         try {
-            const skip = req.query.skip && /^\+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+            const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+            console.log(skip)
             const randomPost = await this.postsService.getRandomPost(skip);
 
             res.status(200).json({data: randomPost});

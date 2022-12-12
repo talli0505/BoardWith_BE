@@ -134,7 +134,6 @@ class PostsService {
 
     //게시글 랜덤 추출
     getRandomPost = async(skip) =>{
-        console.log("진입은 됨?")
         const getRandomPost = await this.postsRepository.findAllPostsForRandomExtract(skip);
         let getRandomPostResult = new Array();
 
@@ -187,7 +186,8 @@ class PostsService {
         const filteredPostsData = await this.postsRepository.filterPosts(map, time, partyMember);
 
         for (let i = 0 ; i < filteredPostsData.length; i++) {
-            const membersStatus = (filteredPostsData[i].confirmMember.length / filteredPostsData[i].participant.length);
+            const membersStatus = (filteredPostsData[i].confirmMember.length / filteredPostsData[i].partyMember);
+
             if (membersStatus > 0 && membersStatus <= 0.3) {
                 filteredPostsData[i]["memberStatus"] = 0;
             }
