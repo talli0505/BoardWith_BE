@@ -146,7 +146,7 @@ class PostsRepository {
 
     //게시글 랜덤 추출
     findAllPostsForRandomExtract = async (skip) => {
-        const findAllPostsData = await Posts.find({}, undefined, {skip, limit: 5}).sort('createdAt');
+        const findAllPostsData = await Posts.find({}, undefined, {skip:skip, limit: 5}).sort('createdAt');
         return findAllPostsData;
     }
 
