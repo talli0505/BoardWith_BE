@@ -207,7 +207,7 @@ class UsersController {
     if(!refreshT) {
       res.status(999).json({message : "다른 곳에서 이미 로그인을 했습니다. 로그아웃 합니다.", code : 999})
     } else {
-      // console.log(refreshT)
+      
       const refresh = refreshT.refresh_token;
       const userId = refreshT.userId;
   
@@ -217,9 +217,7 @@ class UsersController {
         if (myRefreshToken == "jwt expired" || myRefreshToken == null || myRefreshToken == undefined) {
           res.status(420).json({message: "로그인이 필요합니다.", code: 420});
         } else {
-          // const user = await this.usersService.findUserNick(nickName)
-          // console.log(user)
-          // const userId = user.userId
+        
           const accessToken = await this.usersService.accessToken(userId)
     
           res.status(201).json({accessToken: accessToken})
