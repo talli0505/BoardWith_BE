@@ -321,8 +321,8 @@ class UserService {
         return;
     };
 
-    refreshT = async (refresh_token) => {
-        const refreshT = await this.usersRepository.refreshT(refresh_token);
+    refreshT = async (refreshToken) => {
+        const refreshT = await this.usersRepository.refreshT(refreshToken);
         return refreshT;
     };
 

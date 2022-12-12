@@ -164,9 +164,9 @@ class UsersRepository {
     return
   }
 
-  refreshT = async(refresh_token) => {
-    const refreshT = await Users.findOne({refresh_token : refresh_token})
-    return refreshT
+  refreshT = async(refreshToken) => {
+    const refreshT = await Users.findOne({refresh_token : refreshToken})
+    return refreshT;
   }
 
   //북마크
