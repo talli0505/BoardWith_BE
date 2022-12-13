@@ -1,4 +1,3 @@
-// const Acess_ = require('../models/access_token');
 require("dotenv").config();
 const SocialService = require("../services/social");
 

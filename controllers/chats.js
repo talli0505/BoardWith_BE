@@ -1,5 +1,4 @@
 const ChatsService = require("../services/chats");    
-require("dotenv").config();
 
 class ChatsController {
   chatsService = new ChatsService();
