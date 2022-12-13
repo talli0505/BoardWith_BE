@@ -10,14 +10,14 @@
 
 # 🕹 팀원 소개
 
-|**팀원**|**주특기**|**맡은 파트**|
-|:-----:|:-----:|:-----:|
-|김지용|`FE(VL)`|회원가입, 기본 및 소셜(카톡)로그인, 마이페이지, 아바타, 채팅방|
-|김수진|`FE`|메인, 필터, 게시글작성, 소셜(네이버)로그인, 검색페이지|
-|정원지|`FE`|상세페이지, 댓글, 블랙리스트, 소셜(구글)로그인, 랭킹페이지|
-|조민수|`BE(L)`|회원가입, 기본 및 소셜(카톡,구글)로그인, 마이페이지, 채팅방, 스웨거|
-|서수형|`BE`|게시글, 랭킹, 북마크, 페이지 무한스크롤, 참가자 목록 추가 및 제거 , 강퇴시스템, 스웨거|
-|백이현|`BE`|댓글, 게시글 검색 및 필터링, 소셜(네이버)로그인, 스웨거|
+|**팀원**|**주특기**|**맡은 파트**|**블로그**|**깃허브**|
+|:-----:|:-----:|:-----:|:---:|:---:|
+|김지용|`FE(VL)`|회원가입, 기본 및 소셜(카톡)로그인, 마이페이지, 아바타, 채팅방|[블로그](https://haardy.tistory.com/)|[깃허브](https://github.com/kkkimjiyong)|
+|김수진|`FE`|메인, 필터, 게시글작성, 소셜(네이버)로그인, 검색페이지|[블로그](https://resolute-wineberry-8e7.notion.site/99-d5e1109ce701429f9cc2c932a4b92285)|[깃허브](https://github.com/kasucco)|
+|정원지|`FE`|상세페이지, 댓글, 블랙리스트, 소셜(구글)로그인, 랭킹페이지|[블로그](https://1zung.tistory.com/)|[깃허브](https://github.com/jee09)|
+|조민수|`BE(L)`|회원가입, 기본 및 소셜(카톡,구글)로그인, 마이페이지, 채팅방, 스웨거|[블로그](https://iceflower.tistory.com/)|[깃허브](https://github.com/talli0505)|
+|서수형|`BE`|게시글, 랭킹, 북마크, 페이지 무한스크롤, 참가자 목록 추가 및 제거 , 강퇴시스템, 스웨거|[블로그](https://velog.io/@seosu2000)|[깃허브](https://github.com/SoohyungSeo)|
+|백이현|`BE`|댓글, 게시글 검색 및 필터링, 소셜(네이버)로그인, 스웨거|[블로그](https://mement-m0ri.tistory.com/)|[깃허브](https://github.com/JadeBeck)|
 |장수현|`DESIGN`|웹페이지 전체적인 디자인|
 
 <br>
@@ -25,12 +25,12 @@
 
 |**팀원**|**블로그**|**깃허브**|
 |:-------:|:---:|:---:|
-|김지용 |https://haardy.tistory.com/|https://github.com/kkkimjiyong|
-|김수진 |https://resolute-wineberry-8e7.notion.site/99-d5e1109ce701429f9cc2c932a4b92285|https://github.com/kasucco|
-|정원지 |https://1zung.tistory.com/|https://github.com/jee09|
-|조민수 |https://iceflower.tistory.com/|https://github.com/talli0505|
-|서수형 |https://velog.io/@seosu2000|https://github.com/SoohyungSeo|
-|백이현 |https://mement-m0ri.tistory.com/|https://github.com/JadeBeck|
+|김지용|[김지용의 블로그](https://haardy.tistory.com/)|[김지용의 깃허브](https://github.com/kkkimjiyong)|
+|김수진|[김수진의 블로그](https://resolute-wineberry-8e7.notion.site/99-d5e1109ce701429f9cc2c932a4b92285)|[김수진의 깃허브](https://github.com/kasucco)|
+|정원지|[정원지의 블로그](https://1zung.tistory.com/)|[정원지의 깃허브](https://github.com/jee09)|
+|조민수|[조민수의 블로그](https://iceflower.tistory.com/)|[조민수의 깃허브](https://github.com/talli0505)|
+|서수형|[서수형의 블로그](https://velog.io/@seosu2000)|[서수형의 깃허브](https://github.com/SoohyungSeo)|
+|백이현|[백이현의 블로그](https://mement-m0ri.tistory.com/)|[백이현의 깃허브](https://github.com/JadeBeck)|
 
 <br>
 
