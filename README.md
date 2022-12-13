@@ -25,12 +25,12 @@
 
 |**팀원**|**블로그**|**깃허브**|
 |:-------:|:---:|:---:|
-|김지용|https://haardy.tistory.com/|https://github.com/kkkimjiyong|
-|김수진|https://resolute-wineberry-8e7.notion.site/99-d5e1109ce701429f9cc2c932a4b92285|https://github.com/kasucco|
-|정원지|https://1zung.tistory.com/|https://github.com/jee09|
-|조민수|https://iceflower.tistory.com/|https://github.com/talli0505|
-|서수형|https://velog.io/@seosu2000|https://github.com/SoohyungSeo|
-|백이현|https://mement-m0ri.tistory.com/|https://github.com/JadeBeck|
+|김지용 |https://haardy.tistory.com/|https://github.com/kkkimjiyong|
+|김수진 |https://resolute-wineberry-8e7.notion.site/99-d5e1109ce701429f9cc2c932a4b92285|https://github.com/kasucco|
+|정원지 |https://1zung.tistory.com/|https://github.com/jee09|
+|조민수 |https://iceflower.tistory.com/|https://github.com/talli0505|
+|서수형 |https://velog.io/@seosu2000|https://github.com/SoohyungSeo|
+|백이현 |https://mement-m0ri.tistory.com/|https://github.com/JadeBeck|
 
 <br>
 
