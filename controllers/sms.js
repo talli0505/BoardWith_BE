@@ -1,6 +1,4 @@
 require("dotenv").config();
-const axios = require('axios');
-const CryptoJS = require('crypto-js');
 const SmsService = require('../services/sms');
 
 class SMS {

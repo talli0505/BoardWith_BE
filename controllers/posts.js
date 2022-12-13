@@ -1,7 +1,5 @@
 const PostsService = require("../services/posts")
 const PostsRepository = require("../repositories/posts")
-const Posts = require("../schema/posts");
-const Users = require("../schema/users");
 const _ = require('lodash');
 
 // const paging = (page, totalPost, maxPost) => {
