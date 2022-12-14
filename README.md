@@ -100,7 +100,7 @@
 
 # 🕹 서비스 아키택쳐
 
-<img width="80%" src="https://user-images.githubusercontent.com/87609692/207631757-e531e39b-5cfb-4801-a653-46a82c1cac99.png" >
+<img width="80%" src="https://user-images.githubusercontent.com/87609692/207633610-08c75275-3bad-4135-bcff-8079e2d304cb.png" >
 
 <br>
 
