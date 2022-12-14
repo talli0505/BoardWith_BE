@@ -2,6 +2,8 @@
 
 <img width="80%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoqesB%2FbtrSxPkJ6r7%2FnjjJAIdsWGXJEo3sLxMRGK%2Fimg.png" >
 
+<h2>이 프로젝트는 2022-11-04 ~ 2022-12-16일까지 진행되었습니다.</h2>
+
 <br>
 
 # 🎁[보드 윗 노션 바로가기](https://brief-efraasia-82e.notion.site/board-with-c923e853540941589be0f4f4984022f4)
