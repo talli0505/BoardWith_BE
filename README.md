@@ -100,7 +100,7 @@
 
 # 🕹 서비스 아키택쳐
 
-<img width="80%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmtnJS%2FbtrSJEY5DRU%2FtX9Vk787Ps8b8OLhvy1pF1%2Fimg.png" >
+<img width="80%" src="https://user-images.githubusercontent.com/87609692/207631757-e531e39b-5cfb-4801-a653-46a82c1cac99.png" >
 
 <br>
 
