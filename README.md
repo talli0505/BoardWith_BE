@@ -107,11 +107,15 @@
 # 🕹 Front-End Tool
 <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=black"/> <img alt="Redux" src ="https://img.shields.io/badge/Redux-764ABC.svg?&style=for-the-badge&logo=Redux&logoColor=black"/> <img alt="Axios" src ="https://img.shields.io/badge/Axios-5A29E4.svg?&style=for-the-badge&logo=Axios&logoColor=black"/> <img alt="styled Components" src ="https://img.shields.io/badge/styled Components-DB7093.svg?&style=for-the-badge&logo=styled Components&logoColor=black"/> <img alt="Vercel" src ="https://img.shields.io/badge/Vercel-000000.svg?&style=for-the-badge&logo=Vercel&logoColor=white"/> 
 
+<br>
+
 # 🕹 Back-End Tool
 
 <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/> <img alt="Pm2" src ="https://img.shields.io/badge/pm2-2B037A.svg?&style=for-the-badge&logo=pm2&logoColor=white"/> <img alt="Nginx" src ="https://img.shields.io/badge/nginx-009639.svg?&style=for-the-badge&logo=nginx&logoColor=white"/> <img alt="JSON Web Tokens" src ="https://img.shields.io/badge/JSON Web Tokens-000000.svg?&style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/> <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-47A248.svg?&style=for-the-badge&logo=MongoDB&logoColor=white"/> <img alt="Node.js" src ="https://img.shields.io/badge/Node.js-339933.svg?&style=for-the-badge&logo=Node.js&logoColor=white"/>
 <br>
 <img alt="Socket.io" src ="https://img.shields.io/badge/Socket.io-010101.svg?&style=for-the-badge&logo=Socket.io&logoColor=white"/> <img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white"/> <img alt="Amazon EC2" src ="https://img.shields.io/badge/Amazon EC2-FF9900.svg?&style=for-the-badge&logo=Amazon EC2&logoColor=white"/> <img alt="social login KakaoTalk" src ="https://img.shields.io/badge/social login KakaoTalk-FFCD00.svg?&style=for-the-badge&logo=KakaoTalk&logoColor=black"/> <img alt="Express" src ="https://img.shields.io/badge/Express-000000.svg?&style=for-the-badge&logo=Express&logoColor=white"/>
+
+<br>
 
 ## 🕹 ERD
 <details>
@@ -119,11 +123,15 @@
   <img src="https://user-images.githubusercontent.com/87609692/205525590-c0404b20-0476-44af-a413-626bee28ac20.png"></img>
 </details>
 
+<br>
+
 ## 🕹 Swagger
 <details>
   <summary>Swagger 사진</summary>
   <img src="https://user-images.githubusercontent.com/87609692/205597720-e52a5fcb-51f1-4235-be2f-f27884619695.png"></img>
 </details>
+
+<br>
 
 ## 🕹 트러블 슈팅
 <h3>BE</h3>
