@@ -1,6 +1,6 @@
 # 🎮 보드 윗(Board With) 🎮
 
-<img width="80%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoqesB%2FbtrSxPkJ6r7%2FnjjJAIdsWGXJEo3sLxMRGK%2Fimg.png" >
+<img width="80%" src="https://i.ibb.co/R0Tw1Fs/Kakao-Talk-20221208-232135692.png" >
 
 <h2>이 프로젝트는 2022-11-04 ~ 2022-12-16일까지 진행되었습니다.</h2>
 
