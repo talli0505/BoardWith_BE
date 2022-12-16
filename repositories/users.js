@@ -123,6 +123,7 @@ class UsersRepository {
   deleteUserData = async (nickName) => {
     await Comments.deleteMany({ nickName: nickName });
     await Posts.deleteMany({ nickName: nickName });
+    await bookmark.deleteMany({nickName : nickName});
     const deleteUserData = await Users.deleteOne({ nickName: nickName });
     return deleteUserData;
   };
