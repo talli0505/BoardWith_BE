@@ -7,7 +7,7 @@
 <br>
 
 # 🎁[보드 윗 노션 바로가기](https://brief-efraasia-82e.notion.site/board-with-c923e853540941589be0f4f4984022f4)
-# 🎁[보드 윗 링크 바로가기](https://boardwith.vercel.app/)
+# 🎁[보드 윗 링크 바로가기](https://boardwith.vercel.app/) [종료]
 
 <br>
 
